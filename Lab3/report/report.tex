@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{float}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -28,16 +29,34 @@ email address or ORCID}
 \maketitle
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+The purpose of this exercise was to practice using an opto-isolator to detect changes in the reflection of light within a tube. This was accomplished by connecting the OP745 photo-transducer to the necessary resistors and placing it in the tube and measuring the voltage and current to see how the values changed as the distance from the sensor to the reflective surface varied. Further tests were conducted with an inverter introduced into the circuit while the resulting waveform was recorded on an oscilloscope.
 \end{abstract}
 
-\section{Introduction}
-This document is a model and instructions for \LaTeX.
-Please observe the conference page limits. 
+\section{Design Methodology}
 
-\section{Ease of Use}
+Before constructing the circuit which would be used to test the opto-isolator and measure its output, the correct resistor values had to be determined from the OP745 datasheet along with the anticipated voltage values. In doing this, an expected "shape" for the voltage and current graphs could be determined which allowed for verification as testing was conducted. The resistor value was calculated according to the equation shown below.
+
+\begin{equation}
+    R_F=\frac{5V-V_{LED}}{I_{F_{MAX}}}=\frac{5-1.7}{0.04}=\frac{3.3}{0.04}=82.5\Omega
+\end{equation}
+
+As shown in Equation 1, the required resistor value for the LED is 82.5$\Omega$. This value is based on the total voltage through the circuit (5V) and the voltage drop across the LED (1.7V as specified by the datasheet).
+
+Another important part of the design was determining the expected values and pattern of an output from the photo-transducer. This was done by examining the OP745 datasheet which contained a graph of the output current at different distances from the reflective source. A table of these values is shown in Table \ref{}
+
+\begin{table}[H]
+    \centering
+    \caption{Add Your Caption Above the Table}
+    \label{ExampleTable}
+    \begin{tabular}{|c|c|cc|}
+    \hline
+                           &                        & \multicolumn{2}{c|}{\textbf{$R_{L1}$ = 10k}}                                                                   \\ \hline
+    \textbf{Distance (in)} & \textbf{Distance (mm)} & \multicolumn{1}{c|}{\textbf{$V_{Out}$ (V)}} & \textbf{\begin{tabular}[c]{@{}c@{}}$I_{RL}$\\ (mA)\end{tabular}} \\ \hline
+    0.0                    & 0.0                    & \multicolumn{1}{c|}{2.5}                    & 0.50                                                             \\ \hline
+    0.05                   & 12.7                   & \multicolumn{1}{c|}{6.25}                   & 1.25                                                             \\ \hline
+    \end{tabular}
+\end{table}
+
 
 \subsection{Maintaining the Integrity of the Specifications}
 
