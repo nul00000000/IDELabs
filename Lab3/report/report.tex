@@ -70,11 +70,11 @@ A table of these values is shown in Table \ref{ExampleTable}
 
 As a result of testing the circuit with various reflection distances, it was able to be
 determined what an ideal testing distance would be, using both a 10k$\Omega$ and 20k$\Omega$ resistance. 
-The results of these tests are shown in Table \ref{distanceVoltageCurrent}
+The results of these tests are shown in Table \ref{distanceVoltageCurrent}.
 
 \begin{table}[H]
     \centering
-    \caption{Photo-transistor Voltage and Current at Various Distances}
+    \caption{Phototransistor Voltage and Current at Various Distances}
     \label{distanceVoltageCurrent}
     \begin{tabular}{|c||c|c||c|c|}
         \hline
@@ -108,6 +108,23 @@ The results of these tests are shown in Table \ref{distanceVoltageCurrent}
         \hline
     \end{tabular}
 \end{table}
+
+Table \ref{distanceVoltageCurrent} demonstrates the relationship between the reflection distance
+from the infrared diode to the phototransistor in the optoisolator, and the voltage and current across the
+phototransistor. This relationship is slightly different when the circuit contains a 10k$\Omega$ resistor
+and a 20k$\Omega$ resistor. The voltage relationships are shown more clearly in Figures \ref{dvcFigure10k} and \ref{dvcFigure20k}.
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics{images/dv10k.png}}
+    \caption{Voltage vs. Distance with 10k$\Omega$ resistor}
+    \label{dvcFigure10k}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics{images/dv20k.png}}
+    \caption{Example of a figure caption.}
+    \label{dvcFigure20k}
+\end{figure}
 
 \subsection{Maintaining the Integrity of the Specifications}
 
