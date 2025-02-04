@@ -336,6 +336,21 @@ trigger. Why do we need to do this, and what is the difference between the two?}
 \subsection{Why does the voltage start at ~5V at 0mm and then drop quickly? Why does it eventually go
 back to ~5V?}
 
+The voltage starts at about 5V due to the fact that the
+phototransistor is nearly completely off at 0mm. This is
+because when the reflective material is fully pressed against
+the OPB745, it blocks both the infrared diode from emitting
+light outside the device, and blocks the phototransistor from
+receiving any light. Once the material is moved back a small amount, the
+infrared light can be reflected most effectively to the
+phototransistor, turning it on and decreasing the voltage
+across it. When the material continues to be moved further 
+back, a point is crossed where the light begins to be scattered
+to other locations and becomes less focused on the
+phototransistor, leading the phototransistor to turn on less,
+flowing less current, and therefore for the voltage over the
+component to gradually increase.
+
 \subsection{Why does the frequency change when going from a 10k$\Omega$ load resistor to a 20k$\Omega$ load resistor?
 Did you anticipate it increasing or decreasing and why?}
 
