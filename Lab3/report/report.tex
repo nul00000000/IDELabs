@@ -204,7 +204,7 @@ and a 20k$\Omega$ resistor. The voltage relationships are shown more clearly in 
 Fig.~\ref{distanceVoltageFigure} shows the voltage in both cases start at near the
 logic high voltage and immediately drop, and then rise more
 gradually back up to about 0.5 or 1.0 volts lower, for the
-10k$\omega$ case and 20k$\omega$ case respectively. From these
+10k$\Omega$ case and 20k$\Omega$ case respectively. From these
 voltage values, a current relationship could also be calculated
 by subtracted $V_{out}$, that being the voltage across the
 phototransistor, from the logic high voltage of 5 volts, which
@@ -216,7 +216,7 @@ outcome of these calculations is shown in Fig.~\ref{distanceCurrentFigure}
     \begin{tikzpicture}
         \begin{axis} [
             xlabel={Distance (mm)},
-            ylabel={Current through Phototransistor (mA)}, % might need to change this
+            ylabel={Current through Phototransistor (mA)},
             xmin=0, xmax=50,
             ymin=0, ymax=0.45,
             ymajorgrids=true,
@@ -327,6 +327,17 @@ As shown in previous calculations,
 %I know what im working with
 
 \subsection{Usage with Digital Logic}
+
+\section{Questions}
+
+\subsection{In the lab we do not use a 7406 inverter on the output; instead we use the 74LS14 with Schmitt
+trigger. Why do we need to do this, and what is the difference between the two?}
+
+\subsection{Why does the voltage start at ~5V at 0mm and then drop quickly? Why does it eventually go
+back to ~5V?}
+
+\subsection{Why does the frequency change when going from a 10k$\Omega$ load resistor to a 20k$\Omega$ load resistor?
+Did you anticipate it increasing or decreasing and why?}
 
 \subsection{Maintaining the Integrity of the Specifications}
 
