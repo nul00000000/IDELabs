@@ -293,8 +293,8 @@ material and the voltage and current associated with the
 phototransistor in the OPB745. This data demonstrates three
 stages within the relationship. 
 
-When the voltage is high and
-the current is low, this means that the phototransistor is
+When the voltage across the phototransistor is high and
+the current through it is low, this means that the phototransistor is
 less active, and a low voltage and higher current means
 the phototransistor is more active. Therefore, in the first
 stage, where the voltage is very high and the current is very
@@ -303,6 +303,19 @@ no light from the infrared diode. This is due to the fact
 that the reflective coating is so close that the light from
 the diode cannot escape the OPB745, leading to very little entering
 the phototransistor.
+
+In the next stage, the reflective material is far enough
+from the OPB745 to allow light to exit, and due to the close
+proximity, much is reflected directly into the phototransistor.
+This causes the low voltage and high current seen in the data
+after the dropoff from the first stage.
+
+When the reflective material is moved far enough from the
+device to allow reflected light to scatter to areas
+other than the phototransistor, the voltage quickly rises and
+the current falls. The values settle at a level that is
+less extreme than the initial near-complete occlusion of
+the phototransistor, as some light still reaches it.
 
 \subsection{Maintaining the Integrity of the Specifications}
 
