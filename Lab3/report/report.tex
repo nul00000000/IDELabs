@@ -6,8 +6,12 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{tikz, pgfplots}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\pgfplotsset{compat=newest}
+
 \begin{document}
 
 \title{Conference Paper Title\\
@@ -82,29 +86,29 @@ The results of these tests are shown in Table \ref{distanceVoltageCurrent}.
         \hline
         Distance & $V_{out}$ (V) & $IRL$ (mA) & $V_{out}$ (V) & $IRL$ (mA) \\
         \hline
-        0 & 4.919 & 0.008077383 & 4.81 & 0.009462151 \\
-        1 & 3.175 & 0.181990427 & 1.225 & 0.187998008 \\
-        2 & 0.727 & 0.426106901 & 0.7372 & 0.212290837 \\
-        3 & 0.71 & 0.427802154 & 0.6984 & 0.214223108 \\
-        4 & 0.729 & 0.425907459 & 0.6831 & 0.21498506 \\
-        5 & 0.771 & 0.421719186 & 0.6874 & 0.214770916 \\
-        6 & 0.817 & 0.41713203 & 0.6971 & 0.214287849 \\
-        7 & 1.652 & 0.333865178 & 0.7156 & 0.213366534 \\
-        8 & 2.563 & 0.243019545 & 0.735 & 0.212400398 \\
-        9 & 3.126 & 0.186876745 & 0.7514 & 0.211583665 \\
-        10 & 3.42 & 0.157558835 & 0.765 & 0.210906375 \\
-        11 & 3.871 & 0.112584763 & 0.7899 & 0.209666335 \\
-        12 & 4.038 & 0.095931392 & 0.8059 & 0.208869522 \\
-        13 & 4.2167 & 0.078111288 & 0.82 & 0.208167331 \\
-        14 & 4.274 & 0.072397288 & 0.8802 & 0.205169323 \\
-        15 & 4.319 & 0.067909852 & 1.346 & 0.181972112 \\
-        20 & 4.576 & 0.042281611 & 3.43 & 0.078187251 \\
-        25 & 4.656 & 0.034303949 & 4.078 & 0.045916335 \\
-        30 & 4.641 & 0.035799761 & 4.243 & 0.037699203 \\
-        35 & 4.58 & 0.041882728 & 4.2 & 0.039840637 \\
-        40 & 4.506 & 0.049262066 & 4.043 & 0.047659363 \\
-        45 & 4.523 & 0.047566813 & 4.018 & 0.048904382 \\
-        50 & 4.585 & 0.041384124 & 4.0815 & 0.045742032 \\
+        0 & 4.919 &   0.008077383 & 4.81 &   0.009462151 \\
+        1 & 3.175 &   0.181990427 & 1.225 &  0.187998008 \\
+        2 & 0.727 &   0.426106901 & 0.7372 & 0.212290837 \\
+        3 & 0.71 &    0.427802154 & 0.6984 & 0.214223108 \\
+        4 & 0.729 &   0.425907459 & 0.6831 & 0.21498506 \\
+        5 & 0.771 &   0.421719186 & 0.6874 & 0.214770916 \\
+        6 & 0.817 &   0.41713203 & 0.6971 &  0.214287849 \\
+        7 & 1.652 &   0.333865178 & 0.7156 & 0.213366534 \\
+        8 & 2.563 &   0.243019545 & 0.735 &  0.212400398 \\
+        9 & 3.126 &   0.186876745 & 0.7514 & 0.211583665 \\
+        10 & 3.42 &   0.157558835 & 0.765 &  0.210906375 \\
+        11 & 3.871 &  0.112584763 & 0.7899 & 0.209666335 \\
+        12 & 4.038 &  0.095931392 & 0.8059 & 0.208869522 \\
+        13 & 4.2167 & 0.078111288 & 0.82 &   0.208167331 \\
+        14 & 4.274 &  0.072397288 & 0.8802 & 0.205169323 \\
+        15 & 4.319 &  0.067909852 & 1.346 &  0.181972112 \\
+        20 & 4.576 &  0.042281611 & 3.43 &   0.078187251 \\
+        25 & 4.656 &  0.034303949 & 4.078 &  0.045916335 \\
+        30 & 4.641 &  0.035799761 & 4.243 &  0.037699203 \\
+        35 & 4.58 &   0.041882728 & 4.2 &    0.039840637 \\
+        40 & 4.506 &  0.049262066 & 4.043 &  0.047659363 \\
+        45 & 4.523 &  0.047566813 & 4.018 &  0.048904382 \\
+        50 & 4.585 &  0.041384124 & 4.0815 & 0.045742032 \\
         \hline
     \end{tabular}
 \end{table}
@@ -112,19 +116,193 @@ The results of these tests are shown in Table \ref{distanceVoltageCurrent}.
 Table \ref{distanceVoltageCurrent} demonstrates the relationship between the reflection distance
 from the infrared diode to the phototransistor in the optoisolator, and the voltage and current across the
 phototransistor. This relationship is slightly different when the circuit contains a 10k$\Omega$ resistor
-and a 20k$\Omega$ resistor. The voltage relationships are shown more clearly in Figures \ref{dvcFigure10k} and \ref{dvcFigure20k}.
+and a 20k$\Omega$ resistor. The voltage relationships are shown more clearly in Fig.~\ref{distanceVoltageFigure}.
 
 \begin{figure}[htbp]
-    \centerline{\includegraphics{images/dv10k.png}}
-    \caption{Voltage vs. Distance with 10k$\Omega$ resistor}
-    \label{dvcFigure10k}
+    \begin{tikzpicture}
+        \begin{axis} [
+            xlabel={Distance (mm)},
+            ylabel={$V_{out}$ (V)}, % might need to change this
+            xmin=0, xmax=50,
+            ymin=0, ymax=5,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            legend pos=south east,
+            grid style=dashed,
+        ]
+            \addplot[
+                color=blue,
+                mark=square*
+            ]
+            coordinates {
+                (0, 4.919)
+                (1, 3.175)
+                (2, 0.727)
+                (3, 0.71)
+                (4, 0.729)
+                (5, 0.771)
+                (6, 0.817)
+                (7, 1.652)
+                (8, 2.563)
+                (9, 3.126)
+                (10, 3.42)
+                (11, 3.871)
+                (12, 4.038)
+                (13, 4.216)
+                (14, 4.274)
+                (15, 4.319)
+                (20, 4.576)
+                (25, 4.656)
+                (30, 4.641)
+                (35, 4.58)
+                (40, 4.506)
+                (45, 4.523)
+                (50, 4.585)
+            };
+            \addlegendentry{10k$\Omega$}
+
+            \addplot[
+                color=red,
+                mark=square*
+            ]
+            coordinates {
+                (0, 4.81)
+                (1, 1.225)
+                (2, 0.7372)
+                (3,0.6984)
+                (4, 0.6831)
+                (5, 0.6874)
+                (6,0.6971)
+                (7, 0.7156)
+                (8, 0.735)
+                (9, 0.7514)
+                (10,0.765)
+                (11, 0.7899)
+                (12, 0.8059)
+                (13, 0.82)
+                (14, 0.8802)
+                (15, 1.346)
+                (20, 3.43)
+                (25, 4.078)
+                (30, 4.243)
+                (35,4.2)
+                (40, 4.043)
+                (45, 4.018)
+                (50, 4.0815)
+            };
+            \addlegendentry{20k$\Omega$}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Distance of Reflective Surface from OPB745 vs Voltage}
+    \label{distanceVoltageFigure}
 \end{figure}
 
+Fig.~\ref{distanceVoltageFigure} shows the voltage in both cases start at near the
+logic high voltage and immediately drop, and then rise more
+gradually back up to about 0.5 or 1.0 volts lower, for the
+10k$\omega$ case and 20k$\omega$ case respectively. From these
+voltage values, a current relationship could also be calculated
+by subtracted $V_{out}$, that being the voltage across the
+phototransistor, from the logic high voltage of 5 volts, which
+gives the voltage across the resistor, and then using Ohm's law
+to determine the current by dividing by the resistance. The
+outcome of these calculations is shown in Fig.~\ref{distanceCurrentFigure}
+
 \begin{figure}[htbp]
-    \centerline{\includegraphics{images/dv20k.png}}
-    \caption{Example of a figure caption.}
-    \label{dvcFigure20k}
+    \begin{tikzpicture}
+        \begin{axis} [
+            xlabel={Distance (mm)},
+            ylabel={Current through Phototransistor (mA)}, % might need to change this
+            xmin=0, xmax=50,
+            ymin=0, ymax=0.45,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            legend pos=north east,
+            grid style=dashed,
+        ]
+            \addplot[
+                color=blue,
+                mark=square*
+            ]
+            coordinates {
+                (0,  0.008077383)
+                (1,  0.181990427)
+                (2,  0.426106901)
+                (3,  0.427802154)                
+                (4,  0.425907459)
+                (5,  0.421719186)
+                (6,  0.41713203 )
+                (7,  0.333865178)
+                (8,  0.243019545)
+                (9,  0.186876745)
+                (10, 0.157558835)                
+                (11, 0.112584763)
+                (12, 0.095931392)
+                (13, 0.078111288)
+                (14, 0.072397288)
+                (15, 0.067909852)
+                (20, 0.042281611)
+                (25, 0.034303949)
+                (30, 0.035799761)
+                (35, 0.041882728)                
+                (40, 0.049262066)
+                (45, 0.047566813)
+                (50, 0.041384124)
+            };
+            \addlegendentry{10k$\Omega$}
+
+            \addplot[
+                color=red,
+                mark=square*
+            ]
+            coordinates {
+                (0,  0.009462151)      
+                (1,  0.187998008)       
+                (2,  0.212290837)        
+                (3,  0.214223108)        
+                (4,  0.21498506 )        
+                (5,  0.214770916)        
+                (6,  0.214287849)        
+                (7,  0.213366534)        
+                (8,  0.212400398)       
+                (9,  0.211583665)        
+                (10, 0.210906375)       
+                (11, 0.209666335)        
+                (12, 0.208869522)        
+                (13, 0.208167331)      
+                (14, 0.205169323)        
+                (15, 0.181972112)       
+                (20, 0.078187251)      
+                (25, 0.045916335)       
+                (30, 0.037699203)       
+                (35, 0.039840637)     
+                (40, 0.047659363)       
+                (45, 0.048904382)       
+                (50, 0.045742032)        
+            };
+            \addlegendentry{20k$\Omega$}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Distance of Reflective Surface from OPB745 vs Current}
+    \label{distanceCurrentFigure}
 \end{figure}
+
+Fig.~\ref{distanceVoltageFigure} and Fig.~\ref{distanceCurrentFigure}
+show the relationship between the distance of the reflective
+material and the voltage and current associated with the
+phototransistor in the OPB745. This data demonstrates three
+stages within the relationship. 
+
+When the voltage is high and
+the current is low, this means that the phototransistor is
+less active, and a low voltage and higher current means
+the phototransistor is more active. Therefore, in the first
+stage, where the voltage is very high and the current is very
+low, it is clear that the phototransistor is receiving almost
+no light from the infrared diode. This is due to the fact
+that the reflective coating is so close that the light from
+the diode cannot escape the OPB745, leading to very little entering
+the phototransistor.
 
 \subsection{Maintaining the Integrity of the Specifications}
 
