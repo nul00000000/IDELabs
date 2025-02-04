@@ -29,20 +29,29 @@ ajs1539@rit.edu}
 \maketitle
 
 \begin{abstract}
-The purpose of this exercise was to practice using an opto-isolator to detect changes in the reflection of light within a tube. This was accomplished by connecting the OPB745 photo-transducer to the necessary resistors and placing it in the tube and measuring the voltage and current to see how the values changed as the distance from the sensor to the reflective surface varied. Further tests were conducted with an inverter introduced into the circuit while the resulting waveform was recorded on an oscilloscope.
+The purpose of this exercise was to practice using an opto-isolator to detect changes in the reflection of light within a tube. 
+This was accomplished by connecting the OPB745 photo-transducer to the necessary resistors and placing it in the tube and measuring
+the voltage and current to see how the values changed as the distance from the sensor to the reflective surface varied. Further tests
+were conducted with an inverter introduced into the circuit while the resulting waveform was recorded on an oscilloscope.
 \end{abstract}
 
 \section{Design Methodology}
 
-Before constructing the circuit which would be used to test the opto-isolator and measure its output, the correct resistor values had to be determined from the OPB745 datasheet along with the anticipated voltage values. In doing this, an expected "shape" for the voltage and current graphs could be determined which allowed for verification as testing was conducted. The resistor value was calculated according to the equation shown below.
+Before constructing the circuit which would be used to test the opto-isolator and measure its output, the correct resistor values
+had to be determined from the OPB745 datasheet along with the anticipated voltage values. In doing this, an expected "shape" for the
+voltage and current graphs could be determined which allowed for verification as testing was conducted. The resistor value was
+calculated according to the equation shown below.
 
 \begin{equation}
     R_F=\frac{5V-V_{LED}}{I_{F_{MAX}}}=\frac{5-1.7}{0.04}=\frac{3.3}{0.04}=82.5\Omega
 \end{equation}
 
-As shown in Equation 1, the required resistor value for the LED is 82.5$\Omega$. This value is based on the total voltage through the circuit (5V) and the voltage drop across the LED (1.7V as specified by the datasheet).
+As shown in Equation 1, the required resistor value for the LED is 82.5$\Omega$. This value is based on the total voltage through the
+circuit (5V) and the voltage drop across the LED (1.7V as specified by the datasheet).
 
-Another important part of the design was determining the expected values and pattern of an output from the photo-transducer. This was done by examining the OPB745 datasheet which contained a graph of the output current at different distances from the reflective source. A table of these values is shown in Table \ref{}
+Another important part of the design was determining the expected values and pattern of an output from the photo-transducer. This was
+done by examining the OPB745 datasheet which contained a graph of the output current at different distances from the reflective source.
+A table of these values is shown in Table \ref{}
 
 \begin{table}[H]
     \centering
