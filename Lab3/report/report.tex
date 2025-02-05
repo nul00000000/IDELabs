@@ -328,6 +328,13 @@ As shown in previous calculations,
 
 \subsection{Usage with Digital Logic}
 
+In order for the OPB745 to be used as an isolator in a digital
+circuit, the output must be interpreted as a digital signal.
+This was done by passing the output through an SN74LS14 
+Schmitt-trigger inverter, as
+well as feeding the input diode with the output of an SN7406
+inverter
+
 \section{Questions}
 
 \subsection{In the lab we do not use a 7406 inverter on the output; instead we use the 74LS14 with Schmitt
