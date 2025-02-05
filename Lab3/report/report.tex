@@ -467,6 +467,8 @@ component to gradually increase.
 \subsection{Why does the frequency change when going from a 10k$\Omega$ load resistor to a 20k$\Omega$ load resistor?
 Did you anticipate it increasing or decreasing and why?}
 
+When doubling the size of the load resistor from 10k$\Omega$  to 20k$\Omega$, the frequency changes because the transistor is recieving less voltage as more is being lost across the resistor. As a result of the lower voltage, the transistor has less range to decipher whether the incoming signal is high or low on the square wave. With more voltage, faster frequencies are less damaging to the results as the actual signal can still be detected. It is expected, therefore, that the circuit with the 20k$\Omega$ load resistor will break down at a slower frequency than the circuit with the 10k$\Omega$ is able to achieve.
+
 \section{Conclusion}
 Through the course of this exercise, the properties of the OPB745 were shown and its behavior was compared between a laboratory setting and the expected values shown on the datasheet. Because the measured results of the tests showed similar characteristics and patterns to that of the datasheet's values, the exercise can be deemed a success. In the future, the OPB745 can be used to detect changes in an environment without requiring contact, something which will be immensely helpful in developing autonomous car technology. It was necessary, however, to understand how the device functions before it could be put to use in more specialized applications.
 
