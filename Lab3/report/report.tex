@@ -7,6 +7,7 @@
 \usepackage{xcolor}
 \usepackage{float}
 \usepackage{tikz, pgfplots}
+\usepackage{circuitikz}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -170,9 +171,29 @@ voltage and starts at 0 before quickly spiking to a peak before leveling off sli
 To determine whether the expected results defined in Fig.~\ref{fig:expectedvoltage} and Fig.~\ref{fig:expectedcurrent} would remain true
 in a laboratory test, the following circuit was created.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=\linewidth]{Images/Part 1 Circuit.png} % The width= allows you to change the image scaling
+    \resizebox{0.5\textwidth}{!}{%
+    \begin{circuitikz}
+    \tikzstyle{every node}=[font=\LARGE]
+    \draw (6.75,11.75) to[R,l={ \LARGE Rf}] (6.75,9.75);
+    \draw (8.5,11.75) to[R,l={ \LARGE 
+    RL
+    }] (8.5,9.75);
+    \draw (3.75,10.5) to[battery ,l={ \LARGE 5V}] (3.75,8.5);
+    \draw (6.75,9.25) to[empty photodiode] (6.75,7.25);
+    \draw (8.5,7.25) to[Tnpn, transistors/scale=1.19] (8.5,9.25);
+    \draw (3.75,7.25) to[short] (4.25,7.25);
+    \draw (4.25,7.25) to[short] (8.5,7.25);
+    \draw (6.75,9.75) to[short] (6.75,9.25);
+    \draw (8.5,9.75) to[short] (8.5,9.25);
+    \draw (8.5,11.75) to[short] (3.75,11.75);
+    \draw (8.5,9.75) to[short] (11.25,9.75);
+    \node [font=\LARGE] at (11,10.25) {Vout};
+    \draw (3.75,11.75) to[short] (3.75,10.5);
+    \draw (3.75,8.5) to[short] (3.75,7.25);
+    \end{circuitikz}
+    }%
     \caption{\textit{The Circuit Diagram}}
     \label{fig:circuit_1}
 \end{figure}
@@ -186,9 +207,41 @@ OPB745. It is across this transistor that the voltage defined as "$V_{out}$" is 
 Slight modifications were made to the circuit in Fig.~\ref{fig:circuit_1} to test the OPB745 with inverters added to the circuit.
 This is shown in Fig.~\ref{fig:circuit_2}.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=\linewidth]{Images/Part 2 Circuit.png} % The width= allows you to change the image scaling
+    \resizebox{0.5\textwidth}{!}{%
+    \begin{circuitikz}
+    \tikzstyle{every node}=[font=\LARGE]
+    \draw (6.75,11.75) to[R,l={ \LARGE Rf}] (6.75,9.75);
+    \draw (8.5,11.75) to[R,l={ \LARGE 
+    RL
+    }] (8.5,9.75);
+    \draw (3.75,10.5) to[battery ,l={ \LARGE 5V}] (3.75,8.5);
+    \draw (6.75,9.25) to[empty photodiode] (6.75,7.25);
+    \draw (8.5,7.25) to[Tnpn, transistors/scale=1.19] (8.5,9.25);
+    \draw (6.75,9.75) to[short] (6.75,9.25);
+    \draw (8.5,9.75) to[short] (8.5,9.25);
+    \draw (8.5,11.75) to[short] (3.75,11.75);
+    \draw (11,9.75) to[short] (12.25,9.75);
+    \node [font=\LARGE] at (12,10.25) {Vout};
+    \draw (3.75,11.75) to[short] (3.75,10.5);
+    \draw (3.75,8.5) to[short] (3.75,7.25);
+    \draw (4.5,6.75) to[square voltage source, sources/symbol/rotate=auto] (4.5,5);
+    \draw (4.75,7.25) node[ieeestd not port, anchor=in](port){} (port.out) to[short] (6.5,7.25);
+    \draw (port.in) to[short] (4.5,7.25);
+    \draw (9.25,9.75) node[ieeestd not port, anchor=in](port){} (port.out) to[short] (11,9.75);
+    \draw (port.in) to[short] (9,9.75);
+    \draw (9,9.75) to[short] (8.5,9.75);
+    \draw (3.75,7.25) to[short] (3.75,5);
+    \draw (8.5,7.25) to[short] (8.5,5);
+    \draw (4.5,7.25) to[short] (4.5,6.75);
+    \draw (6.75,7.25) to[short] (6.25,7.25);
+    \draw (3.75,5) to[short] (8.5,5);
+    \node [font=\LARGE] at (10,8.75) {74LS14
+    };
+    \node [font=\LARGE] at (5.5,8) {7406};
+    \end{circuitikz}
+    }%
     \caption{\textit{The Circuit Diagram with Added Inverters}}
     \label{fig:circuit_2}
 \end{figure}
