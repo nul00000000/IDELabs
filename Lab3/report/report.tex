@@ -173,7 +173,7 @@ in a laboratory test, the following circuit was created.
 
 \begin{figure}[!ht]
     \centering
-    \resizebox{0.5\textwidth}{!}{%
+    \resizebox{\linewidth}{!}{%
     \begin{circuitikz}
     \tikzstyle{every node}=[font=\LARGE]
     \draw (6.75,11.75) to[R,l={ \LARGE Rf}] (6.75,9.75);
@@ -209,7 +209,7 @@ This is shown in Fig.~\ref{fig:circuit_2}.
 
 \begin{figure}[!ht]
     \centering
-    \resizebox{0.5\textwidth}{!}{%
+    \resizebox{\linewidth}{!}{%
     \begin{circuitikz}
     \tikzstyle{every node}=[font=\LARGE]
     \draw (6.75,11.75) to[R,l={ \LARGE Rf}] (6.75,9.75);
@@ -578,21 +578,66 @@ Fig.~\ref{fig:expectedAndRealVoltage} provides a visual comparison between the m
 outputs of the OPB745 at varying distances from a reflective surface, and demonstrates that there is
 a sizable difference between them. There are two primary differences between the graphs, both relating to
 the area where most light is reflected. In the expected data, the dip falls to a negative voltage across
-the phototransistor, whereas in the measured data, the output voltage only falls to about 0.7 volts.
+the phototransistor, whereas in the measured data, the output voltage only falls to about 0.7 volts. This is
+due to the fact that in ideal circumstances, the phototransistor would flow enough current that the voltage
+drop across the resistor is greater than 5 volts, leading to a negative current across the phototransistor.
+In the real world circuit, loss of light and possible current limiting causes the voltage to stop decreasing before
+crossing zero.
+
+The other major difference is the difference in range over which this voltage drop occurs. The OPB745 datasheet
+assumes a flat reflective surface, however the aluminum foil used in this setup has a slightly altered affect.
+This may be due to a slightly convex circuit allowing a greater range of distances to reflect light in the
+correct spot. Although it appears that the bottom of the voltage drop has a flat response over this section
+from approximately 2mm to 6mm, it may be that the voltage would have gone lower and was only stopped by
+the phototransistor's physical characteristics, and so does not necessarily imply a steady amount of light
+received by the phototransistor.
 
 \subsection{Usage with Digital Logic}
 
 In order for the OPB745 to be used as an isolator in a digital
 circuit, the output must be interpreted as a digital signal.
-This was done by passing the output through an SN74LS14 
+This was done by passing the output through an 74LS14 
 Schmitt-trigger inverter, as
-well as feeding the input diode with the output of an SN7406
-inverter
+well as feeding the input diode with the output of an 7406
+inverter. In steady state with working components, this circuit
+will behave as intended. However, due to the partially analog
+nature of the circuit, there is a switching frequency where
+this correct digital behavior begins to break down. The circuit
+was fed with a switching signal with both the input and output voltage
+monitored by a oscilloscope. The maximum operable frequencies using
+10k$\Omega$ and 20k$\Omega$ resistors were
+recorded in their working state and shown in Fig.~\ref{fig:maxFreq10k} and Fig.~\ref{fig:maxFreq20k} respectively.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{images/10k Before Good.png}
+    \caption{\textit{Maximum Switchable Frequency with 10k$\Omega$ Resistor}}
+    \label{fig:maxFreq10k}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{images/20k Before.png}
+    \caption{\textit{Maximum Switchable Frequency with 20k$\Omega$ Resistor}}
+    \label{fig:maxFreq20k}
+\end{figure}
+
+Fig.~\ref{fig:maxFreq10k} demonstrates that the circuit with the 10k$\Omega$
+resistor operated at a maximum frequency of about 700Hz, while Fig.~\ref{fig:maxFreq20k}
+demonstrates that the circuit with the 20k$\Omega$ resistor could operate at only 400Hz.
 
 \section{Questions}
 
 \subsection{In the lab we do not use a 7406 inverter on the output; instead we use the 74LS14 with Schmitt
 trigger. Why do we need to do this, and what is the difference between the two?}
+
+We need to use the 74LS14 to provide additional protection against noise on the output, as it
+prevents multiple edges from being produced from a signal crossing a threshold voltage. It does this
+by switching to high and low outputs at diffenent input voltages, leaving something like a voltage dead-zone,
+where changes in voltage up or down will only affect the output after reaching a certain point past the middle
+of the voltage range. This dead-zone is refered to as the hysteresis region. The 7406 is not a Schmitt trigger
+and does not have a hysteresis region, only a single threshold voltage, making the output voltages entirely
+defined by the current input.
 
 \subsection{Why does the voltage start at ~5V at 0mm and then drop quickly? Why does it eventually go
 back to ~5V?}
