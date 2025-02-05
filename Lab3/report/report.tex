@@ -82,7 +82,7 @@ A table of these values is shown in Table \ref{tab:expectedvoltagecurrent}
 
 With the current values (labeled in Table \ref{tab:expectedvoltagecurrent} as $I_{RL}$), the voltage value can be calculated by simply applying Ohm's Law (V = IR) as the resistance value is also known (10k$\Omega$).
 
-With this information, an expected output graph can be created. This is displayed in Figure \ref{fig:expectedvoltage}.
+With this information, an expected output graph can be created. This is displayed in Fig.~\ref{fig:expectedvoltage}.
 \begin{figure}[htbp]
     \begin{tikzpicture}
         \begin{axis} [
@@ -119,9 +119,13 @@ With this information, an expected output graph can be created. This is displaye
     \label{fig:expectedvoltage}
 \end{figure}
 
-Figure \ref{fig:expectedvoltage} shows what how the output voltage may change as a reflective material is moved further away from the sensor. The results of an experiment will not exactly match the graph, but should align with the general shape. Of particular importance is a high starting voltage followed by a steep drop almost immediately which then climbs to maintain a steady value marginally below the starting supply voltage.
+Fig.~\ref{fig:expectedvoltage} shows what how the output voltage may change as a reflective material is moved further away from the
+sensor. The results of an experiment will not exactly match the graph, but should align with the general shape. Of particular
+importance is a high starting voltage followed by a steep drop almost immediately which then climbs to maintain a steady value
+marginally below the starting supply voltage.
 
-From Table \ref{tab:expectedvoltagecurrent}, the current was also mapped against the distance from the reflective surface. The resulting plot is shown in Figure \ref{fig:expectedcurrent}.
+From Table \ref{tab:expectedvoltagecurrent}, the current was also mapped against the distance from the reflective surface.
+The resulting plot is shown in Fig.~\ref{fig:expectedcurrent}.
 
 \begin{figure}[htbp]
     \begin{tikzpicture}
@@ -159,9 +163,12 @@ From Table \ref{tab:expectedvoltagecurrent}, the current was also mapped against
     \label{fig:expectedcurrent}
 \end{figure}
 
-Similarly to Figure \ref{fig:expectedvoltage}, it is not expected for the exercise output to exactly match Figure \ref{fig:expectedcurrent}, however, the general shape is important. The current behaviors inversely to the voltage and starts at 0 before quickly spiking to a peak before leveling off slightly above 0.
+Similarly to Fig.~\ref{fig:expectedvoltage}, it is not expected for the exercise output to exactly match 
+Fig.~\ref{fig:expectedcurrent}, however, the general shape is important. The current behaviors inversely to the
+voltage and starts at 0 before quickly spiking to a peak before leveling off slightly above 0.
 
-To determine whether the expected results defined in Figures \ref{fig:expectedvoltage} and \ref{fig:expectedcurrent} would remain true in a laboratory test, the following circuit was created.
+To determine whether the expected results defined in Fig.~\ref{fig:expectedvoltage} and Fig.~\ref{fig:expectedcurrent} would remain true
+in a laboratory test, the following circuit was created.
 
 \begin{figure}[H]
     \centering
@@ -170,9 +177,14 @@ To determine whether the expected results defined in Figures \ref{fig:expectedvo
     \label{fig:circuit_1}
 \end{figure}
 
-The circuit in Figure \ref{fig:circuit_1} is relatively simple and consists of a 5V power supply placed in parallel with two branches. The first contains a resistor $R_f$ and the LED side of the photo-transistor. This is what actually emits the light. The resistor is important as it limits the current flowing through the LED, ensuring that the diode isn't damaged. The value was calculated in Equation 1. On the second branch, the resistor $R_L$ acts as a load which is connected in series with the transistor side of the OPB745. It is across this transistor that the voltage defined as "$V_{out}$" is measured.
+The circuit in Fig.~\ref{fig:circuit_1} is relatively simple and consists of a 5V power supply placed in parallel with two branches.
+The first contains a resistor $R_f$ and the LED side of the photo-transistor. This is what actually emits the light. The resistor is
+important as it limits the current flowing through the LED, ensuring that the diode isn't damaged. The value was calculated in
+Equation 1. On the second branch, the resistor $R_L$ acts as a load which is connected in series with the transistor side of the
+OPB745. It is across this transistor that the voltage defined as "$V_{out}$" is measured.
 
-Slight modifications were made to the circuit in Figure \ref{fig:circuit_1} to test the OPB745 with inverters added to the circuit. This is shown in Figure \ref{fig:circuit_2}.
+Slight modifications were made to the circuit in Fig.~\ref{fig:circuit_1} to test the OPB745 with inverters added to the circuit.
+This is shown in Fig.~\ref{fig:circuit_2}.
 
 \begin{figure}[H]
     \centering
@@ -181,7 +193,10 @@ Slight modifications were made to the circuit in Figure \ref{fig:circuit_1} to t
     \label{fig:circuit_2}
 \end{figure}
 
-While the circuit in Figure \ref{fig:circuit_2} is very similar to that in Figure \ref{fig:circuit_1}, two inverters were added along with a function generator. The location of the voltage probe was not changed relative to the first circuit, but the addition of the 74LS14 chip results in the waveform output being inverted. The second chip, a 7406, is placed in series with the output of the function generator to invert the input waveform signal.
+While the circuit in Fig.~\ref{fig:circuit_2} is very similar to that in Fig.~\ref{fig:circuit_1}, two inverters were added along
+with a function generator. The location of the voltage probe was not changed relative to the first circuit, but the addition of the
+74LS14 chip results in the waveform output being inverted. The second chip, a 7406, is placed in series with the output of the function
+generator to invert the input waveform signal.
 
 \section{Results and Analysis}
 
@@ -474,9 +489,17 @@ component to gradually increase.
 \subsection{Why does the frequency change when going from a 10k$\Omega$ load resistor to a 20k$\Omega$ load resistor?
 Did you anticipate it increasing or decreasing and why?}
 
-When doubling the size of the load resistor from 10k$\Omega$  to 20k$\Omega$, the frequency changes because the transistor is recieving less voltage as more is being lost across the resistor. As a result of the lower voltage, the transistor has less range to decipher whether the incoming signal is high or low on the square wave. With more voltage, faster frequencies are less damaging to the results as the actual signal can still be detected. It is expected, therefore, that the circuit with the 20k$\Omega$ load resistor will break down at a slower frequency than the circuit with the 10k$\Omega$ is able to achieve.
+When doubling the size of the load resistor from 10k$\Omega$  to 20k$\Omega$, the frequency changes because the transistor is recieving
+less voltage as more is being lost across the resistor. As a result of the lower voltage, the transistor has less range to decipher
+whether the incoming signal is high or low on the square wave. With more voltage, faster frequencies are less damaging to the results as
+the actual signal can still be detected. It is expected, therefore, that the circuit with the 20k$\Omega$ load resistor will break down
+at a slower frequency than the circuit with the 10k$\Omega$ is able to achieve.
 
 \section{Conclusion}
-Through the course of this exercise, the properties of the OPB745 were shown and its behavior was compared between a laboratory setting and the expected values shown on the datasheet. Because the measured results of the tests showed similar characteristics and patterns to that of the datasheet's values, the exercise can be deemed a success. In the future, the OPB745 can be used to detect changes in an environment without requiring contact, something which will be immensely helpful in developing autonomous car technology. It was necessary, however, to understand how the device functions before it could be put to use in more specialized applications.
+Through the course of this exercise, the properties of the OPB745 were shown and its behavior was compared between a laboratory
+setting and the expected values shown on the datasheet. Because the measured results of the tests showed similar characteristics and
+patterns to that of the datasheet's values, the exercise can be deemed a success. In the future, the OPB745 can be used to detect changes
+in an environment without requiring contact, something which will be immensely helpful in developing autonomous car technology. It was
+necessary, however, to understand how the device functions before it could be put to use in more specialized applications.
 
 \end{document}
