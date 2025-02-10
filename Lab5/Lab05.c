@@ -1,4 +1,5 @@
-		Port	Pin	Name
+/*
+Port	Pin	Name
 Switch 1	1	4	P1.4
 Switch 2	1	1	P1.1
 
@@ -7,3 +8,4 @@ Switch 1 Interrupt:
 	Set falling edge with: 
 Switch 2 Interrupt: 
 	Interrupt is P1IFG.1
+	*/
