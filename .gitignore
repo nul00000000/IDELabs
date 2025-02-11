@@ -4,3 +4,7 @@
 *.log
 *.synctex.gz
 *.pdf
+*.uvprojx
+*.uvoptx
+*.uvguix.*
+
