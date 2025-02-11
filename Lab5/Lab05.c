@@ -35,7 +35,18 @@ https://faculty-web.msoe.edu/johnsontimoj/EE2920/files2920/timer_32.pdf
 #define SW2 BIT4
 #define SWITCHES (SW1 | SW2)
 
+void PORT1_IRQHandler(void) {
+	if(P1->IFG & SW1) {
+		//do something or another
+	} else if(P1->IFG & SW2) {
+		//do something else or another else
+	}
+}
+
 void setup() {
+	// Stop Watchdog Timer
+	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;
+	
 	//set as GPIO
 	P1->SEL0 &= ~SWITCHES;
 	P1->SEL1 &= ~SWITCHES;
@@ -44,6 +55,10 @@ void setup() {
 	//enable falling edge triggered interrupts
 	P1->IES |= SWITCHES;
 	P1->IE |= SWITCHES;
+	
+	NVIC_EnableIRQ(PORT1_IRQn);
+	
+	__enable_irq();
 //------------------------------------------------
 	//Enable timers
 	Timer32_1->Control = 0x000000A6;
