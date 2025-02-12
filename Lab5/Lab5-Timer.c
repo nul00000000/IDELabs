@@ -135,11 +135,13 @@ void PORT1_IRQHandler(void)
 	// Now check to see if it came from Switch2 ?
   if(P1->IFG & SW2) {
 		if(!(P1->IN & SW2)) {
-			Timer2RunningFlag = TRUE;
-		} else {
-			Timer2RunningFlag = FALSE;
-			//print millisecond counter to UART
-			uart0_put("");
+			Timer2RunningFlag = !Timer2RunningFlag;
+			if(!Timer2RunningFlag) {
+				char output[20];
+				sprintf(output, "Time: %lu ms", MillisecondCounter);
+				uart0_put(output);
+				MillisecondCounter = 0;
+			}
 		}
 		// acknowledge P1.4 is pressed, by setting BIT4 to zero - remember P1.4 is switch 2
 		P1->IFG &= ~SW2;
