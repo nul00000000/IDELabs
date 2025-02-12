@@ -146,8 +146,6 @@ void PORT1_IRQHandler(void)
 //
 // Interrupt Service Routine for Timer32-1
 //
-//
-//
 void Timer32_1_ISR(void) {
 	if(Timer1RunningFlag) {
 		if (LED1_State() == FALSE ) {
@@ -160,8 +158,6 @@ void Timer32_1_ISR(void) {
 //
 // Interrupt Service Routine
 //
-//
-//
 void Timer32_2_ISR(void) {
 	if(Timer2RunningFlag) {
 		MillisecondCounter++;
@@ -171,8 +167,6 @@ void Timer32_2_ISR(void) {
 
 //
 // main
-//
-//
 //
 int main(void){
 	//initializations
