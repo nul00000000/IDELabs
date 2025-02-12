@@ -12,7 +12,6 @@
 
 #include "msp.h"
 #include "uart.h"
-#include "switches.h"
 #include "leds.h"
 #include "Timer32.h"
 #include "CortexM.h"
