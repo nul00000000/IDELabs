@@ -122,20 +122,24 @@ void PORT1_IRQHandler(void)
 	char temp[32];
 
 	// First we check if it came from Switch1 ?
-  if(P1->IFG & BIT1)  // we start a timer to toggle the LED1 1 second ON and 1 second OFF
-	{
+  if(P1->IFG & SW1) { // we start a timer to toggle the LED1 1 second ON and 1 second OFF
 		// acknowledge P1.1 is pressed, by setting BIT1 to zero - remember P1.1 is switch 1
-		// clear flag, acknowledge
-    ;     
-
-
+		if(!(P1->IN & SW1)) {
+			Timer1RunningFlag = !Timer1RunningFlag;
+		}
+    P1->IFG &= ~SW1;
   }
 	// Now check to see if it came from Switch2 ?
-  if(P1->IFG & BIT4)
-	{
+  if(P1->IFG & SW2) {
+		if(!(P1->IN & SW2)) {
+			Timer2RunningFlag = TRUE;
+		} else {
+			Timer2RunningFlag = FALSE;
+			//print millisecond counter to UART
+			uart0_put("");
+		}
 		// acknowledge P1.4 is pressed, by setting BIT4 to zero - remember P1.4 is switch 2
-    ;     // clear flag4, acknowledge
-
+		P1->IFG &= ~SW2;
   }
 }
 
@@ -144,13 +148,13 @@ void PORT1_IRQHandler(void)
 //
 //
 //
-void Timer32_1_ISR(void)
-{
-	if (LED1_State() == FALSE )
-	{
-		LED1_On();
+void Timer32_1_ISR(void) {
+	if(Timer1RunningFlag) {
+		if (LED1_State() == FALSE ) {
+			LED1_On();
+		}
+		else LED1_Off();
 	}
-	else LED1_Off();
 }
 
 //
@@ -158,11 +162,10 @@ void Timer32_1_ISR(void)
 //
 //
 //
-void Timer32_2_ISR(void)
-{
-
+void Timer32_2_ISR(void) {
+	if(Timer2RunningFlag) {
 		MillisecondCounter++;
-
+	}
 }
 
 
