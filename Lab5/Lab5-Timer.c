@@ -44,8 +44,8 @@ unsigned long MillisecondCounter = 0;
 //  0          00        1     1       Input, falling edge trigger, interrupt
 //
 
-void Switch1_Interrupt_Init(void)
-{
+void Switch1_Interrupt_Init(void) {
+	
 	// disable interrupts
 	DisableInterrupts();
 	
@@ -56,6 +56,8 @@ void Switch1_Interrupt_Init(void)
 	P1->SEL1 &= ~SW1;
 	//set as input
 	P1->DIR &= ~SW1;
+	P1->OUT |= SW1;
+	P1->REN |= SW1;
 	//enable falling edge triggered interrupts
 	P1->IES |= SW1;
 	P1->IE |= SW1;
@@ -73,8 +75,7 @@ void Switch1_Interrupt_Init(void)
   EnableInterrupts();              
 	
 }
-void Switch2_Interrupt_Init(void)
-{
+void Switch2_Interrupt_Init(void) {
 	// disable interrupts
 	DisableInterrupts();
 	
@@ -85,6 +86,8 @@ void Switch2_Interrupt_Init(void)
 	P1->SEL1 &= ~SW2;
 	//set as input
 	P1->DIR &= ~SW2;
+	P1->OUT |= SW2;
+	P1->REN |= SW2;
 	//enable falling edge triggered interrupts
 	P1->IES |= SW2;
 	P1->IE |= SW2;
@@ -138,7 +141,7 @@ void PORT1_IRQHandler(void)
 			Timer2RunningFlag = !Timer2RunningFlag;
 			if(!Timer2RunningFlag) {
 				char output[20];
-				sprintf(output, "Time: %lu ms", MillisecondCounter);
+				sprintf(output, "Time: %lu ms\r\n", MillisecondCounter);
 				uart0_put(output);
 				MillisecondCounter = 0;
 			}
@@ -152,6 +155,7 @@ void PORT1_IRQHandler(void)
 // Interrupt Service Routine for Timer32-1
 //
 void Timer32_1_ISR(void) {
+	uart0_put("timer moment\n");
 	if(Timer1RunningFlag) {
 		if (LED1_State() == FALSE ) {
 			LED1_On();
