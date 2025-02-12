@@ -7,6 +7,8 @@
 *
 * Filename: main_timer_template.c
 */
+#include "ADC14.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,7 +18,6 @@
 #include "Timer32.h"
 #include "CortexM.h"
 #include "Common.h"
-#include "ADC14.h"
 // The sprintf function seemed to cause a hange in the interrupt service routine.
 // I think if we increase the HEAP size, it will work
 // change to Heap_Size       EQU     0x00000200 in startup_msp432p401r_uvision.s

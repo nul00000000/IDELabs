@@ -1,3 +1,6 @@
+#ifndef __LEDS__
+#define __LEDS__
+
 #include "Common.h"
 
 #define RED 0b0001
@@ -13,3 +16,5 @@ void LED2_Init(void);
 BOOLEAN LED1_State(void);
 void LED1_On(void);
 void LED1_Off(void);
+
+#endif
