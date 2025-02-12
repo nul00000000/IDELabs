@@ -24,7 +24,7 @@ void ADC0_InitSWTriggerCh6(void)
 {
 	// wait for reference to be idle
 	// REF_A->CTL0
-  while(REF_A->CTL0 != 0) {}		
+  while(REF_A->CTL0 != 0) {}
 		
 	// set reference voltage to 2.5V
 	// 1) configure reference for static 2.5V
@@ -136,7 +136,7 @@ unsigned int  ADC_In(void)
 
 	// 3) wait for ADC14->IFGR0, ADC14->IFGR0 bit 0 is set when conversion done
 	// ADC14->IFGR0
-  ;  
+  while((ADC14->IFGR0 & BIT0) == 0) {};
 		
 	// 14 bit sample returned  ADC14->MEM[0]
 	// ADC14->MEM[0] 14-bit conversion in bits 13-0 (31-16 undefined, 15-14 zero)
