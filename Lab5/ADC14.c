@@ -24,7 +24,7 @@ void ADC0_InitSWTriggerCh6(void)
 {
 	// wait for reference to be idle
 	// REF_A->CTL0
-  ;       
+  while(REF_A->CTL0 != 0) {}		
 		
 	// set reference voltage to 2.5V
 	// 1) configure reference for static 2.5V
@@ -37,13 +37,12 @@ void ADC0_InitSWTriggerCh6(void)
 
 	// 2) ADC14ENC = 0 to allow programming
 	// ADC14->CTL0
-  ;        
+  ADC14->CTL0 &= ~BIT1;        
 
 	// 3) wait for BUSY to be zero		
 	// ADC14->CTL0
   while(ADC14->CTL0&0x00010000){};   
 		
-	
 	// ------------------------------------------------------------------		
   // 31-30 ADC14PDIV  predivider,            00b = Predivide by 1
   // 29-27 ADC14SHSx  SHM source            000b = ADC14SC bit
@@ -68,9 +67,7 @@ void ADC0_InitSWTriggerCh6(void)
 	// ------------------------------------------------------------------
 	// 4) single, SMCLK, on, disabled, /1, 32 clocks, SHM	pulse-mode
 	// ADC14->CTL0
-  ;       
-	
-	
+  ADC14->CTL0 = 0x04203310;
 	
 	  // 20-16 STARTADDx  start addr          00000b = ADC14MEM0
   // 15-6  reserved                  0000000000b (reserved)
@@ -83,18 +80,14 @@ void ADC0_InitSWTriggerCh6(void)
 	//
 	// 5) ADC14MEM0, 14-bit, ref on, regular power
 	// ADC14->CTL1
-  ;          
+  ADC14->CTL1 = 0x30;
 		
-		
-
 	// ADC14->MCTL[0]
 	// VREF buffered
 	// End of sequence
 	// 00110b = If ADC14DIF = 0: A6;
 	// // 6) 0 to 2.5V, channel 6
-  ADC14->MCTL[0] = 0x00000186;         
-	
-	
+  ADC14->MCTL[0] = 0x00000186;
 	
   // 15   ADC14WINCTH Window comp threshold   0b = not used
   // 14   ADC14WINC   Comparator enable       0b = Comparator disabled
@@ -108,8 +101,8 @@ void ADC0_InitSWTriggerCh6(void)
 	// 7) no interrupts
 	// ADC14->IER0
 	// ADC14->IER1
-  ;                     
-  ;                     // no interrupts
+  ADC14->IER0 = 0x00C6;
+  ADC14->IER1 = 0x00C6;     // no interrupts
 	//
 	// P4.7 is Analog In A6
 	// 8) analog mode on A6, P4.7
@@ -120,7 +113,7 @@ void ADC0_InitSWTriggerCh6(void)
 	
 	// 9) enable
 	// ADC14->CTL0
-  ;         
+  ADC14->CTL0 |= BIT1;         
 }
 
 
