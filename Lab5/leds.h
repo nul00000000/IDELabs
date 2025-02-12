@@ -52,3 +52,18 @@ void LED2_Init(void)
 	P2->OUT &= ~BIT1; // set P2.1 to '0'
 	P2->OUT &= ~BIT2; // set P2.2 to '0'
 }
+
+BOOLEAN LED1_State(void)
+{
+	return (P1->OUT & BIT0) != 0;
+}
+
+void LED1_On(void)
+{
+	P1->OUT |= BIT0; // set P1.0 to '1'
+}
+
+void LED1_Off(void)
+{
+	P1->OUT &= ~BIT0; // set P1.0 to '0'
+}
