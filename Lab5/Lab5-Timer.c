@@ -126,6 +126,9 @@ void PORT1_IRQHandler(void)
 		// acknowledge P1.1 is pressed, by setting BIT1 to zero - remember P1.1 is switch 1
 		if(!(P1->IN & SW1)) {
 			Timer1RunningFlag = !Timer1RunningFlag;
+			if(!Timer1RunningFlag) {
+				LED1_Off();
+			}
 		}
     P1->IFG &= ~SW1;
   }
