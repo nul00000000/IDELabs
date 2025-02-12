@@ -29,6 +29,10 @@ BYTE colors[7] = { RED, GREEN, BLUE, CYAN, MAGENTA, YELLOW, WHITE };
 BOOLEAN Timer1RunningFlag = FALSE;
 BOOLEAN Timer2RunningFlag = FALSE;
 
+#define SW1 BIT1
+#define SW2 BIT4
+#define SWITCHES (SW1 | SW2)
+
 unsigned long MillisecondCounter = 0;
 //
 
@@ -45,29 +49,20 @@ void Switch1_Interrupt_Init(void)
 {
 	// disable interrupts
 	DisableInterrupts();
-	// initialize the Switch as per previous lab
-	Switch1_Init();
 	
- 
+	//WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;
 	
-	//7-0 PxIFG RW 0h Port X interrupt flag
-	//0b = No interrupt is pending.
-	//1b = Interrupt is pending.
-	// clear flag1 (reduce possibility of extra interrupt)	
-  ; 
-
-	//7-0 PxIE RW 0h Port X interrupt enable
-	//0b = Corresponding port interrupt disabled
-	//1b = Corresponding port interrupt enabled	
-	// arm interrupt on  P1.1	
-  ;  
-
-	//7-0 PxIES RW Undefined Port X interrupt edge select
-  //0b = PxIFG flag is set with a low-to-high transition.
-  //1b = PxIFG flag is set with a high-to-low transition
-	// now set the pin to cause falling edge interrupt event
-	// P1.1 is falling edge event
-  ; 
+	//set as GPIO
+	P1->SEL0 &= ~SW1;
+	P1->SEL1 &= ~SW1;
+	//set as input
+	P1->DIR &= ~SW1;
+	//enable falling edge triggered interrupts
+	P1->IES |= SW1;
+	P1->IE |= SW1;
+	
+	//clear flag
+	P1->IFG &= SW2;
 	
 	// now set the pin to cause falling edge interrupt event
   NVIC_IPR8 = (NVIC_IPR8 & 0x00FFFFFF)|0x40000000; // priority 2
@@ -84,15 +79,23 @@ void Switch2_Interrupt_Init(void)
 	// disable interrupts
 	DisableInterrupts();
 	
-	// initialize the Switch as per previous lab
-	Switch2_Init();
+	//WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;
+	
+	//set as GPIO
+	P1->SEL0 &= ~SW2;
+	P1->SEL1 &= ~SW2;
+	//set as input
+	P1->DIR &= ~SW2;
+	//enable falling edge triggered interrupts
+	P1->IES |= SW2;
+	P1->IE |= SW2;
 	
 	// now set the pin to cause falling edge interrupt event
 	// P1.4 is falling edge event
   ;
   
 	// clear flag4 (reduce possibility of extra interrupt)
-  ; 
+  P1->IFG &= SW2; 
   
 	// arm interrupt on P1.4 
   ;     
