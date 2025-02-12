@@ -174,13 +174,11 @@ int main(void){
 	uart0_init();
 	uart0_put("\r\nLab5 Timer demo\r\n");
 	// Set the Timer32-2 to 2Hz (0.5 sec between interrupts)
-	//Timer32_1_Init(&Timer32_1_ISR, SystemCoreClock/2, T32DIV1); // initialize Timer A32-1;
-        ;
+	Timer32_1_Init(&Timer32_1_ISR, SystemCoreClock/2, T32DIV1); // initialize Timer A32-1;
         
 	// Setup Timer32-2 with a .001 second timeout.
 	// So use DEFAULT_CLOCK_SPEED/(1/0.001) = SystemCoreClock/1000
-	//Timer32_2_Init(&Timer32_2_ISR, SystemCoreClock/1000, T32DIV1); // initialize Timer A32-1;
-	;
+	Timer32_2_Init(&Timer32_2_ISR, SystemCoreClock/1000, T32DIV1); // initialize Timer A32-1;
     
 	Switch1_Interrupt_Init();
 	Switch2_Interrupt_Init();

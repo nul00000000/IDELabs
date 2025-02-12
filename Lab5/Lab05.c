@@ -59,12 +59,4 @@ void setup() {
 	NVIC_EnableIRQ(PORT1_IRQn);
 	
 	__enable_irq();
-//------------------------------------------------
-	//Enable timers
-	Timer32_1->Control = 0x000000A6;
-	Timer32_2->Control = 0x000000A6;
-}
-
-int main(void) {
-	
 }

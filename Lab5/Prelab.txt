@@ -1,0 +1,15 @@
+Investigate how to Enable the ADC, which is ADC A6 and be able to explain:
+	ADC14ENC = 0 to change control values
+	Reset the ADC with ADC14ON = 0, then = 1
+	Select clock with ADC14SSELx (HSMCLK or SMCLK)
+	Divide clock by 4 (01b) with ADC14PDIV
+	Divide clock by 4 (011b) again (for 16 total) with ADC14DIV
+	Set reference voltage with ADC14VRSEL to VCC for full scale
+	Set power mode on ADC14PWRMD to 00b for regular
+	Use ADC14RES bits in ADC14CTL1 to set resolution
+	ADC14ENC = 1 before conversion can take place
+
+Investigate how to Read result from ADC A6 and be able to explain:
+	Wait for ADC14IFG0 interrupt flag to read
+	Use the ADC14MEM0 to ADC14MEM31 (098 to 114)
+	Interrupt will clear after
