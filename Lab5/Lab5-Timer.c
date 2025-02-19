@@ -91,16 +91,9 @@ void Switch2_Interrupt_Init(void) {
 	//enable falling edge triggered interrupts
 	P1->IES |= SW2;
 	P1->IE |= SW2;
-	
-	// now set the pin to cause falling edge interrupt event
-	// P1.4 is falling edge event
-  ;
   
 	// clear flag4 (reduce possibility of extra interrupt)
-  P1->IFG &= SW2; 
-  
-	// arm interrupt on P1.4 
-  ;     
+  P1->IFG &= SW2;  
 	
 	// now set the pin to cause falling edge interrupt event
   NVIC_IPR8 = (NVIC_IPR8&0x00FFFFFF)|0x40000000; // priority 2
@@ -136,8 +129,11 @@ void PORT1_IRQHandler(void)
     P1->IFG &= ~SW1;
   }
 	// Now check to see if it came from Switch2 ?
+	uart0_put("skibidi toilet\n");
   if(P1->IFG & SW2) {
+		uart0_put("yeah thats what im saying\n");
 		if(!(P1->IN & SW2)) {
+			uart0_put("lmao\n");
 			Timer2RunningFlag = !Timer2RunningFlag;
 			if(!Timer2RunningFlag) {
 				char output[20];

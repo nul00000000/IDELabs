@@ -59,7 +59,7 @@ void Timer32_1_Init(void(*task)(void), unsigned long period, enum timer32divider
 	
 	// clear Timer32 Timer 1 interrupt
 	// TIMER32_INTCLR1
-  TIMER32_INTCLR1 = 0;   
+  TIMER32_INTCLR1 = 0;
 
 	
   // bits31-8=X...X,   reserved
@@ -70,7 +70,6 @@ void Timer32_1_Init(void(*task)(void), unsigned long period, enum timer32divider
   // bits3-2=??,       input clock divider according to parameter
   // bit1,             0=16bit counter, 1=32-bit counter
   // bit0,             1=one shot mode, 0=wrapping mode
-	
 	
 	
 	// TIMER32_CONTROL1, enable, periodic, 32 bit counter
