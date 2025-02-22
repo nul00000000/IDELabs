@@ -91,16 +91,9 @@ void Switch2_Interrupt_Init(void) {
 	//enable falling edge triggered interrupts
 	P1->IES |= SW2;
 	P1->IE |= SW2;
-	
-	// now set the pin to cause falling edge interrupt event
-	// P1.4 is falling edge event
-  ;
   
 	// clear flag4 (reduce possibility of extra interrupt)
-  P1->IFG &= SW2; 
-  
-	// arm interrupt on P1.4 
-  ;     
+  P1->IFG &= SW2;  
 	
 	// now set the pin to cause falling edge interrupt event
   NVIC_IPR8 = (NVIC_IPR8&0x00FFFFFF)|0x40000000; // priority 2
@@ -121,9 +114,6 @@ void Switch2_Interrupt_Init(void) {
 
 void PORT1_IRQHandler(void)
 {
-	float numSeconds = 0.0;
-	char temp[32];
-
 	// First we check if it came from Switch1 ?
   if(P1->IFG & SW1) { // we start a timer to toggle the LED1 1 second ON and 1 second OFF
 		// acknowledge P1.1 is pressed, by setting BIT1 to zero - remember P1.1 is switch 1
@@ -144,6 +134,7 @@ void PORT1_IRQHandler(void)
 				sprintf(output, "Time: %lu ms\r\n", MillisecondCounter);
 				uart0_put(output);
 				MillisecondCounter = 0;
+				P2->OUT &= ~(0x7);
 			}
 		}
 		// acknowledge P1.4 is pressed, by setting BIT4 to zero - remember P1.4 is switch 2
@@ -155,7 +146,6 @@ void PORT1_IRQHandler(void)
 // Interrupt Service Routine for Timer32-1
 //
 void Timer32_1_ISR(void) {
-	uart0_put("timer moment\n");
 	if(Timer1RunningFlag) {
 		if (LED1_State() == FALSE ) {
 			LED1_On();
@@ -170,6 +160,9 @@ void Timer32_1_ISR(void) {
 void Timer32_2_ISR(void) {
 	if(Timer2RunningFlag) {
 		MillisecondCounter++;
+		P2->OUT &= ~(0x7);
+		P2->OUT |= colors[colorIndex];
+		colorIndex = (colorIndex + 1) % 7;
 	}
 }
 
