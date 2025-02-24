@@ -11,9 +11,9 @@
 % On Windows:   serialPort = 'COM1';
 %
 %To run: 
-%plot_cams()
+plot_cams()
 %To reset ports: (if MATLAB still thinks they're busy)
-%delete(instrfindall)
+delete(instrfindall)
 %
 
 function plot_cams 
@@ -22,9 +22,9 @@ function plot_cams
 serialPort = 'COM3';
 serialObject = serial(serialPort);
 %configure serial connection
-serialObject.BaudRate = 115200; %(Default)
+serialObject.BaudRate = 9600; %(Default)
 %serialObject.BaudRate = 115200;
-%serialObject.FlowControl = 'software';
+serialObject.FlowControl = 'software';
 
 %Initiate serial connection
 fopen(serialObject);
@@ -43,7 +43,7 @@ while (1)
     if serialObject.BytesAvailable
         val = fscanf(serialObject,'%i');
         %val
-        if ((val == -1) || (val == -3)) % -1 and -3 are start keywords
+        if ((val == -1) | (val == -3)) % -1 and -3 are start keywords
             count = 1;
             val
         elseif (val == -2) % End camera1 tx
@@ -75,18 +75,19 @@ end %plot_cams
 function plotdata(trace, cam)
 drawnow;
 subplot(4,2,cam);
-%figure(figureHandle);
+figure(1);
 plot(trace);
-%set(figureHandle,'Visible','on');
+set(1,'Visible','on');
 
 %SMOOTH AND PLOT
-smoothtrace = trace;
-for i = 2:127
+smoothtrace = movmean(trace, 5); %floor(length(trace)/5);
+%for i = 2:127
     %5-point Averager
     %INSERT CODE
-end;
+    %smoothtrace(i) = sum(trace(5*i-4:5*i))/5;
+%end
 subplot(4,2,cam+2);
-%figure(smoothhand);
+figure(2);
 plot(smoothtrace);
 
 %THRESHOLD
@@ -95,10 +96,15 @@ maxval = max(smoothtrace);
 for i = 1:128
     %Edge detection (binary 0 or 1)
     %INSERT CODE
+    if(smoothtrace(i) > (maxval/2))
+        bintrace(i) = 1;
+    else
+        bintrace(i) = 0;
+    end
 end
 drawnow;
 subplot(4,2,cam+4);
-%figure(binfighand);
+figure(3);
 plot(bintrace);
 
 end %function

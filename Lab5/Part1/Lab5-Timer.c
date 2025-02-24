@@ -174,7 +174,7 @@ int main(void){
 	//initializations
 	uart0_init();
 	uart0_put("\r\nLab5 Timer demo\r\n");
-	// Set the Timer32-2 to 2Hz (0.5 sec between interrupts)
+	// Set the Timer32-1 to 2Hz (0.5 sec between interrupts)
 	Timer32_1_Init(&Timer32_1_ISR, SystemCoreClock/2, T32DIV1); // initialize Timer A32-1;
         
 	// Setup Timer32-2 with a .001 second timeout.

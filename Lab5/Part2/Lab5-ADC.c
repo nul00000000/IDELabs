@@ -25,44 +25,42 @@
 
 BOOLEAN Timer1RunningFlag = FALSE;
 BOOLEAN Timer2RunningFlag = FALSE;
+char hex[12];
+char temp[64];
+unsigned int analogIn = 0;
+#define SW2 BIT4
 
 unsigned long MillisecondCounter = 0;
-
-
 
 // Interrupt Service Routine for Timer32-1
 void Timer32_1_ISR(void)
 {
-
+		analogIn = ADC_In();
+    //sprintf(hex, "%x", analogIn);
+	  float celcius = ((int) analogIn) / 142.46f - 10;		
+	  float farenheit = celcius * (9.0f/5.0f) + 32.0f;
+		sprintf(temp, "Temp Reading: Celcius %3.1f, Farenheit %3.1f\r\n", celcius, farenheit);
+	  //sprintf(temp, "ADC Reading: Decimal %d, Hex %s\r\n", analogIn, hex);
+		uart0_put(temp);
 }
-// Interrupt Service Routine
-void Timer32_2_ISR(void)
-{
-
-}
-
-
 
 // main
 int main(void)
 {
-	char temp[64];
-	unsigned int analogIn = 0;
 	//initializations
 	uart0_init();
 	uart0_put("\r\nLab5 ADC demo\r\n");
+	// Set the Timer32-1 to 2Hz (0.5 sec between interrupts)
+	Timer32_1_Init(&Timer32_1_ISR, SystemCoreClock/2, T32DIV1); // initialize Timer A32-1;
 
-	
-
-	LED1_Init();
-	LED2_Init();
-	Switch2_Init();
+	//LED1_Init();
+	//LED2_Init();
+	//Switch2_Interrupt_Init();
 	ADC0_InitSWTriggerCh6();
 	EnableInterrupts();
   while(1)
 	{
-		;
-		
+		WaitForInterrupt();
   }
 }
 
