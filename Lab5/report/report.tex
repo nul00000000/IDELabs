@@ -8,6 +8,9 @@
 \usepackage{float}
 \usepackage{tikz, pgfplots}
 \usepackage{circuitikz}
+\usepackage[english]{babel}
+\usepackage[autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -34,10 +37,17 @@ ajs1539@rit.edu}
 \maketitle
 
 \begin{abstract}
-The purpose of this exercise was to practice using an opto-isolator to detect changes in the reflection of light within a tube. 
-This was accomplished by connecting the OPB745 photo-transducer to the necessary resistors and placing it in the tube and measuring
-the voltage and current to see how the values changed as the distance from the sensor to the reflective surface varied. Further tests
-were conducted with an inverter introduced into the circuit while the resulting waveform was recorded on an oscilloscope.
+An essential part of modern electronics is the ability to interact with
+analog voltages that arise from sensors. Important parts of interpreting
+these signals are using timers and ADCs (Analog to Digital Converters) to
+sample the analog data into digital data. Demonstrating these concepts was
+accomplished by enabling the proper peripherals on a MSP432 microcontroller,
+these being the ADC and Timer32 modules, and programming the microcontroller
+to sample external devices in various ways, such as using the Timer32 module
+as a clock, and the ADC to receive analog data. Data was processed and
+visualized in tests to ensure that the analog sampling was performed as
+expected. These tests utilized MatLab to visualize digital conversions,
+which were compared to a waveform recorded on an oscilloscope.
 \end{abstract}
 
 \section{Design Methodology}
