@@ -87,7 +87,7 @@ smoothtrace = movmean(trace, 5); %floor(length(trace)/5);
     %smoothtrace(i) = sum(trace(5*i-4:5*i))/5;
 %end
 subplot(4,2,cam+2);
-figure(2);
+%figure(2);
 plot(smoothtrace);
 
 %THRESHOLD
@@ -96,7 +96,7 @@ maxval = max(smoothtrace);
 for i = 1:128
     %Edge detection (binary 0 or 1)
     %INSERT CODE
-    if(smoothtrace(i) > (maxval/2))
+    if(smoothtrace(i) > (8000/2))
         bintrace(i) = 1;
     else
         bintrace(i) = 0;
@@ -104,7 +104,7 @@ for i = 1:128
 end
 drawnow;
 subplot(4,2,cam+4);
-figure(3);
+%figure(3);
 plot(bintrace);
 
 end %function

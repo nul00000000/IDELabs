@@ -1,0 +1,21 @@
+Lab 6 Prelab
+Part 1
+a) maximum torque before reduction = 0.00067011 kg-cm
+Pout = t * w = t * kRPM * 2pi
+2.6 = t * 6.3kRPM * 2pi
+t = 0.0000657163 Nm
+t = 0.0093062 oz-in
+b) max current draw = 1.4 A
+c) max turn speed before reduction = 0.21 kRPM * 30 = 6.3 kRPM
+d) maximum torque after reduction = 0.0201026 kg-cm
+Pout = t * w = t * kRPM * 2pi
+2.6 = t * 0.21kRPM * 2pi
+t = 0.0019714 Nm
+t = 0.2791737 oz-in
+e) max turn speed after reduction = 0.21 kRPM
+
+Part 2
+a) The diodes in this circuit provide a safe path for the current so that it doesn't go through the transistors and destroy them. This is particularly a problem when the power is removed from the motors and the voltage spikes.
+b) The capacitor minimizes spikes both upwards and downwards. It can absorb voltage when it spikes and discharge energy when voltage dips. This can occur when there is a direct path from +V to ground.
+c) By creating the H-bridge with two transistors, it is possible to control both the direction of the motor and supports separate driving and control voltages. This is very advantageous for many applications and helps make the circuit much more versatile.
+d) Two different transistors are used because one is an NPN while the other is a PNP. This means they are open or closed based on opposite voltages. It is this property and setup that allows for control of the direction as a single voltage change can both open and close current paths.
