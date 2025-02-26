@@ -29,7 +29,7 @@ int TIMER_A0_PWM_Init(uint16_t period, double percentDutyCycle, uint16_t pin)
 	// Timer A0.1
 	if (pin == 1)
 	{
-            
+		
 	}
     // Timer A0.2
 	else if (pin == 2)

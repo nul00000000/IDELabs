@@ -27,7 +27,7 @@ void delay(int del){
 
 int main(void) {
 	// Initialize UART and PWM
-	// INSERT CODE HERE
+	uart0_init();
 
 	// Print welcome over serial
 	put("Running... \r\n");
