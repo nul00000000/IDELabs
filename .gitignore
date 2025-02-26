@@ -8,6 +8,6 @@
 *.uvoptx
 *.uvguix.*
 
-*/Objects/
-*/Listings/
+*/Objects/**
+*/Listings/**
 

@@ -25,26 +25,16 @@ static uint32_t DEFAULT_PERIOD_A2[5] = {0,0,0,0,0};
 
 int TIMER_A0_PWM_Init(uint16_t period, double percentDutyCycle, uint16_t pin)
 {
+	//stop PWM
 	uint16_t dutyCycle;
+	TIMER_A0->CTL &= ~(BIT4 | BIT5);
 	// Timer A0.1
-	if (pin == 1)
+	if (pin >= 1 || pin <= 4)
 	{
-		
-	}
-    // Timer A0.2
-	else if (pin == 2)
-	{
-            
-	}	
-    // Timer A0.3
-	else if (pin == 3)
-	{
-             
-	}	
-    // Timer A0.4
-	else if (pin == 4)
-	{
-            
+		P2->SEL0 |= BIT3 << pin;
+		P2->SEL1 &= ~BIT3 << pin;
+		P2->DIR |= BIT3 << pin;
+		P2->DS |= BIT3 << pin;
 	}
 	else return -2;
 
@@ -55,23 +45,32 @@ int TIMER_A0_PWM_Init(uint16_t period, double percentDutyCycle, uint16_t pin)
 	// DEFAULT_PERIOD_A0[pin] where pin is the pin number
 	DEFAULT_PERIOD_A0[pin] = period;
 	// TIMER_A0->CCR[0]
-	;
+	//TIMER_A0->CCR[0] = (uint16_t) (period * percentDutyCycle);
 	
 	
 
 	// TIMER_A0->CCTL[pin]
-    ;
+	//start PWM
+  TIMER_A0->CCTL[pin] |= BIT6;
 	
 	// set the duty cycle
 	dutyCycle = (uint16_t) (percentDutyCycle * (double)DEFAULT_PERIOD_A0[pin]);
 
 	// CCR[n] contains the dutyCycle just calculated, where n is the pin number
     //TIMER_A0->CCR[pin]
-    ;
+  TIMER_A0->CCR[pin] = dutyCycle;
 	
 	// Timer CONTROL register
 	// TIMER_A0->CTL
-	; 
+	//set clock source
+	TIMER_A0->CTL &= ~(BIT8 | BIT9); 
+	//set clock divider
+	TIMER_A0->CTL &= ~(BIT6 | BIT7);
+	//clear timer
+	TIMER_A0->CTL |= BIT2;
+	
+	//start up counting
+	TIMER_A0->CTL |= BIT4;
 	return 0;
 }
 //***************************PWM_Duty1*******************************
@@ -93,16 +92,52 @@ void TIMER_A0_PWM_DutyCycle(double percentDutyCycle, uint16_t pin)
 int TIMER_A2_PWM_Init(uint16_t period, double percentDutyCycle, uint16_t pin)
 {
 
-	// NOTE: Timer A2 only exposes 1 PWM pin
-	// TimerA2.1
+	//stop PWM
+	uint16_t dutyCycle;
+	TIMER_A0->CTL &= ~(BIT4 | BIT5);
+	// Timer A0.1
 	if (pin == 1)
 	{
-
+		P2->SEL0 |= BIT4;
+		P2->SEL1 &= ~BIT4;
+		P2->DIR |= BIT4;
+		P2->DS |= BIT4;
 	}
-	else return -2; 
+	else return -2;
 
-    // NOTE: Setup similar to TimerA0
-    // You will have to use the prescaler (clock divider) to get down to 20ms
+
+
+	
+	// save the period for this timer instance
+	// DEFAULT_PERIOD_A0[pin] where pin is the pin number
+	DEFAULT_PERIOD_A0[pin] = period;
+	// TIMER_A0->CCR[0]
+	//TIMER_A0->CCR[0] = (uint16_t) (period * percentDutyCycle);
+	
+	
+
+	// TIMER_A0->CCTL[pin]
+	//start PWM
+  TIMER_A0->CCTL[pin] |= BIT6;
+	
+	// set the duty cycle
+	dutyCycle = (uint16_t) (percentDutyCycle * (double)DEFAULT_PERIOD_A0[pin]);
+
+	// CCR[n] contains the dutyCycle just calculated, where n is the pin number
+    //TIMER_A0->CCR[pin]
+  TIMER_A0->CCR[pin] = dutyCycle;
+	
+	// Timer CONTROL register
+	// TIMER_A0->CTL
+	//set clock source
+	TIMER_A0->CTL &= ~(BIT8 | BIT9); 
+	//set clock divider
+	TIMER_A0->CTL |= (BIT6 | BIT7);
+	//clear timer
+	TIMER_A0->CTL |= BIT2;
+	
+	//start up counting
+	TIMER_A0->CTL |= BIT4;
 	return 0;
 }
 //***************************PWM_Duty1*******************************
