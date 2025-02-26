@@ -291,9 +291,10 @@ routine functions?}
 
 The IRQ flags need to be cleared in the ISR function due to the fact that
 these flags are the way that the NVIC (Nested Vectored Interrupt Controller)
-keeps track of interrupt conditions and therefore which interrupts are pending and need to be executed. If
-a flag is not cleared, the ISR will be executed repeatedly, unless some other
-code or interrupt with a higher priority clears the flag.
+keeps track of interrupt conditions and therefore which interrupts are pending 
+and need to be executed. If a flag is not cleared, the ISR will be executed 
+repeatedly, unless some other code or interrupt with a higher priority clears 
+the flag.
 
 \subsection{When an interrupt occurs, how do you know which pin caused it?}
 
