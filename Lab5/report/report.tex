@@ -51,6 +51,8 @@ which were compared to a waveform recorded on an oscilloscope.
 \end{abstract}
 
 \section{Design Methodology}
+
+\subsection{Usage of Timers}
 In order to accurately sample many external sensors, a clock signal must be 
 used to synchronize the outputs of the sensor and the inputs of the ADC in
 the microcontroller. Although a clock signal is necessary, the
@@ -279,7 +281,33 @@ generator to invert the input waveform signal.
 
 \section{Results and Analysis}
 
-\subsection{Data Collection}
+\subsection{Timer and Port Interrupts}
+
+Before testing other systems, it was first necessary to test that the timer
+modules were behaving as expected. To test the 2Hz timer interrupts, the
+program was flashed onto the MSP432 development board and tested manually.
+The intended behavior of a button enabling and disabling a LED to flash at
+2Hz was demonstrated, showing the correct operation of the interrupts. To
+test the 1kHz interrupts, a program was written to count an amount of
+milliseconds between two presses of a button. This program output the amount
+of time measured to a UART serial terminal when a second button press was
+detected. This results of this test are shown in Fig.~\ref{part1terminal}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth,decodearray={1 0 1 0 1 0}]{images/part1terminal.png}
+    \caption{UART Output from Interrupt Testing}
+    \label{part1terminal}
+\end{figure}
+
+These tests also confirmed that the port interrupts were functioning
+correctly. The port interrupts were executed when the switches on the
+MSP432 board were interracted with, allowing them to toggle the flashing
+of the LED as well as telling the program when to start and stop the
+counting of the 1kHz timer. Both of these functions were performed
+successfully during these tests.
+
+%end part 1
 
 As a result of testing the circuit with various reflection distances, it was able to be
 determined what an ideal testing distance would be, using both a 10k$\Omega$ and 20k$\Omega$ resistance. 
