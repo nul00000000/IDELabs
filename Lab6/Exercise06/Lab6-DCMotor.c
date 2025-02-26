@@ -10,6 +10,7 @@
 
 #include "msp.h"
 #include "uart.h"
+#include "TimerA.h"
 
 #define put(x) uart0_put(x)
 
@@ -38,7 +39,7 @@ int main(void) {
 	
 	for(;;) ;  //then loop forever
 	
-	/* Part 2 - UNCOMMENT THIS
+  //Part 2 - UNCOMMENT THIS
 	for(;;)  //loop forever
 	{
 		uint16_t dc = 0;
@@ -49,34 +50,41 @@ int main(void) {
 		
 		// 0 to 100% duty cycle in forward direction
 		for (i=0; i<100; i++) {
-		    // INSERT CODE HERE
-			
+			TIMER_A0_PWM_DutyCycle(i/100, 1);
+			TIMER_A0_PWM_DutyCycle(0, 2);
+			TIMER_A0_PWM_DutyCycle(i/100, 3);
+			TIMER_A0_PWM_DutyCycle(0, 4);
 			delay(10);
 		}
 		
 		// 100% down to 0% duty cycle in the forward direction
 		for (i=100; i>=0; i--) {
-		    // INSERT CODE HERE
-			
+			TIMER_A0_PWM_DutyCycle(i/100, 1);
+			TIMER_A0_PWM_DutyCycle(0, 2);
+			TIMER_A0_PWM_DutyCycle(i/100, 3);
+			TIMER_A0_PWM_DutyCycle(0, 4);
 			delay(10);
 		}
 		
 		// 0 to 100% duty cycle in reverse direction
 		for (i=0; i<100; i++) {
-		    // INSERT CODE HERE
-			
+		  TIMER_A0_PWM_DutyCycle(0, 1);
+			TIMER_A0_PWM_DutyCycle(i/100, 2);
+			TIMER_A0_PWM_DutyCycle(0, 3);
+			TIMER_A0_PWM_DutyCycle(i/100, 4);
 			delay(10);
 		}
 		
 		// 100% down to 0% duty cycle in the reverse direction
 		for (i=100; i>=0; i--) {
-		    // INSERT CODE HERE
-			
+		  TIMER_A0_PWM_DutyCycle(0, 1);
+			TIMER_A0_PWM_DutyCycle(i/100, 2);
+			TIMER_A0_PWM_DutyCycle(0, 3);
+			TIMER_A0_PWM_DutyCycle(i/100, 4);
 			delay(10);
 		}
 
 	}
-	*/
 	return 0;
 }
 
