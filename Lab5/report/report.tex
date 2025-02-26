@@ -42,11 +42,11 @@ analog voltages that arise from sensors. Important parts of interpreting
 these signals are using timers and ADCs (Analog to Digital Converters) to
 sample the analog data into digital data. Demonstrating these concepts was
 accomplished by enabling the proper peripherals on a MSP432 microcontroller,
-these being the ADC and Timer32 modules, and programming the microcontroller
-to sample temperature and light sensors, using the Timer32 module
-as a clock, and the ADC to receive analog data. Data was processed and
+these being the ADC and Timer32 modules. The microcontroller was programmed
+to sample temperature and light sensors using the Timer32 module
+as a clock and the ADC to receive analog data. Data was processed and
 visualized in tests to ensure that the analog sampling was performed as
-expected. These tests utilized MatLab to visualize digital conversions,
+expected. These tests utilized MATLAB to visualize digital conversions,
 which were compared to a waveform recorded on an oscilloscope.
 \end{abstract}
 
@@ -65,48 +65,55 @@ frequency. A Timer32 module of the MSP432 was used for this purpose.
 The Timer32 module was used to generate interrupts at a rate of 2Hz and
 1kHz, with the 2Hz signal being used to toggle an LED, and the 1kHz signal
 being used to measure time between button presses in milliseconds. The 2Hz
-signal was also used to trigger data collection from a temperature sensor,
+signal was also later used to trigger data collection from a temperature sensor,
 so that the program would receive updated data two times a second.
 
 % part 1 end
 
 \subsection{Analog to Digital Conversion}
-Before constructing the final form of the circuit which would take input from
-a line-scan camera, a more simple ADC circuit was constructed. To practice
-with analog to digital conversion, a temperature sensor was connected to the
+%fixed comma grammar and the word "practice" as if its a lab (it is but womp womp)
+Before constructing the final form of the circuit, which would take input from
+a line-scan camera, a more simple ADC circuit was constructed. To demonstrate
+analog to digital conversion, a temperature sensor was connected to the
 MSP432 board via extension wires.
 
-This sensor is much less complicated than a full 128 bit definition camera,
-but still presented some challenges. The first was pulling the information
+%fixed tense and name and informal words
+%using parentheses like that in a formal paper is a crime punishable by 
+%probably like -a million points (or death)
+The temperature sensor was much less complicated than a line-scan pixel camera,
+but still presented some challenges. The first was polling the information
 from the device via the ADC. This required code which would configure one of
-the ADC clusters on the microcontroller to suit a temperature sensing
-application. Two of the most important variables that had to be set were the
-reference voltage (which was set at 2.5V according to information from the
-MSP432 datasheet) and the interrupts which were completely disabled on the ADC
+the ADC clusters on the microcontroller to enable a temperature sensing
+application. Two important parts of the configuration that had to be set were the
+reference voltage, which was set at 2.5V in accordance with the
+MSP432 datasheet, and the interrupts which were completely disabled on the ADC
 itself.
 
-Though interrupts were used to obtain data from the ADC, the Timer32 module
-was used as it interrupts at a set frequency rather than the ADC which will
-interrupt whenever the it receives new data (which would have been far more
-than required).
+%fixed whatever that sentence was
+%the digitized voltage was not raw technically i think
+The ADC interrupts were not used for obtaining its data due to the fact that
+their frequency would have caused significantly more data reads than
+necessary. Instead, the Timer32 module was used to generate interrupts at
+a more reasonable frequency of 2Hz, in which data was read from the ADC.
 Once the raw data from the temperature sensor was converted to a digital value
 through the ADC hardware, conversions had to be performed, this time in
 software, to output a human-readable temperature in degrees Centigrade and
-Fahrenheit. The equation for converting the raw digitized voltage to Celsius
+Fahrenheit. The equation for converting the digitized voltage to Celsius
 is shown in Equation 1.
 
+%fixed the equations
 \begin{equation}
-    Celsius = ((int) analogIn) / 142.46f - 10;
+    T_C = analogIn / 142.46 - 10
 \end{equation}
 
-In Equation 1, Celsius is the floating point variable storing the current
-temperature in degrees Centigrade and analogIn is the direct digitized analog
-input from the ADC. For these variables, it was very important that the types
-be correct in order for the mathematical operations to perform as expected.
-Celsius had to be a floating point value in order to store non-whole numbers
-and analogIn had to be typecast into an integer rather than used in its
-original, unsigned integer form. The two constants in Equation 1 come from the
-temperature sensor datasheet which proclaims a range of the device between
+%fixed things associated with equations and removed mentions of types which
+%were lowkey not relevant
+%who has ever used the word "proclaim" thats like saying "perchance"
+In Equation 1, $T_C$ is the floating point variable storing the current
+temperature in degrees Centigrade and $analogIn$ is the direct digitized analog
+input from the ADC, ranging from 0 to 2\textsuperscript{14} - 1.
+The two constants in Equation 1 come from the
+temperature sensor datasheet which claims a range of the device between
 10°C and 125°C. The maximum value was divided by the maximum voltage value of
 the ADC (3.3V) to determine a scaling factor which was then applied to the
 analog input. The subtraction of ten accounts for the range offset beginning
@@ -116,32 +123,36 @@ Once the value was expressed in degrees Centigrade, the conversion to
 Fahrenheit was trivial and is shown in Equation 2.
 
 \begin{equation}
-    Fahrenheit = celsius * (9.0f/5.0f) + 32.0f;
+    T_F = \frac{9}{5}(T_C) + 32
 \end{equation}
 
-Because the celsius variable is already a floating point value, no special
-typecasts need to be performed in Equation 2. The mathematical operations are
+In Equation 2, $T_F$ is degrees Fahrenheit. This mathematical operation is
 simply a direct conversion of degrees Centigrade to degrees Fahrenheit. First
 multiplying by $\frac{9}{5}$ and then adding 32.
 
 %Part 2 End
 
 \subsection{Line Scan Camera}
+%circuit instead of circuitry
+%not sure if translation is the best word but I can't think of anything else
 Once the Timer32 module had been properly configured along with the ADC
-circuitry, the two parts could be brought together to function as a
+circuit, the two parts could be brought together to function as a
 translation for the line scan camera.
 
+%im being petty here but thats what soldavini does so 5 big booms
 This device outputs a 128 segment vector which contains the light level of
 each segment. Using this, it is possible to detect dark spots and to create a
-binary map of what the camera is seeing.
+binary map of what the camera is viewing.
 
-To create this, the setup was straightforward as the difficult portions were
-configuring the Timer and ADC which had already been completed previously. The
-camera had to be connected to the microcontroller with jumper wires which ran
+%more formal
+To create this, the setup was straightforward, consisting largely of
+interfacing with the previously configured Timer32 and ADC modules. The
+camera had to be connected to the microcontroller with jumper wires which connected
 3.3V, GND, CLK, SI, and AO.
 
-Each of these signals served a different purpose and connected to a different
-circuit in the microcontroller. 3.3V and GND provided the power to the camera
+%little word changes
+Each of these signals served a different purpose and were connected to a different
+pin in the microcontroller. 3.3V and GND provided the power to the camera
 to actually take in data. CLK was connected to the SysTickTimer module which
 was configured at 200Hz and was responsible for pulsing the camera rapidly. SI
 is the scan signal and determines when the camera will actually scan in the
@@ -152,18 +163,22 @@ representing all segments in the scan.
 
 The AO signal is the camera's only output and is what is connected to the
 microcontroller's ADC for further processing. Some of this processing involves
-Matlab code which smooths the signal and converts the fluctuations into a
+MATLAB code which smooths the signal and converts the fluctuations into a
 simple digital output.
 
+%bro described the definition of smoothing
+%more evil evil parentheses
+%"light" and "dark" more like bite and bark if you use quotes like that
+%the "formula" you speak of is a number
 These two functions are relatively straightforward. Smoothing is done by
 averaging every five bits of information which has the effect of limiting the
-impact of outliers and providing for a more steady output overall. The binary
-conversion examined the AO signal and used a threshold (determined in this
-case to be 8000 as this is about half of the range of analog values) to
-determine whether the value should be considered "light" (all values above the
-threshold) or "dark" (everything below). This formula will need to be
-rewritten every time the camera is introduced to a new environment in order to
-account for different ambient light levels.
+impact of outliers and acting as a low pass filter. The binary
+conversion examined the AO signal and used a threshold, determined in this
+case to be roughly half of the full range, to
+determine whether the value should be considered light or dark. 
+This threshold will need to be
+recalculated every time the camera is introduced to a new environment in order to
+account for different lighting conditions.
 
 \section{Results and Analysis}
 
@@ -175,20 +190,21 @@ program was flashed onto the MSP432 development board and tested manually.
 The intended behavior of a button enabling and disabling a LED to flash at
 2Hz was demonstrated, showing the correct operation of the interrupts. To
 test the 1kHz interrupts, a program was written to count an amount of
-milliseconds between two presses of a button. This program output the amount
-of time measured to a UART serial terminal when a second button press was
+milliseconds between two presses of a button. This program output this 
+number to a UART serial terminal when the second button press was
 detected. This results of this test are shown in Fig.~\ref{part1terminal}.
 
+%cropped because text size too small
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth,decodearray={1 0 1 0 1 0}]{images/part1terminal.png}
+    \includegraphics[width=0.7\linewidth]{images/part1terminal.png}
     \caption{UART Output from Interrupt Testing}
     \label{part1terminal}
 \end{figure}
 
 These tests also confirmed that the port interrupts were functioning
 correctly. The port interrupts were executed when the switches on the
-MSP432 board were interracted with, allowing them to toggle the flashing
+MSP432 board were interacted with, allowing them to toggle the flashing
 of the LED as well as telling the program when to start and stop the
 counting of the 1kHz timer. Both of these functions were performed
 successfully during these tests.
@@ -197,10 +213,9 @@ successfully during these tests.
 
 \subsection{ADC Temperature Sensor}
 
+%stop yapping my brother
 With the Timer32 module successfully verified, the analog to digital 
-conversion also had to be checked. In this case, the algorithm to convert
-analog voltages to degrees Centigrade and Fahrenheit wasn't the focus, though
-this conversion had to be correct, but it was instead most pressing to
+conversion also had to be checked. It was important to
 determine whether the ADC module had been configured correctly in terms of
 inputs and interrupts. The terminal output resulting from connecting the
 temperature sensor to the microcontroller and then converting and translating
@@ -213,18 +228,21 @@ the values is shown in Fig.~\ref{part2terminal}.
     \label{part2terminal}
 \end{figure}
 
+%wording woes
 As displayed in Fig.~\ref{part2terminal}, the temperature according to the
-sensor was displayed on the screen continuously every half second according to
-the period of the timer module which flagged an interrupt that read from the
+sensor was displayed on the screen continuously every half second, corresponding to
+the period of the timer module, which triggered an interrupt that read from the
 analog input.
 
-The UART output was slightly incorrect as the "." character was not printing
-properly within the terminal. This may have been a result of the floating
-point values and how the print buffer was stored in a character array
-variable. A discussion with experts on the matter determined that fixing the
+%technically TAs arent experts but they are educated individuals
+The UART output was slightly incorrect, as the "." character was not printing
+properly within the terminal. This may have been a result of some kind of
+encoding issue or internal problem to the microcontroller. A discussion with
+educated individuals on the matter determined that fixing the
 issue was not feasible and stood beyond the scope of what was being tested.
 
-\subsection{Camera Dark/Light Output Graphs}
+%the entire section isnt graphs
+\subsection{Camera Output}
 
 With each of the smaller portions independently verified, the two could
 finally be combined in the application of the line scan camera. This device
@@ -232,10 +250,11 @@ was tested in multiple ways to ensure that both the hardware and software
 setups would produce the same, correct results. To determine the validity of
 the hardware setup, the AO jumper wire was connected to an oscilloscope probe
 rather than the ADC on the microcontroller. This way, the direct voltage value
-could be read and it could be observed to be changing when the camera was
-pointed at different shades. The result of this test is displayed in
-Fig.~\ref{oscilloscope}
+could be read and its changes could be observed when the camera was
+pointed at different shades. The result of this test while the camera faced 
+a point light source is displayed in Fig.~\ref{oscilloscope}
 
+%cropping central
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/part3scope.png}
@@ -249,40 +268,40 @@ displays a peak in the center with two lower valleys on either side. This
 waveform is indicative of what the camera was seeing which was a bright light
 in the center, surrounded on both sides by a dark backdrop.
 
-The second, lower line in Fig.~\ref{oscilloscope} is not exciting to look at
-as any variations aren't noticeable, but it's inclusion is essential for the
+%phrasing n balls
+The second, lower line in Fig.~\ref{oscilloscope} does not appear significant,
+as any variations are not noticeable. However, its inclusion is essential for the
 proper analysis of the camera. This second probe was placed in line with the
 SI input in such a way that the input was still able to reach the camera, but
 could also be tracked on the oscilloscope. As SI is the signal which controls
-when the camera should begin a new scan, setting the oscilloscope to also
-start a new scan on a change in SI meant that the top waveform would match
+when the camera should begin a new scan, setting the oscilloscope to trigger
+on a change in SI meant that the top waveform would match
 perfectly with one full scan from the camera.
 
-With the oscilloscope to test the hardware, a Matlab program was used to
+With the oscilloscope to test the hardware, a MATLAB program was used to
 verify the software and perform more complicated smoothing and binary
-conversions, as previously discussed. The resulting Matlab graphs are shown in
-Fig.~\ref{matlab}.
+conversions, as previously discussed. The resulting MATLAB graphs are shown in
+Fig.~\ref{MATLAB}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{images/part3matlab.png}
-    \caption{Matlab Graphs of the Camera Voltage Output}
-    \label{matlab}
+    \includegraphics[width=\linewidth]{images/part3MATLAB.png}
+    \caption{MATLAB Graphs of the Camera Voltage Output}
+    \label{MATLAB}
 \end{figure}
 
-The three graphs in Fig. ~\ref{matlab} are each a different step of the
+%im phrasing crazing
+The three graphs in Fig.~\ref{MATLAB} are each a different step of the
 simplification process. The top graph is the raw voltage which looks very
-similar to that shown in Fig. ~\ref{oscilloscope} (the camera was pointed at
-the same image). The smoothed voltage doesn't have quite as significant of
-jumps in voltage, most notably at 90 and 110 where the dips displayed on the
+similar to that shown in Fig.~\ref{oscilloscope} as expected. 
+The smoothed voltage has no sharp
+jumps in voltage, and removes point outliers, most notably at 90 and 110 where the dips displayed on the
 raw graph have been completely smoothed over. Finally, the binary conversion
 plot takes the voltage values and equates them to a binary "1" or "0"
 depending on the threshold. Due to how the threshold was set, all values
 before the second dip are considered high, while after that is low. As
-previously mentioned, this threshold will need to be recalibrated (either
-automatically or by hand) for each new environment that the camera is used for
-every time it is used as even something as simple as the light from the sun
-can change on different days and at different times.
+previously mentioned, this threshold will need to be recalibrated for each %auto or by hand encompasses all possible ways of recalculating and therefore is redundant
+new environment that the camera is used in.
 
 \section{Questions}
 
@@ -307,9 +326,9 @@ bit.
 transfer from the Camera?}
 
 The clock signal, CLK, is used to latch the SI signal, and as such, the SI
-signal must not be changed on a clock edge to aboid metastability. To
+signal must not be changed on a clock edge to avoid metastability. To
 initiate a scan, SI goes high before the rising edge of the clock signal.
-Once the rising edge arives, the SI signal must go low before the next
+Once the rising edge arrives, the SI signal must go low before the next
 rising edge of the clock. This sequence starts a capture, and each subsequent
 rising edge moves through a single pixel on the output. Eventually, the end
 of the frame is reached, and SI must pulse high again in order to begin
