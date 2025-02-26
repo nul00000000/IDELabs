@@ -45,9 +45,9 @@ accomplished by enabling the proper peripherals on a MSP432 microcontroller,
 these being the ADC and Timer32 modules. The microcontroller was programmed
 to sample temperature and light sensors using the Timer32 module
 as a clock and the ADC to receive analog data. Data was processed and
-visualized in tests to ensure that the analog sampling was performed as
-expected. These tests utilized MATLAB to visualize digital conversions,
-which were compared to a waveform recorded on an oscilloscope.
+visualized in tests with a line scan camera to ensure that the analog sampling
+was performed as expected. These tests utilized MATLAB to visualize digital
+conversions, which were compared to a waveform recorded on an oscilloscope.
 \end{abstract}
 
 \section{Design Methodology}
@@ -310,9 +310,10 @@ routine functions?}
 
 The IRQ flags need to be cleared in the ISR function due to the fact that
 these flags are the way that the NVIC (Nested Vectored Interrupt Controller)
-keeps track of interrupt conditions and therefore which interrupts are pending and need to be executed. If
-a flag is not cleared, the ISR will be executed repeatedly, unless some other
-code or interrupt with a higher priority clears the flag.
+keeps track of interrupt conditions and therefore which interrupts are pending 
+and need to be executed. If a flag is not cleared, the ISR will be executed 
+repeatedly, unless some other code or interrupt with a higher priority clears 
+the flag.
 
 \subsection{When an interrupt occurs, how do you know which pin caused it?}
 
@@ -335,10 +336,15 @@ of the frame is reached, and SI must pulse high again in order to begin
 another capture and data transfer.
 
 \section{Conclusion}
-Through the course of this exercise, the properties of the OPB745 were shown and its behavior was compared between a laboratory
-setting and the expected values shown on the datasheet. Because the measured results of the tests showed similar characteristics and
-patterns to that of the datasheet's values, the exercise can be deemed a success. In the future, the OPB745 can be used to detect changes
-in an environment without requiring contact, something which will be immensely helpful in developing autonomous car technology. It was
-necessary, however, to understand how the device functions before it could be put to use in more specialized applications.
+Throughout the process of configuring a timer module, then an analog to 
+digital converter, then finally combining the two for a camera, each step 
+built upon the last and utilized elements which had been set up previously. 
+Jumping straight to the camera would've been exceedingly difficult without the
+ earlier testing completed and any issues with those components ruled out. The
+camera's operation itself is also incredibly important to understand, both in 
+how it gathers data and how to process that information. The line scan is a 
+unique way of interpreting the world, but now that it is understood, along 
+with how to simplify the information gathered into more actionable data, the 
+camera can be successfully put to more advanced uses.
 
 \end{document}
