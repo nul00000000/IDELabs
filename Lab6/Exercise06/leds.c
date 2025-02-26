@@ -1,5 +1,5 @@
 #include "msp.h"
-#include "common.h"
+#include "Common.h"
 #include "leds.h"
 
 void LED1_Init(void)
