@@ -70,216 +70,42 @@ so that the program would receive updated data two times a second.
 
 % part 1 end
 
-Before constructing the final form of the circuit which would take input from a line-scan camera, a more simple ADC circuit was constructed. For this circuit, a temperature sensor was connected to the MSP432 board via extension wires.
+\subsection{Analog to Digital Conversion}
+Before constructing the final form of the circuit which would take input from a line-scan camera, a more simple ADC circuit was constructed. To practice with analog to digital conversion, a temperature sensor was connected to the MSP432 board via extension wires.
 
-Before constructing the circuit which would be used to test the opto-isolator and measure its output, the correct resistor values
-had to be determined from the OPB745 datasheet along with the anticipated voltage values. In doing this, an expected "shape" for the
-voltage and current graphs could be determined which allowed for verification as testing was conducted. The resistor value was
-calculated according to the equation shown below.
+This sensor is much less complicated than a full 128 bit definition camera, but still presented some challenges. The first was pulling the information from the device via the ADC. This required code which would configure one of the ADC clusters on the microcontroller to suit a temperature sensing application. Two of the most important variables that had to be set were the reference voltage (which was set at 2.5V according to information from the MSP432 datasheet) and the interrupts which were completely disabled on the ADC itself.
+
+Though interrupts were used to obtain data from the ADC, the Timer32 module was used as it interrupts at a set frequency rather than the ADC which will interrupt whenever the it receives new data (which would have been far more than required).
+Once the raw data from the temperature sensor was converted to a digital value through the ADC hardware, conversions had to be performed, this time in software, to output a human-readable temperature in degrees Centigrade and Fahrenheit. The equation for converting the raw digitized voltage to Celsius is shown in Equation 1.
 
 \begin{equation}
-    R_F=\frac{5V-V_{LED}}{I_{F_{MAX}}}=\frac{5-1.7}{0.04}=\frac{3.3}{0.04}=82.5\Omega
+    Celsius = ((int) analogIn) / 142.46f - 10;
 \end{equation}
 
-As shown in Equation 1, the required resistor value for the LED is 82.5$\Omega$. This value is based on the total voltage through the
-circuit (5V) and the voltage drop across the LED (1.7V as specified by the datasheet).
+In Equation 1, Celsius is the floating point variable storing the current temperature in degrees Centigrade and analogIn is the direct digitized analog input from the ADC. For these variables, it was very important that the types be correct in order for the mathematical operations to perform as expected. Celsius had to be a floating point value in order to store non-whole numbers and analogIn had to be typecast into an integer rather than used in its original, unsigned integer form. The two constants in Equation 1 come from the temperature sensor datasheet which proclaims a range of the device between 10°C and 125°C. The maximum value was divided by the maximum voltage value of the ADC (3.3V) to determine a scaling factor which was then applied to the analog input. The subtraction of ten accounts for the range offset beginning at 10°C rather than 0°C.
 
-Another important part of the design was determining the expected values and pattern of an output from the photo-transducer. This was
-done by examining the OPB745 datasheet which contained a graph of the output current at different distances from the reflective source.
-A table of these values is shown in Table \ref{tab:expectedvoltagecurrent}
+Once the value was expressed in degrees Centigrade, the conversion to Fahrenheit was trivial and is shown in Equation 2.
 
-\begin{table}[H]
-    \centering
-    \caption{Expected Voltage and Current Values from the OPB745 Datasheet}
-    \label{tab:expectedvoltagecurrent}
-    \begin{tabular}{|cc|cc|}
-    \hline
-    \multicolumn{2}{|c|}{}                                                & \multicolumn{2}{c|}{\textbf{$R_{L1}$ = 10k$\Omega$}}                                                                   \\ \hline
-    \multicolumn{1}{|c|}{\textbf{Distance (in)}} & \textbf{Distance (mm)} & \multicolumn{1}{c|}{\textbf{$V_{Out}$ (V)}} & \textbf{\begin{tabular}[c]{@{}c@{}}$I_{RL}$\\ (mA)\end{tabular}} \\ \hline
-    \multicolumn{1}{|c|}{0.0}                    & 0.0                    & \multicolumn{1}{c|}{2.5}                    & 0.50                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.05}                   & 12.7                   & \multicolumn{1}{c|}{6.25}                   & 1.25                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.1}                    & 25.4                   & \multicolumn{1}{c|}{6.25}                   & 1.25                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.15}                   & 38.1                   & \multicolumn{1}{c|}{5}                      & 1.00                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.2}                    & 50.8                   & \multicolumn{1}{c|}{2.5}                    & 0.50                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.25}                   & 63.5                   & \multicolumn{1}{c|}{1.25}                   & 0.25                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.3}                    & 76.2                   & \multicolumn{1}{c|}{0.85}                   & 0.17                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.35}                   & 88.9                   & \multicolumn{1}{c|}{0.75}                   & 0.15                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.4}                    & 101.6                  & \multicolumn{1}{c|}{0.65}                   & 0.13                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.45}                   & 114.3                  & \multicolumn{1}{c|}{0.55}                   & 0.11                                                             \\ \hline
-    \multicolumn{1}{|c|}{0.5}                    & 127                    & \multicolumn{1}{c|}{0.5}                    & 0.10                                                             \\ \hline
-    \end{tabular}
-\end{table}
+\begin{equation}
+    Fahrenheit = celsius * (9.0f/5.0f) + 32.0f;
+\end{equation}
 
+Because the celsius variable is already a floating point value, no special typecasts need to be performed in Equation 2. The mathematical operations are simply a direct conversion of degrees Centigrade to degrees Fahrenheit. First multiplying by $\frac{9}{5}$ and then adding 32.
 
-With the current values (labeled in Table \ref{tab:expectedvoltagecurrent} as $I_{RL}$), the voltage value can be calculated by simply applying Ohm's Law (V = IR) as the resistance value is also known (10k$\Omega$).
+%Part 2 End
 
-With this information, an expected output graph can be created. This is displayed in Fig.~\ref{fig:expectedvoltage}.
-\begin{figure}[htbp]
-    \begin{tikzpicture}
-        \begin{axis} [
-            xlabel={Distance (mm)},
-            ylabel={Expected $V_{out}$ (V)}, % might need to change this
-            xmin=0, xmax=12.7,
-            ymin=-1.5, ymax=5,
-            ymajorgrids=true,
-            xmajorgrids=true,
-            legend pos=south east,
-            grid style=dashed,
-        ]
-            \addplot[
-                color=blue,
-                mark=square*
-            ]
-            coordinates {
-                (0, 5)
-                (1.27, 2.5)
-                (2.54, -1.25)
-                (3.81, 0)
-                (5.08, 2.5)
-                (6.35, 3.75)
-                (7.62, 4.15)
-                (8.89, 4.25)
-                (10.16, 4.35)
-                (11.43, 4.45)
-                (12.7, 4.5)
-            };
-            \addlegendentry{10k$\Omega$}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Distance of Reflective Surface from OPB745 vs Expected Voltage}
-    \label{fig:expectedvoltage}
-\end{figure}
+\subsection{Line Scan Camera}
+Once the Timer32 module had been properly configured along with the ADC circuitry, the two parts could be brought together to function as a translation for the line scan camera.
 
-Fig.~\ref{fig:expectedvoltage} shows what how the output voltage may change as a reflective material is moved further away from the
-sensor. The results of an experiment will not exactly match the graph, but should align with the general shape. Of particular
-importance is a high starting voltage followed by a steep drop almost immediately which then climbs to maintain a steady value
-marginally below the starting supply voltage.
+This device outputs a 128 segment vector which contains the light level of each segment. Using this, it is possible to detect dark spots and to create a binary map of what the camera is seeing.
 
-From Table \ref{tab:expectedvoltagecurrent}, the current was also mapped against the distance from the reflective surface.
-The resulting plot is shown in Fig.~\ref{fig:expectedcurrent}.
+To create this, the setup was straightforward as the difficult portions were configuring the Timer and ADC which had already been completed previously. The camera had to be connected to the microcontroller with jumper wires which ran 3.3V, GND, CLK, SI, and AO.
 
-\begin{figure}[htbp]
-    \begin{tikzpicture}
-        \begin{axis} [
-            xlabel={Distance (mm)},
-            ylabel={Expected Current through Phototransistor (mA)}, % might need to change this
-            xmin=0, xmax=0.5,
-            ymin=0, ymax=1.25,
-            ymajorgrids=true,
-            xmajorgrids=true,
-            legend pos=north east,
-            grid style=dashed,
-        ]
-            \addplot[
-                color=blue,
-                mark=square*
-            ]
-            coordinates {
-                (0, 0)
-                (0.05, 0.5)
-                (0.1, 1.25)
-                (0.15, 1)
-                (0.2, 0.5)
-                (0.25, 0.25)
-                (0.3, 0.17)
-                (0.35, 0.15)
-                (0.4, 0.13)
-                (0.45, 0.11)
-                (0.5, 0.1)
-            };
-            \addlegendentry{10k$\Omega$}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Distance of Reflective Surface from OPB745 vs Expected Current}
-    \label{fig:expectedcurrent}
-\end{figure}
+Each of these signals served a different purpose and connected to a different circuit in the microcontroller. 3.3V and GND provided the power to the camera to actually take in data. CLK was connected to the SysTickTimer module which was configured at 200Hz and was responsible for pulsing the camera rapidly. SI is the scan signal and determines when the camera will actually scan in the information. These two signals work together with the CLK pulsing 129 times between each SI pulse which ensures that all of the segments are properly scanned. Finally, the AO value is what the camera outputs as an analog signal representing all segments in the scan.
 
-Similarly to Fig.~\ref{fig:expectedvoltage}, it is not expected for the exercise output to exactly match 
-Fig.~\ref{fig:expectedcurrent}, however, the general shape is important. The current behaviors inversely to the
-voltage and starts at 0 before quickly spiking to a peak before leveling off slightly above 0.
+The AO signal is the camera's only output and is what is connected to the microcontroller's ADC for further processing. Some of this processing involves Matlab code which smooths the signal and converts the fluctuations into a simple digital output.
 
-To determine whether the expected results defined in Fig.~\ref{fig:expectedvoltage} and Fig.~\ref{fig:expectedcurrent} would remain true
-in a laboratory test, the following circuit was created.
-
-\begin{figure}[!ht]
-    \centering
-    \resizebox{\linewidth}{!}{%
-    \begin{circuitikz}
-    \tikzstyle{every node}=[font=\LARGE]
-    \draw (6.75,11.75) to[R,l={ \LARGE Rf}] (6.75,9.75);
-    \draw (8.5,11.75) to[R,l={ \LARGE 
-    RL
-    }] (8.5,9.75);
-    \draw (3.75,10.5) to[battery ,l={ \LARGE 5V}] (3.75,8.5);
-    \draw (6.75,9.25) to[empty photodiode] (6.75,7.25);
-    \draw (8.5,7.25) to[Tnpn, transistors/scale=1.19] (8.5,9.25);
-    \draw (3.75,7.25) to[short] (4.25,7.25);
-    \draw (4.25,7.25) to[short] (8.5,7.25);
-    \draw (6.75,9.75) to[short] (6.75,9.25);
-    \draw (8.5,9.75) to[short] (8.5,9.25);
-    \draw (8.5,11.75) to[short] (3.75,11.75);
-    \draw (8.5,9.75) to[short] (11.25,9.75);
-    \node [font=\LARGE] at (11,10.25) {Vout};
-    \draw (3.75,11.75) to[short] (3.75,10.5);
-    \draw (3.75,8.5) to[short] (3.75,7.25);
-    \end{circuitikz}
-    }%
-    \caption{\textit{The Circuit Diagram}}
-    \label{fig:circuit_1}
-\end{figure}
-
-The circuit in Fig.~\ref{fig:circuit_1} is relatively simple and consists of a 5V power supply placed in parallel with two branches.
-The first contains a resistor $R_f$ and the LED side of the photo-transistor. This is what actually emits the light. The resistor is
-important as it limits the current flowing through the LED, ensuring that the diode isn't damaged. The value was calculated in
-Equation 1. On the second branch, the resistor $R_L$ acts as a load which is connected in series with the transistor side of the
-OPB745. It is across this transistor that the voltage defined as "$V_{out}$" is measured.
-
-Slight modifications were made to the circuit in Fig.~\ref{fig:circuit_1} to test the OPB745 with inverters added to the circuit.
-This is shown in Fig.~\ref{fig:circuit_2}.
-
-\begin{figure}[!ht]
-    \centering
-    \resizebox{\linewidth}{!}{%
-    \begin{circuitikz}
-    \tikzstyle{every node}=[font=\LARGE]
-    \draw (6.75,11.75) to[R,l={ \LARGE Rf}] (6.75,9.75);
-    \draw (8.5,11.75) to[R,l={ \LARGE 
-    RL
-    }] (8.5,9.75);
-    \draw (3.75,10.5) to[battery ,l={ \LARGE 5V}] (3.75,8.5);
-    \draw (6.75,9.25) to[empty photodiode] (6.75,7.25);
-    \draw (8.5,7.25) to[Tnpn, transistors/scale=1.19] (8.5,9.25);
-    \draw (6.75,9.75) to[short] (6.75,9.25);
-    \draw (8.5,9.75) to[short] (8.5,9.25);
-    \draw (8.5,11.75) to[short] (3.75,11.75);
-    \draw (11,9.75) to[short] (12.25,9.75);
-    \node [font=\LARGE] at (12,10.25) {Vout};
-    \draw (3.75,11.75) to[short] (3.75,10.5);
-    \draw (3.75,8.5) to[short] (3.75,7.25);
-    \draw (4.5,6.75) to[square voltage source, sources/symbol/rotate=auto] (4.5,5);
-    \draw (4.75,7.25) node[ieeestd not port, anchor=in](port){} (port.out) to[short] (6.5,7.25);
-    \draw (port.in) to[short] (4.5,7.25);
-    \draw (9.25,9.75) node[ieeestd not port, anchor=in](port){} (port.out) to[short] (11,9.75);
-    \draw (port.in) to[short] (9,9.75);
-    \draw (9,9.75) to[short] (8.5,9.75);
-    \draw (3.75,7.25) to[short] (3.75,5);
-    \draw (8.5,7.25) to[short] (8.5,5);
-    \draw (4.5,7.25) to[short] (4.5,6.75);
-    \draw (6.75,7.25) to[short] (6.25,7.25);
-    \draw (3.75,5) to[short] (8.5,5);
-    \node [font=\LARGE] at (10,8.75) {74LS14
-    };
-    \node [font=\LARGE] at (5.5,8) {7406};
-    \end{circuitikz}
-    }%
-    \caption{\textit{The Circuit Diagram with Added Inverters}}
-    \label{fig:circuit_2}
-\end{figure}
-
-While the circuit in Fig.~\ref{fig:circuit_2} is very similar to that in Fig.~\ref{fig:circuit_1}, two inverters were added along
-with a function generator. The location of the voltage probe was not changed relative to the first circuit, but the addition of the
-74LS14 chip results in the waveform output being inverted. The second chip, a 7406, is placed in series with the output of the function
-generator to invert the input waveform signal.
+These two functions are relatively straightforward. Smoothing is done by averaging every five bits of information which has the effect of limiting the impact of outliers and providing for a more steady output overall. The binary conversion examined the AO signal and used a threshold (determined in this case to be 8000 as this is about half of the range of analog values) to determine whether the value should be considered "light" (all values above the threshold) or "dark" (everything below). This formula will need to be rewritten every time the camera is introduced to a new environment in order to account for different ambient light levels.
 
 \section{Results and Analysis}
 
