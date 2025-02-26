@@ -684,43 +684,34 @@ demonstrates that the circuit with the 20k$\Omega$ resistor could operate at onl
 
 \section{Questions}
 
-\subsection{In the lab we do not use a 7406 inverter on the output; instead we use the 74LS14 with Schmitt
-trigger. Why do we need to do this, and what is the difference between the two?}
+\subsection{Why do the IRQ flags need to be cleared in the interrupt service
+routine functions?}
 
-We need to use the 74LS14 to provide additional protection against noise on the output, as it
-prevents multiple edges from being produced from a signal crossing a threshold voltage. It does this
-by switching to high and low outputs at diffenent input voltages, leaving something like a voltage dead-zone,
-where changes in voltage up or down will only affect the output after reaching a certain point past the middle
-of the voltage range. This dead-zone is refered to as the hysteresis region. The 7406 is not a Schmitt trigger
-and does not have a hysteresis region, only a single threshold voltage, making the output voltages entirely
-defined by the current input.
+The IRQ flags need to be cleared in the ISR function due to the fact that
+these flags are the way that the NVIC (Nested Vectored Interrupt Controller)
+keeps track of interrupt conditions and therefore which interrupts are pending and need to be executed. If
+a flag is not cleared, the ISR will be executed repeatedly, unless some other
+code or interrupt with a higher priority clears the flag.
 
-\subsection{Why does the voltage start at ~5V at 0mm and then drop quickly? Why does it eventually go
-back to ~5V?}
+\subsection{When an interrupt occurs, how do you know which pin caused it?}
 
-The voltage starts at about 5V due to the fact that the
-phototransistor is nearly completely off at 0mm. This is
-because when the reflective material is fully pressed against
-the OPB745, it blocks both the infrared diode from emitting
-light outside the device, and blocks the phototransistor from
-receiving any light. Once the material is moved back a small amount, the
-infrared light can be reflected most effectively to the
-phototransistor, turning it on and decreasing the voltage
-across it. When the material continues to be moved further 
-back, a point is crossed where the light begins to be scattered
-to other locations and becomes less focused on the
-phototransistor, leading the phototransistor to turn on less,
-flowing less current, and therefore for the voltage over the
-component to gradually increase.
+In order to find what pin caused an interrupt, the IFG register of the port
+that the interrupt came from can be checked. The pin that caused the
+interrupt will have its respective bit of the IFG register set since it had
+a pending interrupt. At the end of the ISR, it is essential to clear this
+bit.
 
-\subsection{Why does the frequency change when going from a 10k$\Omega$ load resistor to a 20k$\Omega$ load resistor?
-Did you anticipate it increasing or decreasing and why?}
+\subsection{What is the startup sequence of SI and CLK to initiate data 
+transfer from the Camera?}
 
-When doubling the size of the load resistor from 10k$\Omega$  to 20k$\Omega$, the frequency changes because the transistor is recieving
-less voltage as more is being lost across the resistor. As a result of the lower voltage, the transistor has less range to decipher
-whether the incoming signal is high or low on the square wave. With more voltage, faster frequencies are less damaging to the results as
-the actual signal can still be detected. It is expected, therefore, that the circuit with the 20k$\Omega$ load resistor will break down
-at a slower frequency than the circuit with the 10k$\Omega$ is able to achieve.
+The clock signal, CLK, is used to latch the SI signal, and as such, the SI
+signal must not be changed on a clock edge to aboid metastability. To
+initiate a scan, SI goes high before the rising edge of the clock signal.
+Once the rising edge arives, the SI signal must go low before the next
+rising edge of the clock. This sequence starts a capture, and each subsequent
+rising edge moves through a single pixel on the output. Eventually, the end
+of the frame is reached, and SI must pulse high again in order to begin
+another capture and data transfer.
 
 \section{Conclusion}
 Through the course of this exercise, the properties of the OPB745 were shown and its behavior was compared between a laboratory
