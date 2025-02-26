@@ -137,376 +137,46 @@ successfully during these tests.
 
 %end part 1
 
-As a result of testing the circuit with various reflection distances, it was able to be
-determined what an ideal testing distance would be, using both a 10k$\Omega$ and 20k$\Omega$ resistance. 
-The results of these tests are shown in Table \ref{distanceVoltageCurrent}.
+\subsection{ADC Temperature Sensor}
 
-\begin{table}[H]
+With the Timer32 module successfully verified, the analog to digital conversion also had to be checked. In this case, the algorithm to convert analog voltages to degrees Centigrade and Fahrenheit wasn't the focus, though this conversion had to be correct, but it was instead most pressing to determine whether the ADC module had been configured correctly in terms of inputs and interrupts. The terminal output resulting from connecting the temperature sensor to the microcontroller and then converting and translating the values is shown in Fig. ~\ref{part2terminal}.
+
+\begin{figure}
     \centering
-    \caption{Phototransistor Voltage and Current at Various Distances}
-    \label{distanceVoltageCurrent}
-    \begin{tabular}{|c||c|c||c|c|}
-        \hline
-         & \multicolumn{2}{c||}{$R_{L1}$ = \textbf{10k}} & \multicolumn{2}{c|}{$R_{L1}$ = \textbf{20k}} \\
-        \hline
-        Distance & $V_{out}$ (V) & $IRL$ (mA) & $V_{out}$ (V) & $IRL$ (mA) \\
-        \hline
-        0 &  4.919 &  0.0081 & 4.810 & 0.0095 \\
-        1 &  3.175 &  0.1820 & 1.225 & 0.1880 \\
-        2 &  0.727 &  0.4261 & 0.737 & 0.2123 \\
-        3 &  0.710 &  0.4278 & 0.698 & 0.2142 \\
-        4 &  0.729 &  0.4259 & 0.683 & 0.2150 \\
-        5 &  0.771 &  0.4217 & 0.687 & 0.2148 \\
-        6 &  0.817 &  0.4171 & 0.697 & 0.2143 \\
-        7 &  1.652 &  0.3339 & 0.716 & 0.2134 \\
-        8 &  2.563 &  0.2430 & 0.735 & 0.2124 \\
-        9 &  3.126 &  0.1869 & 0.751 & 0.2116 \\
-        10 & 3.420 &  0.1576 & 0.765 & 0.2109 \\
-        11 & 3.871 &  0.1126 & 0.790 & 0.2097 \\
-        12 & 4.038 &  0.0959 & 0.806 & 0.2089 \\
-        13 & 4.217 &  0.0781 & 0.820 & 0.2082 \\
-        14 & 4.274 &  0.0724 & 0.880 & 0.2052 \\
-        15 & 4.319 &  0.0679 & 1.346 & 0.1820 \\
-        20 & 4.576 &  0.0423 & 3.430 & 0.0782 \\
-        25 & 4.656 &  0.0343 & 4.078 & 0.0459 \\
-        30 & 4.641 &  0.0358 & 4.243 & 0.0377 \\
-        35 & 4.580 &  0.0419 & 4.200 & 0.0398 \\
-        40 & 4.506 &  0.0493 & 4.043 & 0.0477 \\
-        45 & 4.523 &  0.0476 & 4.018 & 0.0489 \\
-        50 & 4.585 &  0.0414 & 4.082 & 0.0457 \\
-        \hline
-    \end{tabular}
-\end{table}
-
-Table \ref{distanceVoltageCurrent} demonstrates the relationship between the reflection distance
-from the infrared diode to the phototransistor in the optoisolator, and the voltage and current across the
-phototransistor. This relationship is slightly different when the circuit contains a 10k$\Omega$ resistor
-and a 20k$\Omega$ resistor. The voltage relationships are shown more clearly in Fig.~\ref{distanceVoltageFigure}.
-
-\subsection{Data Visualization and Analysis}
-
-\begin{figure}[htbp]
-    \begin{tikzpicture}
-        \begin{axis} [
-            xlabel={Distance (mm)},
-            ylabel={$V_{out}$ (V)}, % might need to change this
-            xmin=0, xmax=50,
-            ymin=0, ymax=5,
-            ymajorgrids=true,
-            xmajorgrids=true,
-            legend pos=south east,
-            grid style=dashed,
-        ]
-            \addplot[
-                color=blue,
-                mark=square*
-            ]
-            coordinates {
-                (0, 4.919)
-                (1, 3.175)
-                (2, 0.727)
-                (3, 0.71)
-                (4, 0.729)
-                (5, 0.771)
-                (6, 0.817)
-                (7, 1.652)
-                (8, 2.563)
-                (9, 3.126)
-                (10, 3.42)
-                (11, 3.871)
-                (12, 4.038)
-                (13, 4.216)
-                (14, 4.274)
-                (15, 4.319)
-                (20, 4.576)
-                (25, 4.656)
-                (30, 4.641)
-                (35, 4.58)
-                (40, 4.506)
-                (45, 4.523)
-                (50, 4.585)
-            };
-            \addlegendentry{10k$\Omega$}
-
-            \addplot[
-                color=red,
-                mark=square*
-            ]
-            coordinates {
-                (0, 4.81)
-                (1, 1.225)
-                (2, 0.7372)
-                (3,0.6984)
-                (4, 0.6831)
-                (5, 0.6874)
-                (6,0.6971)
-                (7, 0.7156)
-                (8, 0.735)
-                (9, 0.7514)
-                (10,0.765)
-                (11, 0.7899)
-                (12, 0.8059)
-                (13, 0.82)
-                (14, 0.8802)
-                (15, 1.346)
-                (20, 3.43)
-                (25, 4.078)
-                (30, 4.243)
-                (35,4.2)
-                (40, 4.043)
-                (45, 4.018)
-                (50, 4.0815)
-            };
-            \addlegendentry{20k$\Omega$}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Distance of Reflective Surface from OPB745 vs Voltage}
-    \label{distanceVoltageFigure}
+    \includegraphics[width=\linewidth,decodearray={1 0 1 0 1 0}]{images/part2terminal2.png}
+    \caption{UART Output from ADC Testing}
+    \label{part2terminal}
 \end{figure}
 
-Fig.~\ref{distanceVoltageFigure} shows the voltage in both cases start at near the
-logic high voltage and immediately drop, and then rise more
-gradually back up to about 0.5 or 1.0 volts lower, for the
-10k$\Omega$ case and 20k$\Omega$ case respectively. From these
-voltage values, a current relationship could also be calculated
-by subtracted $V_{out}$, that being the voltage across the
-phototransistor, from the logic high voltage of 5 volts, which
-gives the voltage across the resistor, and then using Ohm's law
-to determine the current by dividing by the resistance. The
-outcome of these calculations is shown in Fig.~\ref{distanceCurrentFigure}
+As displayed in Fig. ~\ref{part2terminal}, the temperature according to the sensor was displayed on the screen continuously every half second according to the period of the timer module which flagged an interrupt that read from the analog input.
 
-\begin{figure}[htbp]
-    \begin{tikzpicture}
-        \begin{axis} [
-            xlabel={Distance (mm)},
-            ylabel={Current through Phototransistor (mA)},
-            xmin=0, xmax=50,
-            ymin=0, ymax=0.45,
-            ymajorgrids=true,
-            xmajorgrids=true,
-            legend pos=north east,
-            grid style=dashed,
-        ]
-            \addplot[
-                color=blue,
-                mark=square*
-            ]
-            coordinates {
-                (0,  0.008077383)
-                (1,  0.181990427)
-                (2,  0.426106901)
-                (3,  0.427802154)                
-                (4,  0.425907459)
-                (5,  0.421719186)
-                (6,  0.41713203 )
-                (7,  0.333865178)
-                (8,  0.243019545)
-                (9,  0.186876745)
-                (10, 0.157558835)                
-                (11, 0.112584763)
-                (12, 0.095931392)
-                (13, 0.078111288)
-                (14, 0.072397288)
-                (15, 0.067909852)
-                (20, 0.042281611)
-                (25, 0.034303949)
-                (30, 0.035799761)
-                (35, 0.041882728)                
-                (40, 0.049262066)
-                (45, 0.047566813)
-                (50, 0.041384124)
-            };
-            \addlegendentry{10k$\Omega$}
+The UART output was slightly incorrect as the "." character was not printing properly within the terminal. This may have been a result of the floating point values and how the print buffer was stored in a character array variable. A discussion with experts on the matter determined that fixing the issue was not feasible and stood beyond the scope of what was being tested.
 
-            \addplot[
-                color=red,
-                mark=square*
-            ]
-            coordinates {
-                (0,  0.009462151)      
-                (1,  0.187998008)       
-                (2,  0.212290837)        
-                (3,  0.214223108)        
-                (4,  0.21498506 )        
-                (5,  0.214770916)        
-                (6,  0.214287849)        
-                (7,  0.213366534)        
-                (8,  0.212400398)       
-                (9,  0.211583665)        
-                (10, 0.210906375)       
-                (11, 0.209666335)        
-                (12, 0.208869522)        
-                (13, 0.208167331)      
-                (14, 0.205169323)        
-                (15, 0.181972112)       
-                (20, 0.078187251)      
-                (25, 0.045916335)       
-                (30, 0.037699203)       
-                (35, 0.039840637)     
-                (40, 0.047659363)       
-                (45, 0.048904382)       
-                (50, 0.045742032)        
-            };
-            \addlegendentry{20k$\Omega$}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Distance of Reflective Surface from OPB745 vs Current}
-    \label{distanceCurrentFigure}
-\end{figure}
+\subsection{Camera Dark/Light Output Graphs}
 
-Fig.~\ref{distanceVoltageFigure} and Fig.~\ref{distanceCurrentFigure}
-show the relationship between the distance of the reflective
-material and the voltage and current associated with the
-phototransistor in the OPB745. This data demonstrates three
-stages within the relationship. 
+With each of the smaller portions independently verified, the two could finally be combined in the application of the line scan camera. This device was tested in multiple ways to ensure that both the hardware and software setups would produce the same, correct results. To determine the validity of the hardware setup, the AO jumper wire was connected to an oscilloscope probe rather than the ADC on the microcontroller. This way, the direct voltage value could be read and it could be observed to be changing when the camera was pointed at different shades. The result of this test is displayed in Fig. ~\ref{oscilloscope}
 
-When the voltage across the phototransistor is high and
-the current through it is low, this means that the phototransistor is
-less active, and a low voltage and higher current means
-the phototransistor is more active. Therefore, in the first
-stage, where the voltage is very high and the current is very
-low, it is clear that the phototransistor is receiving almost
-no light from the infrared diode. This is due to the fact
-that the reflective coating is so close that the light from
-the diode cannot escape the OPB745, leading to very little entering
-the phototransistor.
-
-In the next stage, the reflective material is far enough
-from the OPB745 to allow light to exit, and due to the close
-proximity, much is reflected directly into the phototransistor.
-This causes the low voltage and high current seen in the data
-after the dropoff from the first stage.
-
-When the reflective material is moved far enough from the
-device to allow reflected light to scatter to areas
-other than the phototransistor, the voltage quickly rises and
-the current falls. The values settle at a level that is
-less extreme than the initial near-complete occlusion of
-the phototransistor, as some light still reaches it.
-
-\subsection{Comparison to Expectations}
-The measured outputs of the circuit do not match fully with what was expected based upon
-the datasheet of the OPB745. For visual comparison, data from Fig.~\ref{fig:expectedvoltage} and Fig.~\ref{distanceVoltageFigure}
-are combined in Fig.~\ref{fig:expectedAndRealVoltage}.
-
-\begin{figure}[htbp]
-    \begin{tikzpicture}
-        \begin{axis} [
-            xlabel={Distance (mm)},
-            ylabel={$V_{out}$ (V)}, % might need to change this
-            xmin=0, xmax=50,
-            ymin=-1.5, ymax=5,
-            ymajorgrids=true,
-            xmajorgrids=true,
-            legend pos=south east,
-            grid style=dashed,
-        ]
-            \addplot[
-                color=blue,
-                mark=square*
-            ]
-            coordinates {
-                (0, 5)
-                (1.27, 2.5)
-                (2.54, -1.25)
-                (3.81, 0)
-                (5.08, 2.5)
-                (6.35, 3.75)
-                (7.62, 4.15)
-                (8.89, 4.25)
-                (10.16, 4.35)
-                (11.43, 4.45)
-                (12.7, 4.5)
-            };
-            \addlegendentry{Expected}
-
-            \addplot[
-                color=red,
-                mark=square*
-            ]
-            coordinates {
-                (0, 4.919)
-                (1, 3.175)
-                (2, 0.727)
-                (3, 0.71)
-                (4, 0.729)
-                (5, 0.771)
-                (6, 0.817)
-                (7, 1.652)
-                (8, 2.563)
-                (9, 3.126)
-                (10, 3.42)
-                (11, 3.871)
-                (12, 4.038)
-                (13, 4.216)
-                (14, 4.274)
-                (15, 4.319)
-                (20, 4.576)
-                (25, 4.656)
-                (30, 4.641)
-                (35, 4.58)
-                (40, 4.506)
-                (45, 4.523)
-                (50, 4.585)
-            };
-            \addlegendentry{Measured}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Measured and Expected Output Voltages of OPB745}
-    \label{fig:expectedAndRealVoltage}
-\end{figure}
-
-Fig.~\ref{fig:expectedAndRealVoltage} provides a visual comparison between the measured and expected
-outputs of the OPB745 at varying distances from a reflective surface, and demonstrates that there is
-a sizable difference between them. There are two primary differences between the graphs, both relating to
-the area where most light is reflected. In the expected data, the dip falls to a negative voltage across
-the phototransistor, whereas in the measured data, the output voltage only falls to about 0.7 volts. This is
-due to the fact that in ideal circumstances, the phototransistor would flow enough current that the voltage
-drop across the resistor is greater than 5 volts, leading to a negative current across the phototransistor.
-In the real world circuit, loss of light and possible current limiting causes the voltage to stop decreasing before
-crossing zero.
-
-The other major difference is the difference in range over which this voltage drop occurs. The OPB745 datasheet
-assumes a flat reflective surface, however the aluminum foil used in this setup has a slightly altered affect.
-This may be due to a slightly convex circuit allowing a greater range of distances to reflect light in the
-correct spot. Although it appears that the bottom of the voltage drop has a flat response over this section
-from approximately 2mm to 6mm, it may be that the voltage would have gone lower and was only stopped by
-the phototransistor's physical characteristics, and so does not necessarily imply a steady amount of light
-received by the phototransistor.
-
-\subsection{Usage with Digital Logic}
-
-In order for the OPB745 to be used as an isolator in a digital
-circuit, the output must be interpreted as a digital signal.
-This was done by passing the output through an 74LS14 
-Schmitt-trigger inverter, as
-well as feeding the input diode with the output of an 7406
-inverter. In steady state with working components, this circuit
-will behave as intended. However, due to the partially analog
-nature of the circuit, there is a switching frequency where
-this correct digital behavior begins to break down. The circuit
-was fed with a switching signal with both the input and output voltage
-monitored by a oscilloscope. The maximum operable frequencies using
-10k$\Omega$ and 20k$\Omega$ resistors were
-recorded in their working state and shown in Fig.~\ref{fig:maxFreq10k} and Fig.~\ref{fig:maxFreq20k} respectively.
-
-\begin{figure}[!ht]
+\begin{figure}
     \centering
-    % \includegraphics[width=\linewidth]{images/10k Before Good.png}
-    \caption{\textit{Maximum Switchable Frequency with 10k$\Omega$ Resistor}}
-    \label{fig:maxFreq10k}
+    \includegraphics[width=\linewidth]{images/part3scope.png}
+    \caption{Oscilloscope Capture of the Camera Voltage Output}
+    \label{oscilloscope}
 \end{figure}
 
-\begin{figure}[!ht]
+The oscilloscope in Fig. ~\ref{oscilloscope} displays two waveforms. The top waveform is the actual voltage value coming from the camera which in this case displays a peak in the center with two lower valleys on either side. This waveform is indicative of what the camera was seeing which was a bright light in the center, surrounded on both sides by a dark backdrop.
+
+The second, lower line in Fig. ~\ref{oscilloscope} is not exciting to look at as any variations aren't noticeable, but it's inclusion is essential for the proper analysis of the camera. This second probe was placed in line with the SI input in such a way that the input was still able to reach the camera, but could also be tracked on the oscilloscope. As SI is the signal which controls when the camera should begin a new scan, setting the oscilloscope to also start a new scan on a change in SI meant that the top waveform would match perfectly with one full scan from the camera.
+
+With the oscilloscope to test the hardware, a Matlab program was used to verify the software and perform more complicated smoothing and binary conversions, as previously discussed. The resulting Matlab graphs are shown in Fig. ~\ref{matlab}.
+
+\begin{figure}
     \centering
-    % \includegraphics[width=\linewidth]{images/20k Before.png}
-    \caption{\textit{Maximum Switchable Frequency with 20k$\Omega$ Resistor}}
-    \label{fig:maxFreq20k}
+    \includegraphics[width=\linewidth]{images/part3matlab.png}
+    \caption{Matlab Graphs of the Camera Voltage Output}
+    \label{matlab}
 \end{figure}
 
-Fig.~\ref{fig:maxFreq10k} demonstrates that the circuit with the 10k$\Omega$
-resistor operated at a maximum frequency of about 700Hz, while Fig.~\ref{fig:maxFreq20k}
-demonstrates that the circuit with the 20k$\Omega$ resistor could operate at only 400Hz.
+The three graphs in Fig. ~\ref{matlab} are each a different step of the simplification process. The top graph is the raw voltage which looks very similar to that shown in Fig. ~\ref{oscilloscope} (the camera was pointed at the same image). The smoothed voltage doesn't have quite as significant of jumps in voltage, most notably at 90 and 110 where the dips displayed on the raw graph have been completely smoothed over. Finally, the binary conversion plot takes the voltage values and equates them to a binary "1" or "0" depending on the threshold. Due to how the threshold was set, all values before the second dip are considered high, while after that is low. As previously mentioned, this threshold will need to be recalibrated (either automatically or by hand) for each new environment that the camera is used for every time it is used as even something as simple as the light from the sun can change on different days and at different times.
 
 \section{Questions}
 
