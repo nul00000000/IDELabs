@@ -51,6 +51,20 @@ which were compared to a waveform recorded on an oscilloscope.
 \end{abstract}
 
 \section{Design Methodology}
+In order to accurately sample many external sensors, a clock signal must be 
+used to synchronize the outputs of the sensor and the inputs of the ADC in
+the microcontroller. Although a clock signal is necessary, the
+microcontroller's internal clock would be a poor choice of a signal to use
+for this purpose, as inputs would be received at the same pace that the
+processor can execute instructions. Instead, timer interrupts were used to
+reduce the main clock signal to a significantly slower and more usable
+frequency. A Timer32 module of the MSP432 was used for this purpose.
+
+The Timer32 module was used to generate interrupts at a rate of 2Hz and
+1kHz, with the 2Hz signal being used to toggle an LED, and the 1kHz signal
+being used to measure time between button presses in milliseconds. The 2Hz
+signal was also used to trigger data collection from a temperature sensor,
+so that the program would receive updated data two times a second.
 
 Before constructing the circuit which would be used to test the opto-isolator and measure its output, the correct resistor values
 had to be determined from the OPB745 datasheet along with the anticipated voltage values. In doing this, an expected "shape" for the
@@ -620,14 +634,14 @@ recorded in their working state and shown in Fig.~\ref{fig:maxFreq10k} and Fig.~
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\linewidth]{images/10k Before Good.png}
+    % \includegraphics[width=\linewidth]{images/10k Before Good.png}
     \caption{\textit{Maximum Switchable Frequency with 10k$\Omega$ Resistor}}
     \label{fig:maxFreq10k}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\linewidth]{images/20k Before.png}
+    % \includegraphics[width=\linewidth]{images/20k Before.png}
     \caption{\textit{Maximum Switchable Frequency with 20k$\Omega$ Resistor}}
     \label{fig:maxFreq20k}
 \end{figure}
