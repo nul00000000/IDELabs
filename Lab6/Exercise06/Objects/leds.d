@@ -10,5 +10,5 @@
 .\objects\leds.o: C:\Users\nulcr\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h
 .\objects\leds.o: C:\Users\nulcr\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\mpu_armv7.h
 .\objects\leds.o: C:\Users\nulcr\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\system_msp432p401r.h
-.\objects\leds.o: common.h
+.\objects\leds.o: Common.h
 .\objects\leds.o: leds.h
