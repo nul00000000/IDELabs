@@ -11,6 +11,7 @@
 #include "msp.h"
 #include "uart.h"
 #include "TimerA.h"
+#include <math.h>
 
 #define put(x) uart0_put(x)
 
@@ -30,36 +31,20 @@ int main(void) {
 	int i;
 	// Initialize UART and PWM
 	uart0_init();
-	TIMER_A0_PWM_Init(10000, 0.0, 3);
-	TIMER_A0_PWM_Init(10000, 0.0, 4);
+	//TIMER_A0_PWM_Init(50, 0.0, 3);
+	TIMER_A0_PWM_Init(50, 0.0, 4);
 
 	// Print welcome over serial
 	put("Running... \r\n");
 	
 	// Part 1 - UNCOMMENT THIS
 	//Generate 20% duty cycle at 10kHz
-	/*
 	for(;;) {
-		for(i = 0; i < 100; i++) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 4);
-			delay(10);
-		}
-		for(i = 100; i > 0; i--) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 4);
-			delay(10);
-		}
-		TIMER_A0_PWM_DutyCycle(0, 4);
-		for(i = 0; i < 100; i++) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 3);
-			delay(10);
-		}
-		for(i = 100; i > 0; i--) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 3);
-			delay(10);
-		}
-		TIMER_A0_PWM_DutyCycle(0, 3);
+		double a = sin(i * 0.001);
+		i++;
+		TIMER_A0_PWM_DutyCycle(a * 0.03 + 0.06, 4);
 	}
-	*/
+	
 	
   //Part 2 - UNCOMMENT THIS
 	/*

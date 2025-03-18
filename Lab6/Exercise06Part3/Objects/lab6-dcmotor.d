@@ -13,3 +13,4 @@
 .\objects\lab6-dcmotor.o: uart.h
 .\objects\lab6-dcmotor.o: Common.h
 .\objects\lab6-dcmotor.o: TimerA.h
+.\objects\lab6-dcmotor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
