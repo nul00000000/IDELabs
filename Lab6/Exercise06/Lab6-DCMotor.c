@@ -38,7 +38,7 @@ int main(void) {
 	
 	// Part 1 - UNCOMMENT THIS
 	//Generate 20% duty cycle at 10kHz
-	/*
+	
 	for(;;) {
 		for(i = 0; i < 100; i++) {
 			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 4);
@@ -59,7 +59,7 @@ int main(void) {
 		}
 		TIMER_A0_PWM_DutyCycle(0, 3);
 	}
-	*/
+	
 	
   //Part 2 - UNCOMMENT THIS
 	/*

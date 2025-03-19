@@ -561,12 +561,12 @@ ARM Macro Assembler    Page 9
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=.\objects\startup_msp432p401r_uvision.d -o.\objects\startup_
-msp432p401r_uvision.o -I.\RTE\_Target_1 -IC:\Users\nulcr\AppData\Local\Arm\Pack
-s\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Users\nulcr\AppData\Local\Arm\Packs\T
+msp432p401r_uvision.o -I.\RTE\_Target_1 -IC:\Users\giant\AppData\Local\Arm\Pack
+s\ARM\CMSIS\5.9.0\CMSIS\Core\Include -IC:\Users\giant\AppData\Local\Arm\Packs\T
 exasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include --predefine="__EVAL SETA 1"
- --predefine="__UVISION_VERSION SETA 531" --predefine="_RTE_ SETA 1" --predefin
+ --predefine="__UVISION_VERSION SETA 539" --predefine="_RTE_ SETA 1" --predefin
 e="_RTE_ SETA 1" --predefine="__MSP432P401R__ SETA 1" --list=.\listings\startup
-_msp432p401r_uvision.lst RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+_msp432p401r_uvision.lst RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 
 
@@ -577,7 +577,7 @@ STACK 00000000
 
 Symbol: STACK
    Definitions
-      At line 45 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 45 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: STACK unused
@@ -585,18 +585,18 @@ Stack_Mem 00000000
 
 Symbol: Stack_Mem
    Definitions
-      At line 46 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 46 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 326 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 328 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 326 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 328 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 __initial_sp 00000200
 
 Symbol: __initial_sp
    Definitions
-      At line 47 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 47 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 73 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 73 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 Comment: __initial_sp used once
 3 symbols
 
@@ -609,7 +609,7 @@ HEAP 00000000
 
 Symbol: HEAP
    Definitions
-      At line 56 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 56 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: HEAP unused
@@ -617,16 +617,16 @@ Heap_Mem 00000000
 
 Symbol: Heap_Mem
    Definitions
-      At line 58 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 58 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 325 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 327 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 325 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 327 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 __heap_base 00000000
 
 Symbol: __heap_base
    Definitions
-      At line 57 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 57 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: __heap_base unused
@@ -634,7 +634,7 @@ __heap_limit 00000000
 
 Symbol: __heap_limit
    Definitions
-      At line 59 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 59 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: __heap_limit unused
@@ -649,7 +649,7 @@ RESET 00000000
 
 Symbol: RESET
    Definitions
-      At line 68 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 68 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: RESET unused
@@ -657,19 +657,19 @@ __Vectors 00000000
 
 Symbol: __Vectors
    Definitions
-      At line 73 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 73 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 69 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 159 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 69 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 159 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 __Vectors_End 00000144
 
 Symbol: __Vectors_End
    Definitions
-      At line 157 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 157 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 70 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 159 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 70 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 159 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 3 symbols
 
@@ -682,7 +682,7 @@ Relocatable symbols
 
 Symbol: .text
    Definitions
-      At line 161 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 161 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: .text unused
@@ -690,52 +690,52 @@ ADC14_IRQHandler 0000001A
 
 Symbol: ADC14_IRQHandler
    Definitions
-      At line 288 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 288 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 115 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 246 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 115 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 246 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 AES256_IRQHandler 0000001A
 
 Symbol: AES256_IRQHandler
    Definitions
-      At line 292 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 292 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 119 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 250 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 119 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 250 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 BusFault_Handler 0000000E
 
 Symbol: BusFault_Handler
    Definitions
-      At line 194 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 194 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 78 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 195 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 78 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 195 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 COMP_E0_IRQHandler 0000001A
 
 Symbol: COMP_E0_IRQHandler
    Definitions
-      At line 270 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 270 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 97 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 228 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 97 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 228 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 COMP_E1_IRQHandler 0000001A
 
 Symbol: COMP_E1_IRQHandler
    Definitions
-      At line 271 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 271 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 98 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 229 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 98 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 229 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 CS_IRQHandler 0000001A
 
 Symbol: CS_IRQHandler
    Definitions
-      At line 265 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 265 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
 
 
@@ -743,62 +743,62 @@ Symbol: CS_IRQHandler
 ARM Macro Assembler    Page 2 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 92 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 223 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 92 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 223 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 DMA_ERR_IRQHandler 0000001A
 
 Symbol: DMA_ERR_IRQHandler
    Definitions
-      At line 294 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 294 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 121 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 252 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 121 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 252 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 DMA_INT0_IRQHandler 0000001A
 
 Symbol: DMA_INT0_IRQHandler
    Definitions
-      At line 298 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 298 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 125 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 256 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 125 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 256 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 DMA_INT1_IRQHandler 0000001A
 
 Symbol: DMA_INT1_IRQHandler
    Definitions
-      At line 297 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 297 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 124 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 255 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 124 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 255 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 DMA_INT2_IRQHandler 0000001A
 
 Symbol: DMA_INT2_IRQHandler
    Definitions
-      At line 296 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 296 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 123 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 254 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 123 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 254 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 DMA_INT3_IRQHandler 0000001A
 
 Symbol: DMA_INT3_IRQHandler
    Definitions
-      At line 295 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 295 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 122 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 253 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 122 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 253 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 DebugMon_Handler 00000014
 
 Symbol: DebugMon_Handler
    Definitions
-      At line 208 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 208 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 85 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 209 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 85 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 209 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 Default_Handler 0000001A
 
@@ -810,7 +810,7 @@ Relocatable symbols
 
 Symbol: Default_Handler
    Definitions
-      At line 221 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 221 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: Default_Handler unused
@@ -818,55 +818,55 @@ EUSCIA0_IRQHandler 0000001A
 
 Symbol: EUSCIA0_IRQHandler
    Definitions
-      At line 280 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 280 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 107 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 238 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 107 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 238 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 EUSCIA1_IRQHandler 0000001A
 
 Symbol: EUSCIA1_IRQHandler
    Definitions
-      At line 281 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 281 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 108 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 239 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 108 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 239 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 EUSCIA2_IRQHandler 0000001A
 
 Symbol: EUSCIA2_IRQHandler
    Definitions
-      At line 282 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 282 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 109 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 240 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 109 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 240 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 EUSCIA3_IRQHandler 0000001A
 
 Symbol: EUSCIA3_IRQHandler
    Definitions
-      At line 283 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 283 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 110 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 241 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 110 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 241 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 EUSCIB0_IRQHandler 0000001A
 
 Symbol: EUSCIB0_IRQHandler
    Definitions
-      At line 284 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 284 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 111 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 242 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 111 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 242 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 EUSCIB1_IRQHandler 0000001A
 
 Symbol: EUSCIB1_IRQHandler
    Definitions
-      At line 285 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 285 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 112 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 243 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 112 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 243 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 
 
@@ -878,55 +878,55 @@ EUSCIB2_IRQHandler 0000001A
 
 Symbol: EUSCIB2_IRQHandler
    Definitions
-      At line 286 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 286 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 113 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 244 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 113 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 244 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 EUSCIB3_IRQHandler 0000001A
 
 Symbol: EUSCIB3_IRQHandler
    Definitions
-      At line 287 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 287 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 114 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 245 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 114 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 245 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 FLCTL_IRQHandler 0000001A
 
 Symbol: FLCTL_IRQHandler
    Definitions
-      At line 269 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 269 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 96 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 227 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 96 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 227 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 FPU_IRQHandler 0000001A
 
 Symbol: FPU_IRQHandler
    Definitions
-      At line 268 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 268 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 95 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 226 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 95 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 226 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 HardFault_Handler 0000000A
 
 Symbol: HardFault_Handler
    Definitions
-      At line 184 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 184 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 76 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 185 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 76 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 185 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 MemManage_Handler 0000000C
 
 Symbol: MemManage_Handler
    Definitions
-      At line 189 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 189 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 77 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 190 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 77 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 190 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 NMI_Handler 00000008
 
@@ -938,64 +938,64 @@ Symbol: NMI_Handler
 ARM Macro Assembler    Page 5 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 179 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 179 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 75 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 180 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 75 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 180 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PCM_IRQHandler 0000001A
 
 Symbol: PCM_IRQHandler
    Definitions
-      At line 266 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 266 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 93 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 224 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 93 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 224 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PORT1_IRQHandler 0000001A
 
 Symbol: PORT1_IRQHandler
    Definitions
-      At line 299 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 299 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 126 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 257 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 126 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 257 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PORT2_IRQHandler 0000001A
 
 Symbol: PORT2_IRQHandler
    Definitions
-      At line 300 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 300 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 127 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 258 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 127 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 258 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PORT3_IRQHandler 0000001A
 
 Symbol: PORT3_IRQHandler
    Definitions
-      At line 301 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 301 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 128 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 259 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 128 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 259 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PORT4_IRQHandler 0000001A
 
 Symbol: PORT4_IRQHandler
    Definitions
-      At line 302 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 302 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 129 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 260 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 129 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 260 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PORT5_IRQHandler 0000001A
 
 Symbol: PORT5_IRQHandler
    Definitions
-      At line 303 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 303 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 130 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 261 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 130 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 261 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 
 
@@ -1007,61 +1007,61 @@ PORT6_IRQHandler 0000001A
 
 Symbol: PORT6_IRQHandler
    Definitions
-      At line 304 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 304 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 131 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 262 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 131 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 262 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PSS_IRQHandler 0000001A
 
 Symbol: PSS_IRQHandler
    Definitions
-      At line 264 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 264 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 91 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 222 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 91 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 222 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 PendSV_Handler 00000016
 
 Symbol: PendSV_Handler
    Definitions
-      At line 212 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 212 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 87 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 213 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 87 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 213 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 RTC_C_IRQHandler 0000001A
 
 Symbol: RTC_C_IRQHandler
    Definitions
-      At line 293 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 293 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 120 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 251 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 120 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 251 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 Reset_Handler 00000000
 
 Symbol: Reset_Handler
    Definitions
-      At line 166 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 166 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 74 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 167 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 74 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 167 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 SVC_Handler 00000012
 
 Symbol: SVC_Handler
    Definitions
-      At line 203 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 203 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 84 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 204 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 84 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 204 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 SysTick_Handler 00000018
 
 Symbol: SysTick_Handler
    Definitions
-      At line 216 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 216 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 
 
@@ -1069,62 +1069,62 @@ ARM Macro Assembler    Page 7 Alphabetic symbol ordering
 Relocatable symbols
 
    Uses
-      At line 88 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 217 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 88 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 217 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 T32_INT1_IRQHandler 0000001A
 
 Symbol: T32_INT1_IRQHandler
    Definitions
-      At line 289 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 289 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 116 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 247 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 116 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 247 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 T32_INT2_IRQHandler 0000001A
 
 Symbol: T32_INT2_IRQHandler
    Definitions
-      At line 290 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 290 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 117 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 248 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 117 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 248 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 T32_INTC_IRQHandler 0000001A
 
 Symbol: T32_INTC_IRQHandler
    Definitions
-      At line 291 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 291 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 118 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 249 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 118 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 249 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA0_0_IRQHandler 0000001A
 
 Symbol: TA0_0_IRQHandler
    Definitions
-      At line 272 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 272 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 99 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 230 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 99 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 230 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA0_N_IRQHandler 0000001A
 
 Symbol: TA0_N_IRQHandler
    Definitions
-      At line 273 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 273 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 100 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 231 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 100 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 231 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA1_0_IRQHandler 0000001A
 
 Symbol: TA1_0_IRQHandler
    Definitions
-      At line 274 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 274 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 101 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 232 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 101 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 232 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA1_N_IRQHandler 0000001A
 
@@ -1136,61 +1136,61 @@ Relocatable symbols
 
 Symbol: TA1_N_IRQHandler
    Definitions
-      At line 275 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 275 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 102 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 233 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 102 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 233 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA2_0_IRQHandler 0000001A
 
 Symbol: TA2_0_IRQHandler
    Definitions
-      At line 276 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 276 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 103 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 234 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 103 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 234 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA2_N_IRQHandler 0000001A
 
 Symbol: TA2_N_IRQHandler
    Definitions
-      At line 277 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 277 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 104 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 235 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 104 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 235 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA3_0_IRQHandler 0000001A
 
 Symbol: TA3_0_IRQHandler
    Definitions
-      At line 278 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 278 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 105 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 236 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 105 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 236 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 TA3_N_IRQHandler 0000001A
 
 Symbol: TA3_N_IRQHandler
    Definitions
-      At line 279 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 279 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 106 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 237 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 106 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 237 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 UsageFault_Handler 00000010
 
 Symbol: UsageFault_Handler
    Definitions
-      At line 199 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 199 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 79 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 200 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 79 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 200 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 WDT_A_IRQHandler 0000001A
 
 Symbol: WDT_A_IRQHandler
    Definitions
-      At line 267 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 267 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
 
 
@@ -1198,16 +1198,16 @@ Symbol: WDT_A_IRQHandler
 ARM Macro Assembler    Page 9 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 94 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 225 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 94 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 225 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 __user_initial_stackheap 0000001C
 
 Symbol: __user_initial_stackheap
    Definitions
-      At line 324 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 324 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 322 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 322 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 Comment: __user_initial_stackheap used once
 54 symbols
 
@@ -1220,27 +1220,27 @@ Heap_Size 00000000
 
 Symbol: Heap_Size
    Definitions
-      At line 54 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 54 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 58 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 327 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 58 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 327 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 Stack_Size 00000200
 
 Symbol: Stack_Size
    Definitions
-      At line 43 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 43 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 46 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
-      At line 326 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 46 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
+      At line 326 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 
 __Vectors_Size 00000144
 
 Symbol: __Vectors_Size
    Definitions
-      At line 159 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 159 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 71 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 71 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 Comment: __Vectors_Size used once
 3 symbols
 
@@ -1253,23 +1253,23 @@ SystemInit 00000000
 
 Symbol: SystemInit
    Definitions
-      At line 168 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 168 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 170 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 170 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 Comment: SystemInit used once
 __main 00000000
 
 Symbol: __main
    Definitions
-      At line 169 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 169 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
-      At line 172 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 172 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
 Comment: __main used once
 __use_two_region_memory 00000000
 
 Symbol: __use_two_region_memory
    Definitions
-      At line 321 in file RTE\Device\MSP432P401R\startup_msp432p401r_uvision.s
+      At line 321 in file RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s
    Uses
       None
 Comment: __use_two_region_memory unused
