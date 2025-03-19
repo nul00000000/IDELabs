@@ -36,6 +36,8 @@ int main(void) {
 	// Print welcome over serial
 	put("Running... \r\n");
 	
+	TIMER_A0_PWM_DutyCycle(0.2, 4);
+	
 	// Part 1 - UNCOMMENT THIS
 	//Generate 20% duty cycle at 10kHz
 	

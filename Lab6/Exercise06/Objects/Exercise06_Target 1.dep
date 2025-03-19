@@ -1,6 +1,16 @@
 Dependencies for Project 'Exercise06', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCCv506u6
-F (.\Lab6-DCMotor.c)(0x67D9EF39)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__-o .\objects\lab6-dcmotor.o --omf_browse .\objects\lab6-dcmotor.crf --depend .\objects\lab6-dcmotor.d)
+F (.\Lab6-DCMotor.c)(0x67D9EF39)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections
+
+-I.\RTE\_Target_1
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include
+
+-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__
+
+-o .\objects\lab6-dcmotor.o --omf_browse .\objects\lab6-dcmotor.crf --depend .\objects\lab6-dcmotor.d)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp.h)(0x6787B402)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp432p401r.h)(0x6787B402)
 I (C:\Keil_v5\ARM\ARMCCv506u6\include\stdint.h)(0x5E8EF392)
@@ -15,7 +25,17 @@ I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\
 I (uart.h)(0x67BF1E30)
 I (Common.h)(0x67BF1E2F)
 I (TimerA.h)(0x67BF1E30)
-F (.\leds.c)(0x67BF2536)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__-o .\objects\leds.o --omf_browse .\objects\leds.crf --depend .\objects\leds.d)
+F (.\leds.c)(0x67BF2536)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections
+
+-I.\RTE\_Target_1
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include
+
+-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__
+
+-o .\objects\leds.o --omf_browse .\objects\leds.crf --depend .\objects\leds.d)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp.h)(0x6787B402)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp432p401r.h)(0x6787B402)
 I (C:\Keil_v5\ARM\ARMCCv506u6\include\stdint.h)(0x5E8EF392)
@@ -29,7 +49,17 @@ I (C:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\system_msp432p401r.h)(0x6787B402)
 I (Common.h)(0x67BF1E2F)
 I (leds.h)(0x67BF1E30)
-F (.\TimerA.c)(0x67D9DCC0)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__-o .\objects\timera.o --omf_browse .\objects\timera.crf --depend .\objects\timera.d)
+F (.\TimerA.c)(0x67D9DCC0)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections
+
+-I.\RTE\_Target_1
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include
+
+-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__
+
+-o .\objects\timera.o --omf_browse .\objects\timera.crf --depend .\objects\timera.d)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp.h)(0x6787B402)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp432p401r.h)(0x6787B402)
 I (C:\Keil_v5\ARM\ARMCCv506u6\include\stdint.h)(0x5E8EF392)
@@ -45,7 +75,17 @@ I (C:\Keil_v5\ARM\ARMCCv506u6\include\stdio.h)(0x5E8EF392)
 I (TimerA.h)(0x67BF1E30)
 I (uart.h)(0x67BF1E30)
 I (Common.h)(0x67BF1E2F)
-F (.\uart.c)(0x67BF1E30)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
+F (.\uart.c)(0x67BF1E30)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections
+
+-I.\RTE\_Target_1
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include
+
+-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__
+
+-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp.h)(0x6787B402)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp432p401r.h)(0x6787B402)
 I (C:\Keil_v5\ARM\ARMCCv506u6\include\stdint.h)(0x5E8EF392)
@@ -59,8 +99,28 @@ I (C:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\system_msp432p401r.h)(0x6787B402)
 I (uart.h)(0x67BF1E30)
 I (Common.h)(0x67BF1E2F)
-F (RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s)(0x67BF1E30)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include--pd "__UVISION_VERSION SETA 539" --pd "_RTE_ SETA 1" --pd "_RTE_ SETA 1" --pd "__MSP432P401R__ SETA 1"--list .\listings\startup_msp432p401r_uvision.lst --xref -o .\objects\startup_msp432p401r_uvision.o --depend .\objects\startup_msp432p401r_uvision.d)
-F (RTE/Device/MSP432P401R/system_msp432p401r.c)(0x67BF1E30)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__-o .\objects\system_msp432p401r.o --omf_browse .\objects\system_msp432p401r.crf --depend .\objects\system_msp432p401r.d)
+F (RTE/Device/MSP432P401R/startup_msp432p401r_uvision.s)(0x67BF1E30)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork 
+
+-I.\RTE\_Target_1
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include
+
+--pd "__UVISION_VERSION SETA 539" --pd "_RTE_ SETA 1" --pd "_RTE_ SETA 1" --pd "__MSP432P401R__ SETA 1"
+
+--list .\listings\startup_msp432p401r_uvision.lst --xref -o .\objects\startup_msp432p401r_uvision.o --depend .\objects\startup_msp432p401r_uvision.d)
+F (RTE/Device/MSP432P401R/system_msp432p401r.c)(0x67BF1E30)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections
+
+-I.\RTE\_Target_1
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+
+-IC:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include
+
+-D__UVISION_VERSION="539" -D_RTE_ -D_RTE_ -D__MSP432P401R__
+
+-o .\objects\system_msp432p401r.o --omf_browse .\objects\system_msp432p401r.crf --depend .\objects\system_msp432p401r.d)
 I (C:\Keil_v5\ARM\ARMCCv506u6\include\stdint.h)(0x5E8EF392)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp.h)(0x6787B402)
 I (C:\Users\giant\AppData\Local\Arm\Packs\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include\msp432p401r.h)(0x6787B402)

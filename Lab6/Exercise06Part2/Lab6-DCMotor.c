@@ -27,87 +27,45 @@ void delay(int del){
 }
 
 int main(void) {
-	int i;
-	// Initialize UART and PWM
-	uart0_init();
-	TIMER_A0_PWM_Init(10000, 0.0, 3);
-	TIMER_A0_PWM_Init(10000, 0.0, 4);
-
-	// Print welcome over serial
-	put("Running... \r\n");
+	int forward = 1;
+	int phase = 0;
+	int pos = 0;
 	
 	// Part 1 - UNCOMMENT THIS
 	//Generate 20% duty cycle at 10kHz
-	/*
-	for(;;) {
-		for(i = 0; i < 100; i++) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 4);
-			delay(10);
+	// Configure the Signal Multiplexer for GPIO Pins
+	// Configure the GPIO Pins for Output
+	P4->SEL0 &= ~(BIT1 | BIT2 | BIT3 | BIT4);
+	P4->SEL1 &= ~(BIT1 | BIT2 | BIT3 | BIT4);
+	P4->DIR |= (BIT1 | BIT2 | BIT3 | BIT4);
+	P4->DS |= (BIT1 | BIT2 | BIT3 | BIT4);
+	while ( 1 ){
+		// Turn off all coils , Set GPIO pins to 0
+		P4->OUT &= ~(BIT1 | BIT2 | BIT3 | BIT4);
+		// Set one pin high at a time
+		if ( forward ) {
+			if ( phase == 0) { P4->OUT |= BIT1; P4->OUT &= ~BIT4; phase ++;} // A ,1 a
+			else if ( phase == 1) { P4->OUT |= BIT2; P4->OUT &= ~BIT1; phase ++;} // B ,2 a
+			else if ( phase == 2) { P4->OUT |= BIT3; P4->OUT &= ~BIT2; phase ++;} // C ,1 b
+			else { P4->OUT |= BIT4; P4->OUT &= ~BIT3; phase =0;} // D ,2 b
+			pos++;
+			if(pos == 20) {
+				forward = 0;
+			}
 		}
-		for(i = 100; i > 0; i--) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 4);
-			delay(10);
+		else { // reverse
+			if ( phase == 0) { P4->OUT |= BIT4; P4->OUT &= ~BIT1; phase ++;} // D ,2 b
+			else if ( phase == 1) { P4->OUT |= BIT3; P4->OUT &= ~BIT4; phase ++;} // C ,1 b
+			else if ( phase == 2) { P4->OUT |= BIT2; P4->OUT &= ~BIT3; phase ++;} // B ,2 a
+			else { P4->OUT |= BIT1; P4->OUT &= ~BIT2; phase =0;} // A ,1 a
+			pos--;
+			if(pos == 0) {
+				forward = 1;
+			}
 		}
-		TIMER_A0_PWM_DutyCycle(0, 4);
-		for(i = 0; i < 100; i++) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 3);
-			delay(10);
-		}
-		for(i = 100; i > 0; i--) {
-			TIMER_A0_PWM_DutyCycle((double) i / 100.0, 3);
-			delay(10);
-		}
-		TIMER_A0_PWM_DutyCycle(0, 3);
+		// Note - you need to write your own delay function
+		delay (pos * 5 + 50); // smaller values = faster speed
 	}
-	*/
-	
-  //Part 2 - UNCOMMENT THIS
-	/*
-	for(;;)  //loop forever
-	{
-		uint16_t dc = 0;
-		uint16_t freq = 10000; // Frequency = 10 kHz 
-		uint16_t dir = 0;
-		char c = 48;
-		int i=0;
-		
-		// 0 to 100% duty cycle in forward direction
-		for (i=0; i<100; i++) {
-			TIMER_A0_PWM_DutyCycle(i/100, 1);
-			TIMER_A0_PWM_DutyCycle(0, 2);
-			TIMER_A0_PWM_DutyCycle(i/100, 3);
-			TIMER_A0_PWM_DutyCycle(0, 4);
-			delay(10);
-		}
-		
-		// 100% down to 0% duty cycle in the forward direction
-		for (i=100; i>=0; i--) {
-			TIMER_A0_PWM_DutyCycle(i/100, 1);
-			TIMER_A0_PWM_DutyCycle(0, 2);
-			TIMER_A0_PWM_DutyCycle(i/100, 3);
-			TIMER_A0_PWM_DutyCycle(0, 4);
-			delay(10);
-		}
-		
-		// 0 to 100% duty cycle in reverse direction
-		for (i=0; i<100; i++) {
-		  TIMER_A0_PWM_DutyCycle(0, 1);
-			TIMER_A0_PWM_DutyCycle(i/100, 2);
-			TIMER_A0_PWM_DutyCycle(0, 3);
-			TIMER_A0_PWM_DutyCycle(i/100, 4);
-			delay(10);
-		}
-		
-		// 100% down to 0% duty cycle in the reverse direction
-		for (i=100; i>=0; i--) {
-		  TIMER_A0_PWM_DutyCycle(0, 1);
-			TIMER_A0_PWM_DutyCycle(i/100, 2);
-			TIMER_A0_PWM_DutyCycle(0, 3);
-			TIMER_A0_PWM_DutyCycle(i/100, 4);
-			delay(10);
-		}
-
-	}*/
 	return 0;
 }
 
