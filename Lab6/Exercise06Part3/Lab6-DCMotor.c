@@ -37,8 +37,6 @@ int main(void) {
 	// Print welcome over serial
 	put("Running... \r\n");
 	
-	// Part 1 - UNCOMMENT THIS
-	//Generate 20% duty cycle at 10kHz
 	for(;;) {
 		double a = sin(i * 0.001);
 		i++;
@@ -46,53 +44,6 @@ int main(void) {
 	}
 	
 	
-  //Part 2 - UNCOMMENT THIS
-	/*
-	for(;;)  //loop forever
-	{
-		uint16_t dc = 0;
-		uint16_t freq = 10000; // Frequency = 10 kHz 
-		uint16_t dir = 0;
-		char c = 48;
-		int i=0;
-		
-		// 0 to 100% duty cycle in forward direction
-		for (i=0; i<100; i++) {
-			TIMER_A0_PWM_DutyCycle(i/100, 1);
-			TIMER_A0_PWM_DutyCycle(0, 2);
-			TIMER_A0_PWM_DutyCycle(i/100, 3);
-			TIMER_A0_PWM_DutyCycle(0, 4);
-			delay(10);
-		}
-		
-		// 100% down to 0% duty cycle in the forward direction
-		for (i=100; i>=0; i--) {
-			TIMER_A0_PWM_DutyCycle(i/100, 1);
-			TIMER_A0_PWM_DutyCycle(0, 2);
-			TIMER_A0_PWM_DutyCycle(i/100, 3);
-			TIMER_A0_PWM_DutyCycle(0, 4);
-			delay(10);
-		}
-		
-		// 0 to 100% duty cycle in reverse direction
-		for (i=0; i<100; i++) {
-		  TIMER_A0_PWM_DutyCycle(0, 1);
-			TIMER_A0_PWM_DutyCycle(i/100, 2);
-			TIMER_A0_PWM_DutyCycle(0, 3);
-			TIMER_A0_PWM_DutyCycle(i/100, 4);
-			delay(10);
-		}
-		
-		// 100% down to 0% duty cycle in the reverse direction
-		for (i=100; i>=0; i--) {
-		  TIMER_A0_PWM_DutyCycle(0, 1);
-			TIMER_A0_PWM_DutyCycle(i/100, 2);
-			TIMER_A0_PWM_DutyCycle(0, 3);
-			TIMER_A0_PWM_DutyCycle(i/100, 4);
-			delay(10);
-		}
-
-	}*/
 	return 0;
 }
 
