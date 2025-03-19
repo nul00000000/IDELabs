@@ -132,16 +132,56 @@ output of the microcontroller is essentially mapped to the 10V source from the
 
 \section*{Code Explanation}
 
+The code that initializes the PWM signals coming from the
+microcontroller work by doing a series of steps, those being: 1. Disable all
+PWM signals in a given timer, 2. Set pin multiplexers so that the pins 2.4-2.7
+are tied to the PWM outputs, 3. Calculate and set the period that the PWM will
+run at, 4. Set the PWM to use active high, 5, set the duty cycle as a portion
+of the overall period, 5. Other initialization like setting the clock source,
+clock divider, and then finally, 6. Clearing the timer counter and start the
+timer. \\
+
+The code for actually deciding how to use these PWM signals is very simple.
+For the DC motors, the code simply uses an up and down counter to ramp the
+speed of the motor up and down in alternating directions. \\
+
+The code that controlled the stepper motors did not use PWM, and simply drove
+the coils of the motor in successive order (as well as the reverse order), to
+drive it each direction. The speed could be modified by changing the rate at
+which the coils were switched.\\
+
+The code that controlled the servo motor was extremely simply, and generated
+a single PWM channel at 50Hz, with a duty cycle that was updated based upon
+a sine function, order to test the full range of motion.\\
+
 \section*{Questions}
 \setlength{\parindent}{20pt}
-1. \underline{Explain how to change speed and direction of turn of the DC 
-motor.} \\
-\indent 
-2. \underline{The above method requires two PWM lines, one for forward, and
+
+1. Explain how to change speed and direction of turn of the DC motor. 
+
+\indent The speed of the DC motor can be changed by providing a different
+duty cycle on the PWM signal. A lower duty cycle will drive the motor for
+smaller periods of time, leading to slower speeds. The direction can be changed
+by switching the polarity of the signal that goes to the motor. Usually for DC
+motors this is done by driving two different H-bridge inputs with separate
+PWM signals, and connecting both outputs to the motor. This allows speed and
+direction control. \\
+
+2. The above method requires two PWM lines, one for forward, and
 one for reverse. Describe an alternate method that uses only one PWM line and
-one GPIO line.} \\
-\indent 
-3. \underline{Which stepping mode does this code use?} \\
-\indent 
+one GPIO line.
+
+\indent Using a slightly more complex motor driver, both the speed and direction
+of the motor could be controlled by a single PWM signal, with some duty cycle,
+like 15\% acting as a middle point that describes no motion. With this, a lower
+duty cycle can describe the motor moving in one direction and higher duty cycles
+in the other. The further the PWM signal from the center duty cycle, the greater
+the speed of the motor. \\
+
+3. Which stepping mode does this code use?
+
+\indent This code uses a full step, low torque stepping mode, as only one
+coil is active at any given time, and is fully driven, and is therefore low 
+torque, and doing a full step each time.
 
 \end{document}
