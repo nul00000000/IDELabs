@@ -13,7 +13,7 @@
 #include "TimerA.h"
 #include <math.h>
 
-#define put(x) uart0_put(x)
+#define puts(x) uart0_put(x)
 
 /**
  * Waits for a delay (in milliseconds)
