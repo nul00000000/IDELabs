@@ -9,10 +9,12 @@
 #define I (0.0f)
 #define D (0.0f)
 
-#define DIFF_COEF 0.2f
+#define DIFF_COEF 0.17f
 
 extern float lightCenter;
 extern int num;
+
+//current measured lap speed on milestone 3: 34.57s over 4 laps = 8.89s (wowzers)
 
 int main() {
 	uint32_t i;
@@ -66,8 +68,8 @@ int main() {
 			setWheel(1, 0);
 		} else {
 			setSteerAngle(steering);
-			setWheel(0, (-0.47f + (steering > 0 ? steering * DIFF_COEF : 0)) * speed); //the polarity is now correct
-			setWheel(1, (-0.47f + (steering < 0 ? -steering * DIFF_COEF : 0)) * speed);
+			setWheel(0, (-0.5f + (steering > 0 ? steering * DIFF_COEF : 0)) * speed); //the polarity is now correct
+			setWheel(1, (-0.5f + (steering < 0 ? -steering * DIFF_COEF : 0)) * speed);
 			//setWheel(0, 0);
 			//setWheel(1, 0);
 			//we all live in a yellow submarine
