@@ -7,7 +7,8 @@ uint16_t lineData[128];
 uint16_t procData[128];
 char g_sendData;
 
-int lightCenter = 0;
+float lightCenter = 0.0f;
+int num = 0;
 
 void initCar(void) {
 	uart0_init();
@@ -53,31 +54,33 @@ void initCamera(void) {
 	for(i = 0; i < 128; i++) {
 		lineData[i] = (uint16_t) (8000 * sin(i * 0.05) + 8196);
 	}
-	OLED_DisplayCameraData(lineData);*/
-	put("OLED Initialized\n\n");
+	OLED_DisplayCameraData(lineData);
+	put("OLED Initialized\n\n");*/
 }
 
-void updateCamera(void) {
+char updateCamera(void) {
 	int i;
-	int num = 0;
-	lightCenter = 0;
+	char carpet = 1;
+	int total = 0;
+	num = 0;
+	lightCenter = 0.0f;
 	for(i = 0; i < 128; i++) {
-		procData[i] = (lineData[i] > 10000) * 8000;
+		procData[i] = (lineData[i] > 11000) * 8000;
 		if(procData[i]) {
-			lightCenter += i;
+			total += i;
 			num++;
+		}
+		if(procData[i]) {
+				carpet = 0;
 		}
 	}
 	
-	lightCenter /= num;
+	lightCenter = (float) total / (float) num;
 	
-	lightCenter = 64 - lightCenter;
+	lightCenter = 64.0f - lightCenter;
 	
-	if(num == 0) {
-		lightCenter = 400;
-	}
-	
-	//OLED_DisplayCameraData(procData);
+	//OLED_DisplayCameraData(lineData);
+	return carpet;
 }
 
 void enableMotor(char right, char enabled) {

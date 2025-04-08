@@ -12,7 +12,7 @@
 
 void initCar(void);
 void initCamera(void);
-void updateCamera(void);
+char updateCamera(void);
 void enableMotor(char left, char enabled);
 void setWheel(char left, double speed);
 void setSteerAngle(double angle);

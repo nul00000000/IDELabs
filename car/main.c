@@ -4,41 +4,55 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define P (1.0f / 12.0f)
-#define I 0.00000001f
-#define D 0.001f
+//#define P (1.0f / 5.0f)
+#define P (0.10f)
+#define I (0.0f)
+#define D (0.0f)
 
-#define DIFF_COEF 0.01f
+#define DIFF_COEF 0.2f
 
-extern int lightCenter;
+extern float lightCenter;
+extern int num;
 
 int main() {
 	uint32_t i;
-	float a;
 	char buf[32];
 	
-	int accum = 0;
-	int lastCenter = 0;
+	float lastCenter = 0;
+	float lastLastCenter = 0;
+	
+	float dval = 0;
+	float dDrop = 0;
 	
 	float steering = 0;
-				
+	float speed = 0;
+	
+	char carpet = 0;
+	
 	initCar();
 	initCamera();
 	
 	P3->OUT |= (BIT6);
 	P3->OUT |= (BIT7);
 	
-	uart0_put("Car Starting\n");
+	uart0_put("Car Started\n");
 	
-	for(i = 0;; i++) {		
-		if(lightCenter != 400) {
+	for(i = 0;; i++) {
+		if(!carpet) {
+			lastLastCenter = lastCenter;
 			lastCenter = lightCenter;
-			accum += lightCenter;
 		}
 		
-		updateCamera();
+		carpet = updateCamera();
 		
-		steering = lightCenter * P + accum * I + (lightCenter - lastCenter) * D;
+		//steering = (lightCenter * P) + ((lightCenter + lastCenter) * I * 0.001) + ((lightCenter - 2 * lastCenter + lastLastCenter) * D) + 0.2;
+		dval = (lightCenter - 2 * lastCenter + lastLastCenter);
+		//dDrop = fabs(dval) > fabs(dDrop) ? dval : (dval * 0.5f + dDrop * 0.5f);
+		steering = (lightCenter * P) + (dval * D) + 0.15f;
+		speed = num / 128.0f * 0.45f + 0.55f;
+		
+		//sprintf(buf, "wow %d\n", (int) lightCenter);
+		//uart0_put(buf);
 		
 		if(steering > 1.0f) {
 			steering = 1.0f;
@@ -46,14 +60,17 @@ int main() {
 			steering = -1.0f;
 		}
 		
-		if(lightCenter == 400) {
-			setSteerAngle(0.2);
+		if(carpet) {
+			setSteerAngle(0.15);
 			setWheel(0, 0);
 			setWheel(1, 0);
 		} else {
 			setSteerAngle(steering);
-			setWheel(0, -0.4f + -steering * DIFF_COEF);
-			setWheel(1, -0.4f + steering * DIFF_COEF);
+			setWheel(0, (-0.47f + (steering > 0 ? steering * DIFF_COEF : 0)) * speed); //the polarity is now correct
+			setWheel(1, (-0.47f + (steering < 0 ? -steering * DIFF_COEF : 0)) * speed);
+			//setWheel(0, 0);
+			//setWheel(1, 0);
+			//we all live in a yellow submarine
 		}
 
 		/*if(a > 0) {
