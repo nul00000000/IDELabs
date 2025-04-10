@@ -4,12 +4,14 @@
 #include <stdint.h>
 #include <stdio.h>
 
-//#define P (1.0f / 5.0f)
-#define P (0.10f)
+//#define P (0.10f)
+#define P (0.11f)
 #define I (0.0f)
-#define D (0.0f)
+#define D (10.0f)
 
-#define DIFF_COEF 0.17f
+#define DIFF_COEF 0.4f
+
+#define NUM_MEM 20
 
 extern float lightCenter;
 extern int num;
@@ -20,8 +22,8 @@ int main() {
 	uint32_t i;
 	char buf[32];
 	
-	float lastCenter = 0;
-	float lastLastCenter = 0;
+	int currIndex = 0;
+	float lastCenters[NUM_MEM];
 	
 	float dval = 0;
 	float dDrop = 0;
@@ -30,6 +32,10 @@ int main() {
 	float speed = 0;
 	
 	char carpet = 0;
+	
+	for(i = 0; i < NUM_MEM; i++) {
+		lastCenters[i] = 0.0f;
+	}
 	
 	initCar();
 	initCamera();
@@ -40,18 +46,21 @@ int main() {
 	uart0_put("Car Started\n");
 	
 	for(i = 0;; i++) {
-		if(!carpet) {
-			lastLastCenter = lastCenter;
-			lastCenter = lightCenter;
+		if(!carpet) {			
+			lastCenters[currIndex] = lightCenter;
+			currIndex++;
+			if(currIndex > NUM_MEM) {
+				currIndex = 0;
+			}
 		}
 		
 		carpet = updateCamera();
 		
 		//steering = (lightCenter * P) + ((lightCenter + lastCenter) * I * 0.001) + ((lightCenter - 2 * lastCenter + lastLastCenter) * D) + 0.2;
-		dval = (lightCenter - 2 * lastCenter + lastLastCenter);
+		dval = (lightCenter - lastCenters[currIndex]);
 		//dDrop = fabs(dval) > fabs(dDrop) ? dval : (dval * 0.5f + dDrop * 0.5f);
-		steering = (lightCenter * P) + (dval * D) + 0.15f;
-		speed = num / 128.0f * 0.45f + 0.55f;
+		steering = (lightCenter * P) + (dval * D) + 0.17f;
+		speed = num / 128.0f * 0.38f + 0.63f;
 		
 		//sprintf(buf, "wow %d\n", (int) lightCenter);
 		//uart0_put(buf);
@@ -63,7 +72,7 @@ int main() {
 		}
 		
 		if(carpet) {
-			setSteerAngle(0.15);
+			setSteerAngle(0.17);
 			setWheel(0, 0);
 			setWheel(1, 0);
 		} else {
@@ -74,14 +83,5 @@ int main() {
 			//setWheel(1, 0);
 			//we all live in a yellow submarine
 		}
-
-		/*if(a > 0) {
-			TIMER_A0_PWM_DutyCycle(0.1, 1);
-			TIMER_A0_PWM_DutyCycle(0.1, 2);
-			TIMER_A0_PWM_DutyCycle(0.1, 4);
-			TIMER_A0_PWM_DutyCycle(0.3, 3);
-		} else {
-		  TIMER_A0_PWM_DutyCycle(0.0, 4);
-		}*/
 	}
 }
