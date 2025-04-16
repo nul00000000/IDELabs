@@ -9,6 +9,7 @@
 \usepackage{tikz, pgfplots}
 \usepackage{circuitikz}
 \usepackage[english]{babel}
+\usepackage[figurename=Fig.]{caption}
 \usepackage[autostyle, english = american]{csquotes}
 \MakeOuterQuote{"}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -136,7 +137,7 @@ phototransistor within the OPB745.
     This protection was achieved through the use of Shottky diodes which limit
     the voltage on the node connected to the ADC input to a maximum of 3.3V.
     The exact setup of this circuit is shown in Fig. \ref{fig:shottky}. \\
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/shottky.png}}
         \caption{Shottky Diode Protection Circuit \cite{b1}}
@@ -151,7 +152,7 @@ phototransistor within the OPB745.
     two buffering opamps were not placed with resistors and therefore had no
     amplifying effect on the signal. \\ \\
     The template of this setup is shown in Fig. \ref{fig:template}. \\
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/template.png}}
         \caption{Template of Complete Filtering Circuit}
@@ -162,7 +163,7 @@ phototransistor within the OPB745.
     (\ref{eq:gain}), the circuit was built in a simulation environment using
     LTSPICE. This completed filtering, amplifying, and protection circuit is
     displayed in Fig. \ref{fig:circuit_sim}. \\
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/circuit_sim.png}}
         \caption{Complete Filtering Circuit}
@@ -209,7 +210,7 @@ phototransistor within the OPB745.
     two 2$\mu F$ were used with values measuring 1.865$\mu F$ and
     2.193$\mu F$. The constructed circuit is shown in simulation in Fig.
     \ref{fig:circuit_real}. \\
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/circuit_real.png}}
         \caption{Complete Filtering Circuit with Measured Values}
@@ -228,7 +229,7 @@ phototransistor within the OPB745.
     could be added to the circuit and a real heart rate sensor could be
     constructed. The sensor has a number of ancillary components which are
     laid out in Fig. \ref{fig:opb_setup}. \\
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/opb_setup.png}}
         \caption{OPB745 Sensor and Supporting Circuitry \cite{b1}}
@@ -251,13 +252,13 @@ phototransistor within the OPB745.
     measured to be 958$\Omega$. \\ \\
     The fully constructed circuit is shown in simulation in Fig.
     \ref{fig:opb_sim} and on the breadboard in Fig. \ref{fig:opb_real}.
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/opb_sim.png}}
         \caption{Full Simulated Circuit with OPB Sensor}
         \label{fig:opb_sim}
     \end{figure}
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/opb_real.jpg}}
         \caption{Fully Built Circuit with OPB Sensor}
@@ -303,7 +304,7 @@ phototransistor within the OPB745.
     shown in Fig. \ref{fig:circuit_sim}. An AC sweep was conducted from
     0.1Hz to 10Hz and the result was recorded with a .tran command. The output
     of this test is shown in Fig. \ref{fig:waveform}.
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/waveform.png}}
         \caption{Simulated Output of the Circuit with an AC Sweep}
@@ -324,7 +325,7 @@ phototransistor within the OPB745.
     be tested. This was done on a breadboard with the function generator
     replacing the AC sweep command. The output was recorded via an
     oscilloscope. This is shown in Fig. \ref{fig:1hz_scope}. \\
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/1hz_scope.png}}
         \caption{Oscilloscope Capture of the Function Generator at 1Hz}
@@ -340,7 +341,7 @@ phototransistor within the OPB745.
     easy. Because the function generator was set at 1Hz, the PuTTY terminal
     should show exactly 60 BPM. This is almost exactly what happened, captured
     in Fig. \ref{fig:1hz_putty}. \\
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=150pt]{{images/1hz_putty.png}}
         \caption{Capture of the PuTTY Output Terminal at 1Hz}
@@ -355,13 +356,13 @@ phototransistor within the OPB745.
     To evaluate this, the function generator was set to 800mHz and the same
     test was conducted. The oscilloscope and PuTTY outputs are shown in Fig.
     \ref{fig:800mhz_scope} and \ref{fig:800mhz_putty}
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/800mhz_scope.png}}
         \caption{Oscilloscope Capture of the Function Generator at 800mHz}
         \label{fig:800mhz_scope}
     \end{figure}
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=150pt]{{images/800mhz_putty.png}}
         \caption{Capture of the PuTTY Output Terminal at 800mHz}
@@ -386,7 +387,7 @@ phototransistor within the OPB745.
 
     The final output of this circuit, tested with a human finger pressed
     against the OPB745 is shown in Fig. \ref{fig:heartrate_scope}.
-    \begin{figure}[htbp]
+    \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{{images/heartrate_scope.png}}
         \caption{Oscilloscope Capture of the Heart Rate Sensor}
