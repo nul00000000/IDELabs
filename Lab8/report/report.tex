@@ -38,32 +38,37 @@ ajs1539@rit.edu}
 \maketitle
 
 \begin{abstract}
-Knowing the heartrate of a human being is something which is
+Knowing the heart rate of a human being is something which is
 necessary for many medical applications and is useful for knowing
 one's overall health. Using very simple components, a rudimentary
-heartrate sensor can be created. The most challenging aspect is ensuring
+heart rate sensor can be created. The most challenging aspect is ensuring
 that the small biological changes are detected and translated into
 electrical signals which can be parsed and used for computations. This
 requires a number of filters and amplifiers to remove excess noise,
 increase the detectability of useful information, and properly delineate
 changes in heart beats. Using an OPB745 light sensor in conjunction
-with a band-pass filter and three op-amp circuits, a human's heartrate
+with a band-pass filter and three op-amp circuits, a human's heart rate
 can be recorded and printed by a computer program.
 \end{abstract}
 
 \section{Background}
-\subsection{Sensor Functionality}
-The method by which a heartbeat used in this case is called PPG
-(Photoplethysmogram). This method uses an optical method to detect
-changes in blood volume within a patient's tissue. Most often, this is
-measured on a finger, for ease of use and application. In this instance,
-the OPB745 sensor was used.
-
-\subsection{Sensor Methodology}
-The method used for measuring change in blood volume involves shining an
-infrared LED into the finger, and measuring the amount of that light
-reflected out of the finger. This is represented as the voltage across the
-phototransistor within the OPB745.
+    The method by which a heartbeat used in this case is called PPG
+    (Photoplethysmogram). This method uses an optical sensor to detect
+    changes in blood volume within a patient's tissue. Most often, this is
+    measured on a finger, for ease of use and application. In this instance,
+    the OPB745 sensor was used. The method used for measuring change in blood 
+    volume involves shining an infrared LED into the finger, and measuring the
+    amount of that light reflected out of the finger. This is represented as
+    the voltage across the phototransistor within the OPB745. In this way, the
+    amount of blood flowing through the finger can be measured. If the sensor
+    records a dark signal which then becomes light, it can be considered a
+    pulse of the heart as the blood rushed past. By measuring the time between
+    these pulses, the patient's heart rate can be calculated. Ideally, this is
+    done with an average of multiple measurements. Basing a calculation off of
+    only one pulse could be problematic as the voltage changes by very small
+    amounts. This requires significant levels of amplification. If the voltage
+    change is so small that the sensor doesn't pick it up, the calculation
+    could be completely incorrect. Averages limit this possibility.
 
 \section{Design Methodology}
     When designing the electrical circuit to translate the heart rate, 
@@ -441,8 +446,8 @@ latency.
     and calculate BPM.
 
 \begin{thebibliography}{00}
-    \bibitem{b1} S. Soldavini, \"IDE\_Manual\_2025S\", Apr 2025.
-    \bibitem{b2} OPTEK, Reflective Object Sensor Type OPB745, June 1996
+    \bibitem{b1} S. Soldavini, "IDE\_Manual\_2025S", Apr 2025.
+    \bibitem{b2} OPTEK, "Reflective Object Sensor Type OPB745", June 1996
     \end{thebibliography}
 
 \end{document}
