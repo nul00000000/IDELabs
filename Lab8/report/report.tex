@@ -37,12 +37,32 @@ ajs1539@rit.edu}
 \maketitle
 
 \begin{abstract}
-Knowing the heartrate of a human being is something which is necessary for many medical applications and is useful for knowing one's overall health. Using very simple components, a rudimentary heartrate sensor can be created. The most challenging aspect is ensuring that the small biological changes are detected and translated into electrical signals which can be parsed and used for computations. This requires a number of filters and amplifiers to remove excess noise, increase the detectability of useful information, and properly delineate changes in heart beats. Using an OPB745 light sensor in conjunction with a band-pass filter and three op-amp circuits, a human's heartrate can be recorded and printed by a computer program.
+Knowing the heartrate of a human being is something which is
+necessary for many medical applications and is useful for knowing
+one's overall health. Using very simple components, a rudimentary
+heartrate sensor can be created. The most challenging aspect is ensuring
+that the small biological changes are detected and translated into
+electrical signals which can be parsed and used for computations. This
+requires a number of filters and amplifiers to remove excess noise,
+increase the detectability of useful information, and properly delineate
+changes in heart beats. Using an OPB745 light sensor in conjunction
+with a band-pass filter and three op-amp circuits, a human's heartrate
+can be recorded and printed by a computer program.
 \end{abstract}
 
 \section{Background}
-    \subsection{Sensor Functionality}
-    \subsection{Sensor Methodology}
+\subsection{Sensor Functionality}
+The method by which a heartbeat used in this case is called PPG
+(Photoplethysmogram). This method uses an optical method to detect
+changes in blood volume within a patient's tissue. Most often, this is
+measured on a finger, for ease of use and application. In this instance,
+the OPB745 sensor was used.
+
+\subsection{Sensor Methodology}
+The method used for measuring change in blood volume involves shining an
+infrared LED into the finger, and measuring the amount of that light
+reflected out of the finger. This is represented as the voltage across the
+phototransistor within the OPB745.
 
 \section{Design Methodology}
     \subsection{Design Choices}
