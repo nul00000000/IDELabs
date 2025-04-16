@@ -8,7 +8,7 @@
 #define P (0.11f)
 #define I (0.0f)
 #define D (10.0f)
-
+//try cranking D way up
 #define DIFF_COEF 0.4f
 
 #define NUM_MEM 20
