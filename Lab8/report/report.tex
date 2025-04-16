@@ -229,8 +229,8 @@ Knowing the heart rate of a human being is something which is necessary for many
     The $R_L$ value is chosen by the designer and was 10k$\Omega$ for this
     case to simplify the number of unique components used. This resistor was
     measured to be 958$\Omega$. \\ \\
-    The fully constructed circuit is shown in simulation in Fig. \ref{opb_sim}
-    and on the breadboard in Fig. \ref{opb_real}.
+    The fully constructed circuit is shown in simulation in Fig.
+    \ref{fig:opb_sim} and on the breadboard in Fig. \ref{fig:opb_real}.
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=\linewidth]{{images/opb_sim.png}}
@@ -270,11 +270,122 @@ Knowing the heart rate of a human being is something which is necessary for many
     \end{equation}
 
 \section{Results and Analysis}
-    \subsection{Simulation Magnitude and Phase Plots}
-    \subsection{Oscilloscope and PuTTY Captures}
-    \subsection{Comparison and Explanation of Measured vs Simulated}
+    At each step in the process of designing, simulations and tests were
+    conducted to verify the chosen design constraints. Crucially, the filters
+    had to be shown to be working in a simulation before the OPB745 was added.
+    This extra component added a lot of variability to the output and
+    introduced external factors such as noise, light level, and even how the
+    finger was pressed to the sensor which could all significantly warp the
+    data. If the filter had an issue which wasn't discovered before testing
+    in hardware, the designer could have spent hours trying to debug a problem
+    in the wrong part of the circuit. \\ \\
+    The simulation was conducted on the complete filtering circuit in LTSPICE
+    shown in Fig. \ref{fig:circuit_sim}. An AC sweep was conducted from
+    0.1Hz to 10Hz and the result was recorded with a .tran command. The output
+    of this test is shown in Fig. \ref{fig:waveform}.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=\linewidth]{{images/waveform.png}}
+        \caption{Simulated Output of the Circuit with an AC Sweep}
+        \label{fig:waveform}
+    \end{figure}
+
+    The AC sweep demonstrates possible inputs to the circuit and can be used
+    to gauge how it will react to the OPB sensor. Shown in the middle of Fig.
+    \ref{fig:waveform} is the inputted values. This line is nearly flat and
+    any variations are difficult to perceive with the naked eye. The much
+    larger, sweeping waveforms are the amplified output. This is what the ADC
+    will receive from the filter. It is clear that the amplified signal will
+    be significantly easier to parse and detect changes in. Rather than
+    fluctuating slightly around a set voltage, the signal spikes and drops at
+    a regular interval. \\ \\ 
+    The output of the simulation in Fig. \ref{fig:waveform} confirmed the
+    correct design of the filtering circuit, but its construction had to also
+    be tested. This was done on a breadboard with the function generator
+    replacing the AC sweep command. The output was recorded via an
+    oscilloscope. This is shown in Fig. \ref{fig:1hz_scope}. \\
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=\linewidth]{{images/1hz_scope.png}}
+        \caption{Oscilloscope Capture of the Function Generator at 1Hz}
+        \label{fig:1hz_scope}
+    \end{figure}
+    The waveform captured peaks exactly every one second. This is picked up by
+    the constructed circuit. What is important to note is that there is no
+    gradual ramp up or down for the voltage. It spikes, holds, and then drops.
+    This is due to the filters implemented in the signal conditioning stage
+    which remove all of the voltages not at the extremes. \\ \\
+
+    The code was also tested at this point as checking the functionality was
+    easy. Because the function generator was set at 1Hz, the PuTTY terminal
+    should show exactly 60 BPM. This is almost exactly what happened, captured
+    in Fig. \ref{fig:1hz_putty}. \\
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=150pt]{{images/1hz_putty.png}}
+        \caption{Capture of the PuTTY Output Terminal at 1Hz}
+        \label{fig:1hz_putty}
+    \end{figure}
+    While there was some settling that occurred at the start and occasional
+    blimps up to 71 BPM, the program consistently output 62 BPM which is
+    within a reasonable margin of error of the expected value. \\ \\
+
+    It was important to ensure, however, that the program was not tuned only
+    for 1Hz and that it could operate properly at other frequencies as well.
+    To evaluate this, the function generator was set to 800mHz and the same
+    test was conducted. The oscilloscope and PuTTY outputs are shown in Fig.
+    \ref{fig:800mhz_scope} and \ref{fig:800mhz_putty}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=\linewidth]{{images/800mhz_scope.png}}
+        \caption{Oscilloscope Capture of the Function Generator at 800mHz}
+        \label{fig:800mhz_scope}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=150pt]{{images/800mhz_putty.png}}
+        \caption{Capture of the PuTTY Output Terminal at 800mHz}
+        \label{fig:800mhz_putty}
+    \end{figure}
+    Because the output shown in Fig. \ref{fig:800mhz_putty} is exactly as
+    expected: 80\% lower than at 1Hz; the code can be verified to be correct.
+    \\ \\
+
+    With the circuit construction and the code both tested, the last step was
+    to actually construct the heart rate sensor and test whether the filter
+    worked properly. This is where some problems arose. When the OPB745 was
+    attached to the input of the circuit in place of the function generator,
+    no changes in output were visible on the oscilloscope or in the PuTTY
+    terminal. \\ \\
+    It was determined via probing different points along the conditioning that
+    the output voltage of the OPB was changing by such minute amounts that it
+    was imperceptible to the oscilloscope or ADC, despite the gain implemented
+    in the filter. It was necessary, therefore, to increase the gain into the
+    filtering circuit before either of the filters. This was achieved with
+    another opamp and two resistors. \\ \\
+
+    The final output of this circuit, tested with a human finger pressed
+    against the OPB745 is shown in Fig. \ref{fig:heartrate_scope}.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=\linewidth]{{images/heartrate_scope.png}}
+        \caption{Oscilloscope Capture of the Heart Rate Sensor}
+        \label{fig:heartrate_scope}
+    \end{figure}
 
 \section{Conclusion}
+    The ultimate goal of this project was to design, simulate, and build a
+    circuit which could measure the very small change in light reflected off a
+    human bone as a result of changes in blood pressure to determine that
+    person's heart rate. Using a combination of amplifiers, filters, and
+    protection circuits, this goal was achieved. Along each step of the
+    process, tests were conducted which would make troubleshooting later on
+    much more straightforward as any issues could be attributed to the section
+    being worked on presently. While there were some challenges along the way,
+    this strategy meant that they were quickly discovered and remedied. The
+    heart rate sensor worked as expected and though likely not accurate enough
+    for real medical applications, was a functional device which could measure
+    and calculate BPM.
 
 \begin{thebibliography}{00}
     \bibitem{b1} S. Soldavini, \"IDE\_Manual\_2025S\", Apr 2025.
