@@ -6,8 +6,10 @@
 
 //#define P (0.10f)
 #define P (0.11f)
-#define I (0.0f)
-#define D (10.0f)
+#define I (1.25f)
+#define D (7.69f)
+
+//original values: P=0.11, I=0.0, D=10.0
 //try cranking D way up
 #define DIFF_COEF 0.4f
 
