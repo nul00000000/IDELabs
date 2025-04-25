@@ -10,6 +10,8 @@ char g_sendData;
 float lightCenter = 0.0f;
 int num = 0;
 
+int numValley = 0;
+
 void initCar(void) {
 	uart0_init();
 	
@@ -62,16 +64,27 @@ char updateCamera(void) {
 	int i;
 	char carpet = 1;
 	int total = 0;
+	char inLight = 0;
+	int der;
 	num = 0;
 	lightCenter = 0.0f;
-	for(i = 0; i < 128; i++) {
-		procData[i] = (lineData[i] > 11000) * 8000;
+	numValley = 0;
+	for(i = 2; i < 126; i++) {
+		procData[i] = (lineData[i] > 9500) * 8000;
 		if(procData[i]) {
 			total += i;
 			num++;
 		}
 		if(procData[i]) {
 				carpet = 0;
+		}
+		der = lineData[i + 2] - lineData[i - 2];
+		//this works if the track pieces arent fucked
+		if(!inLight && der > 250) {
+			inLight = 1;
+		} else if(inLight && der < -250) {
+			inLight = 0;
+			numValley++;
 		}
 	}
 	
