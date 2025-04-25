@@ -17,8 +17,11 @@
 //having this higher seems to be gaming
 #define NUM_MEM 50
 
+//#define TUNNEL_TIME (10000)
+
 extern float lightCenter;
 extern int num;
+extern int numValley;
 
 //current measured lap speed on milestone 3: 34.57s over 4 laps = 8.89s (wowzers)
 
@@ -38,6 +41,10 @@ int main() {
 	float speed = 0;
 	
 	char carpet = 0;
+	
+	int carpetTime = 0;
+	
+	int raceEnd = 0;
 	
 	for(i = 0; i < NUM_MEM; i++) {
 		lastCenters[i] = 0.0f;
@@ -60,7 +67,13 @@ int main() {
 			}
 		}
 		
-		carpet = updateCamera();
+		//if(!raceEnd) {
+			carpet = updateCamera();
+		//}
+			
+		if(numValley >= 2) {
+		//	raceEnd = 1;
+		}
 		
 		//steering = (lightCenter * P) + ((lightCenter + lastCenter) * I * 0.001) + ((lightCenter - 2 * lastCenter + lastLastCenter) * D) + 0.2;
 		dval = (lightCenter - lastCenters[currIndex]);
@@ -85,12 +98,30 @@ int main() {
 		} else if(diffDrive < -1.0f) {
 			diffDrive = -1.0f;
 		}
-		
-		if(carpet) {
+#ifndef TUNNEL_TIME
+		if(raceEnd || carpet) {
 			setSteerAngle(STEERING_OFF);
 			setWheel(0, 0);
 			setWheel(1, 0);
+		} 
+#else
+		if(carpet) {
+			carpetTime++;
 		} else {
+			carpetTime = 0;
+		}
+		
+		if(raceEnd || carpetTime > TUNNEL_TIME) {
+			setSteerAngle(STEERING_OFF);
+			setWheel(0, 0);
+			setWheel(1, 0);
+		} else if(carpetTime > 0 && carpetTime < TUNNEL_TIME) {
+			setSteerAngle(STEERING_OFF);
+			setWheel(0, (-0.47f + (diffDrive > 0 ? diffDrive * DIFF_COEF : 0)) * speed); //the polarity is now correct
+			setWheel(1, (-0.47f + (diffDrive < 0 ? -diffDrive * DIFF_COEF : 0)) * speed);
+		}
+#endif
+		else {
 			setSteerAngle(steering);
 			setWheel(0, (-0.47f + (diffDrive > 0 ? diffDrive * DIFF_COEF : 0)) * speed); //the polarity is now correct
 			setWheel(1, (-0.47f + (diffDrive < 0 ? -diffDrive * DIFF_COEF : 0)) * speed);
