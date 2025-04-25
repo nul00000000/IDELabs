@@ -4,10 +4,9 @@
 #include <stdint.h>
 #include <stdio.h>
 
-//#define P (0.11f)
 #define P (0.11f)
-#define I (1.25f)
-#define D (7.69f)
+#define I (0.0f)
+#define D (10.0f)
 
 //original values: P=0.11, I=0.0, D=10.0
 //try cranking D way up

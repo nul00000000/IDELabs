@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'car' 
+ * Project: 'Car' 
  * Target:  'Target 1' 
  */
 
