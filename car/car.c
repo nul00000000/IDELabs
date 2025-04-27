@@ -64,20 +64,25 @@ char updateCamera(void) {
 	int i;
 	char carpet = 1;
 	int total = 0;
+	int meow = 0;
 	char inLight = 0;
 	int der;
 	num = 0;
 	lightCenter = 0.0f;
 	numValley = 0;
 	for(i = 2; i < 126; i++) {
-		procData[i] = (lineData[i] > 9500) * 8000;
+		/*procData[i] = (lineData[i] > 6000) * 8000;
 		if(procData[i]) {
 			total += i;
 			num++;
-		}
-		if(procData[i]) {
+		}*/
+		if(lineData[i] > 6000) {
 				carpet = 0;
 		}
+		total += i * lineData[i];
+		num += lineData[i];
+		
+		
 		der = lineData[i + 2] - lineData[i - 2];
 		//this works if the track pieces arent fucked
 		if(!inLight && der > 250) {
@@ -90,10 +95,13 @@ char updateCamera(void) {
 	
 	lightCenter = (float) total / (float) num;
 	
+	num = num / 16384;
+	
 	lightCenter = 64.0f - lightCenter;
 	
 	//OLED_DisplayCameraData(lineData);
 	return carpet;
+	//return 0;
 }
 
 void enableMotor(char right, char enabled) {

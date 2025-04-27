@@ -15,7 +15,7 @@
 #define STEERING_OFF (0.1f)
 
 //having this higher seems to be gaming
-#define NUM_MEM 50
+#define NUM_MEM 20
 
 //#define TUNNEL_TIME (10000)
 
@@ -72,7 +72,7 @@ int main() {
 		//}
 			
 		if(numValley >= 2) {
-		//	raceEnd = 1;
+			//raceEnd = 1;
 		}
 		
 		//steering = (lightCenter * P) + ((lightCenter + lastCenter) * I * 0.001) + ((lightCenter - 2 * lastCenter + lastLastCenter) * D) + 0.2;
@@ -123,8 +123,8 @@ int main() {
 #endif
 		else {
 			setSteerAngle(steering);
-			setWheel(0, (-0.47f + (diffDrive > 0 ? diffDrive * DIFF_COEF : 0)) * speed); //the polarity is now correct
-			setWheel(1, (-0.47f + (diffDrive < 0 ? -diffDrive * DIFF_COEF : 0)) * speed);
+			setWheel(0, (-0.48f + (diffDrive > 0 ? diffDrive * DIFF_COEF : 0)) * speed); //the polarity is now correct
+			setWheel(1, (-0.48f + (diffDrive < 0 ? -diffDrive * DIFF_COEF : 0)) * speed);
 			//setWheel(0, 0);
 			//setWheel(1, 0);
 			//we all live in a yellow submarine
