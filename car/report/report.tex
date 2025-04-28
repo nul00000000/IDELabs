@@ -36,26 +36,83 @@ ajs1539@rit.edu}
 }
 
 \maketitle
+\global\csname @topnum\endcsname 0
+\global\csname @botnum\endcsname 0
+
+\tikzstyle{block} = [draw, fill=white, rectangle, minimum height=2em, minimum width = 3em, align = center]
+\tikzstyle{output} = [draw, fill=gray!40, rectangle, minimum height=2em, minimum width = 3em, align = center]
+\tikzstyle{operator} = [draw, fill=white, rectangle, minimum height=1em, minimum width = 1em, align = center]
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node (camData) [block] {Camera};
+        \draw[-,thick] (camData) -- ++ (3em,0) coordinate[right] (camOut);
+        \draw[->,thick] (camOut) -- ++ (3em,0) node[block,right,text width=4em] (weightedAvg) {Weighted Average};
+        \draw[->,thick] (weightedAvg) -- ++ (4.5em,0) node[block,right] (pid) {PID};
+        \draw[-,thick] (pid) -- ++ (0,-2em) coordinate[below] (pidOut);
+        \draw[->,thick] (pidOut) -- ++ (0,-2em) node[output, below] (servo) {Servo};
+        \draw[->,thick] (pidOut) -- ++ (-6em,0) -- ++ (0,-1.5em) node[block, below, text width=5em] (diffDrive) {Differential Drive};
+
+        \draw[->,thick] (camOut) -- ++ (0,-2em) node[block, below, text width=4em] (avgBright) {Average Value};
+
+        \draw[->,thick] ($(diffDrive.south west)!0.75!(diffDrive.south east)$) -- ++ (0, -3em) node[operator, below] (mul2) {*};
+        \draw[->,thick] ($(diffDrive.south west)!0.25!(diffDrive.south east)$) -- ++ (0, -2em) node[operator, below] (mul1) {*};
+        
+        \draw[->,thick] ($(avgBright.south west)!0.5!(avgBright.south east)$) |- ($(mul1.south west)!0.5!(mul1.north west)$);
+        \draw[->,thick] ($(avgBright.south west)!0.5!(avgBright.south east)$) |- ($(mul2.south west)!0.5!(mul2.north west)$);
+
+        \draw[->,thick] (mul1) -- ++ (0,-3em) node[output, below, text width=3em] {Left Motor};
+        \draw[->,thick] (mul2) -- ++ (0,-1.25em) -- ++ (1em,0) -- ++ (0,-0.75em) node[output, below, text width=3em] {Right Motor};
+
+    \end{tikzpicture}
+    \caption{Algorithm Flowchart}
+\end{figure}
 
 \begin{abstract}
-    The IDE Car Project is a legendary right of passage for RIT Computer
-    Engineering students. Everything learned over the semester is combined
-    with knowledge from previous coursework to create a fully autonomous
-    vehicle. Provided with a standard vehicle frame, set of motors, servo,
-    camera, and control board, the entire processes of programming and tuning
-    the car is left up to the students. The process is done incrementally,
-    beginning with small test milestones. Each of these ensures that the
-    project is progressing smoothly and allows for changes to be made later in
-    the process without fear that errors are from hardware or basic coding
-    problems. The car is then entered into a time-trial race against other
-    vehicles, all with the exact same frame and design constraints. At this
-    point, only the code and tuning matter. Combining the multitude of
-    different skillsets and knowledgebases required to get the car to function
-    was an incredibly useful learning experience and tested students in a way
-    that no project in Computer Engineering has before.
+    The Car Project of the Interfacing Digitial Electronics course at the
+    Rochester Institute of Technology is a well known and well respected
+    part of the Computer Engineering major at the university. It consists of
+    using ideas developed in previous exercises to design a control system
+    for a small autonomous car. This car received input only from a small
+    line scan camera, making designing a control system a complex task. This
+    involved finding solutions to various smaller problems, for example
+    finding the center of a track piece or tuning a
+    Proportional-Integral-Derivative controller to
+    accurately make a turn without over- or under-shooting. Algorithms were
+    designed to fulfill these requirements and were optimized to allow the
+    car to make fast laps around the track. Programming the driving
+    algorithm was successful, where the car was able to complete laps around
+    an arbitrary track shape. In the final competition, our car placed 9th
+    place out of 20 participating cars, demonstrating the prowess behind
+    the theory applied to our design methodology.
 \end{abstract}
 
+\section{Introduction}
+%this should be 6 paragraphs????
+    This project and its associated competition component is derived from
+    a similar tournament that used to take place at RIT 
+    (Rochester Institute of Technology), that being the NXP
+    Cup [1]. This tournament is still held in other parts of the world, but has
+    been discontinued by NXP in the United States. After it's discontinuation, Texas Instruments began to provide
+    microcontroller boards to RIT so that the Car Project could be continued.
+    The competition component is still held every semester at RIT, including
+    this Spring semester (2245).
+
+    The rest of this paper is organized as such: After the introduction,
+    Section 2 explains an overview of the materials and background information
+    on the construction of the car. Section 3 introduces the main design
+    methodology as well as the progression of the design over time. Section
+    4 presents some experimental results during improvements as well as
+    the final outcome of the RIT Car Project competition, and Section 5
+    contains closing remarks.
+
 \section{Background and Description of Components}
+    Outside the controls of the car, the other important section of the lab
+    was the physical construction of the car as well as the electrical
+    hardware components. 
+
+
     Important to understanding the car itself is understanding the design
     constraints and development process of the vehicle and the project as a
     whole. Each team began with a set of base components which were proven to
@@ -199,7 +256,8 @@ ajs1539@rit.edu}
         \label{fig:camera_graph}
     \end{figure}
     
-\section{Design of Circuits}
+\section{Design Methodology}
+    
 
 \section{Description of Algorithms}
 
@@ -210,6 +268,9 @@ ajs1539@rit.edu}
 \section{Conclusion}
 
 %COMMENTED CODE IS ALSO REQUIRED
+
+\section{References}
+[1] https://nxpcup.nxp.com/ (clean this up later)
 
 \begin{thebibliography}{00}
     \bibitem{b1} 
