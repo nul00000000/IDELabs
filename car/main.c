@@ -19,11 +19,15 @@
 
 //#define TUNNEL_TIME (10000)
 
+//center of light, controlled by car.c
 extern float lightCenter;
+//total amount of light in image
 extern int num;
+//number of valleys in line data (for line stopping)
 extern int numValley;
 
 //current measured lap speed on milestone 3: 34.57s over 4 laps = 8.89s (wowzers)
+//i remember when the car was good, those were the good ol days
 
 int main() {
 	uint32_t i;
@@ -46,20 +50,26 @@ int main() {
 	
 	int raceEnd = 0;
 	
+	//initialize memory to centered so nothing weird happens
 	for(i = 0; i < NUM_MEM; i++) {
 		lastCenters[i] = 0.0f;
 	}
 	
+	//initialize car IO things
 	initCar();
+	//initialize camera
 	initCamera();
 	
+	//enable motor controller
 	P3->OUT |= (BIT6);
 	P3->OUT |= (BIT7);
 	
 	uart0_put("Car Started\n");
 	
+	//main loop
 	for(i = 0;; i++) {
-		if(!carpet) {			
+		if(!carpet) {		
+			//
 			lastCenters[currIndex] = lightCenter;
 			currIndex++;
 			if(currIndex > NUM_MEM) {

@@ -84,7 +84,7 @@ char updateCamera(void) {
 		
 		
 		der = lineData[i + 2] - lineData[i - 2];
-		//this works if the track pieces arent fucked
+		//this works if the track pieces arent weird and separated
 		if(!inLight && der > 250) {
 			inLight = 1;
 		} else if(inLight && der < -250) {
