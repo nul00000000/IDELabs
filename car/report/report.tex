@@ -133,7 +133,7 @@ ajs1539@rit.edu}
         \toprule
         \textbf{Part} & \textbf{Price} & \textbf{Description} \\ 
         \midrule
-        Motor Driver Jumper PCB & Provided & RPi motor driver MSP432 adapter \\ 
+        Motor Driver Jumper & Provided & RPi motor driver MSP432 adapter \\ 
         Battery Charger & Provided & Charger for the two batteries \\
         Zip Ties & \$2.00 & Secures the battery to the base \\ 
         Servo Motor & \$14.99 & Futaba S3004 \\ 
@@ -285,7 +285,7 @@ ajs1539@rit.edu}
         \caption{MatLab Graphs of Sample Camera Output}
         \label{fig:camera_graph}
     \end{figure}
-    
+
 \section{Design Methodology}
     The primary design challenge of allowing the car to go at a reasonable speed came in the form of algorithmic programming.
     This consisted of finding an effective way to transform the input data, a set of analog values from a line scan camera,
@@ -297,7 +297,7 @@ ajs1539@rit.edu}
 
 \subsection{Basic Functionality}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \begin{tikzpicture}
         \node (camData) [block] {Camera};
@@ -380,7 +380,7 @@ ajs1539@rit.edu}
 
     An updated flowchart of this version of the algorithm is shown in Fig. \ref{secondAlgo}.
 
-    \begin{figure}
+    \begin{figure}[h]
         \centering
         \begin{tikzpicture}
             \node (camData) [block] {Camera};
@@ -482,6 +482,56 @@ ajs1539@rit.edu}
 \section{Description of Algorithms}
 
 \section{Comparison to Other Works}
+    Autonomous vehicles have been the focus of advanced research for almost as
+    long as humans have had access to computers. The vehicle developed for IDE
+    was relatively simple, but at its basic level contains all of the same
+    components as even the most advanced self driving cars today. A number of
+    these strategies are explored in Henil Gajjar, Stavan Sanyal, and Manan
+    Shah's "A comprehensive study on lane detecting autonomous car using
+    computer vision".
+    
+    The vehicles which currently operate on the streets are made from the same
+    three components as the IDE car: a controller, a computer, and a sensor.
+    The car created for the class is not far behind those of the real world
+    in the first two categories. The motors and servo used to control the
+    propulsion are quite simple and can easily be scaled up. Similarly, while
+    larger cars need more advanced computers, that is not difficult to
+    implement. The main difference, therefore is the sensor.
+
+    The IDE car is equipped with only a line-scan camera. This severely limits
+    what it can see in the world. Only very clear, contrasting pathways can
+    be seen at all. On top of that, lighting conditions significantly impact
+    the camera's ability to tell dark from light. More advanced cars, on the
+    other hand, use LiDAR and color cameras.
+
+    More advanced sensors come with a number of advantages. They are able to
+    see things beyond the road in front of them. This was a huge problem when
+    there was a possibility of a tunnel being introduced into the IDE race.
+    The line scan camera saw the white sides of the tunnel and interpreted 
+    that as the track, so the car would drive straight into the wall. This
+    problem was largely caused by the line-scan camera's inability to detect
+    depth. Other sensors do not have this problem. Sensors like LiDAR are also
+    able to detect people walking and other vehicles in the area.
+
+    What is most interesting, however, is the fact that many vehicles are
+    using strikingly similar algorithms to what the IDE car used. One of these
+    algorithms is the Hough Line Transform explained by Open Source Computer
+    Vision. Using this algorithm, straight lines on an image can be pinpointed
+    and recoded as a vector of couples. Each couple is a coordinate pair which
+    demarcates one edge. Determining the edges of objects from an image is
+    what allows autonomous vehicles to move through the streets without
+    hitting anything as they know where objects start and end. This logic is
+    somewhat like what was used to keep the car within the lines of the track
+    piece as the line-scan camera detected the edge of the track using the
+    contrast, in a similar fashion to the Hough Transform.
+
+    Another popular algorithm in autonomous vehicles is the Canny Edge
+    Detection Model, published by John F. Canny in 1986. This algorithm is
+    able to reduce a color image into only the edges of objects. Again like
+    the line-scan camera, the focus of this process is on contrast. By
+    removing excess information on objects and only saving their edges, the
+    necessary memory and computational requirements are reduced and vehicles
+    are able to navigate with relatively simple cameras.
 
 \section{Key Challenges and What Could be Improved}
 
@@ -490,7 +540,10 @@ ajs1539@rit.edu}
 %COMMENTED CODE IS ALSO REQUIRED
 
 \section{References}
-[1] https://nxpcup.nxp.com/ (clean this up later)
+%[1] https://nxpcup.nxp.com/ (clean this up later)
+%[2] https://docs.opencv.org/3.4/d9/db0/tutorial_hough_lines.html/
+%[3] https://www.researchgate.net/publication/224377985_A_Computational_Approach_To_Edge_Detection
+%[4] https://doi.org/10.1016/j.eswa.2023.120929
 
 \begin{thebibliography}{00}
     \bibitem{b1} 
