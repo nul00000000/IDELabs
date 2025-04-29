@@ -13,10 +13,12 @@ int num = 0;
 int numValley = 0;
 
 void initCar(void) {
+	//initialize UART
 	uart0_init();
 	
 	put("UART0 Initialized\n\n");
 	
+	//initialize PWM for motors
 	TIMER_A0_PWM_Init(10000, 0.0, 3);
 	TIMER_A0_PWM_Init(10000, 0.0, 4);
 	TIMER_A0_PWM_Init(10000, 0.0, 1);
@@ -24,10 +26,12 @@ void initCar(void) {
 	
 	put("DC Motors Initialized\n");
 	
+	//initialize PWM for servo
 	TIMER_A2_PWM_Init(50, 0.0, 1);
 	
 	put("Steering Servo Initialized\n\n");
 	
+	//initialize enable pins
 	P3->SEL0 &= ~(BIT6 | BIT7);
 	P3->SEL1 &= ~(BIT6 | BIT7);
 	P3->DIR |= (BIT6 | BIT7);
@@ -70,19 +74,17 @@ char updateCamera(void) {
 	num = 0;
 	lightCenter = 0.0f;
 	numValley = 0;
+	//loop through almost all samples
 	for(i = 2; i < 126; i++) {
-		/*procData[i] = (lineData[i] > 6000) * 8000;
-		if(procData[i]) {
-			total += i;
-			num++;
-		}*/
+		//threshold data (now only for carpet stopping!)
 		if(lineData[i] > 6000) {
 				carpet = 0;
 		}
+		//take weighted average of all indexes (weight is the lineData)
 		total += i * lineData[i];
 		num += lineData[i];
 		
-		
+		//find slope of data for sake of line stopping
 		der = lineData[i + 2] - lineData[i - 2];
 		//this works if the track pieces arent weird and separated
 		if(!inLight && der > 250) {
@@ -93,6 +95,7 @@ char updateCamera(void) {
 		}
 	}
 	
+	//normalize values as necessary
 	lightCenter = (float) total / (float) num;
 	
 	num = num / 16384;
@@ -104,11 +107,13 @@ char updateCamera(void) {
 	//return 0;
 }
 
+//enable motor
 void enableMotor(char right, char enabled) {
 	P3->OUT &= (BIT6 << right);
 	P3->OUT |= (BIT6 << right) & (-enabled);
 }
 
+//sets duty cycle of selected wheel
 void setWheel(char right, double speed) {
 	char wheelMod = right << 1;
 	if(speed > 0) {
@@ -118,6 +123,7 @@ void setWheel(char right, double speed) {
 	}
 }
 
+//sets steering angle of servo
 void setSteerAngle(double angle) {
 	TIMER_A2_PWM_DutyCycle((angle * STEER_COEF) * 0.02 + 0.075, 1);
 }

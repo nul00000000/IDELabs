@@ -33,6 +33,7 @@ int main() {
 	uint32_t i;
 	char buf[32];
 	
+	//circular buffer to store previous centers
 	int currIndex = 0;
 	float lastCenters[NUM_MEM];
 	
@@ -69,7 +70,7 @@ int main() {
 	//main loop
 	for(i = 0;; i++) {
 		if(!carpet) {		
-			//
+			//If not carpet stopping, insert current lightCenter into the circular buffer
 			lastCenters[currIndex] = lightCenter;
 			currIndex++;
 			if(currIndex > NUM_MEM) {
@@ -85,35 +86,41 @@ int main() {
 			//raceEnd = 1;
 		}
 		
-		//steering = (lightCenter * P) + ((lightCenter + lastCenter) * I * 0.001) + ((lightCenter - 2 * lastCenter + lastLastCenter) * D) + 0.2;
+		//calculate derivative using most and least recent lightCenter values
 		dval = (lightCenter - lastCenters[currIndex]);
-		//dDrop = fabs(dval) > fabs(dDrop) ? dval : (dval * 0.5f + dDrop * 0.5f);
 		
+		//calculate PD value and derived values (no I)
 		pidValue = (lightCenter * P) + (dval * D);
 		steering = pidValue + STEERING_OFF;
 		diffDrive = pidValue;
+		
+		//calculate speed based on total light in image
 		speed = num / 128.0f * 0.4f + 0.6f;
 		
 		//sprintf(buf, "wow %d\n", (int) lightCenter);
 		//uart0_put(buf);
 		
+		//clip steering so that servo PWM stays in range
 		if(steering > 1.0f) {
 			steering = 1.0f;
 		} else if(steering < -1.0f) {
 			steering = -1.0f;
 		}
 		
+		//clip differential drive so that it doesn't do anything wild
 		if(diffDrive > 1.0f) {
 			diffDrive = 1.0f;
 		} else if(diffDrive < -1.0f) {
 			diffDrive = -1.0f;
 		}
+		//if no tunnel, stop any time carpet is detected
 #ifndef TUNNEL_TIME
 		if(raceEnd || carpet) {
 			setSteerAngle(STEERING_OFF);
 			setWheel(0, 0);
 			setWheel(1, 0);
 		} 
+	  //if tunnel, wait TUNNEL_TIME ticks before stopping for carpet ( this would not have worked I don't think )
 #else
 		if(carpet) {
 			carpetTime++;
@@ -125,12 +132,13 @@ int main() {
 			setSteerAngle(STEERING_OFF);
 			setWheel(0, 0);
 			setWheel(1, 0);
-		} else if(carpetTime > 0 && carpetTime < TUNNEL_TIME) {
+		} else if(carpetTime > 0 && carpetTime < TUNNEL_TIME) { //straighten wheels to go through tunnel
 			setSteerAngle(STEERING_OFF);
 			setWheel(0, (-0.47f + (diffDrive > 0 ? diffDrive * DIFF_COEF : 0)) * speed); //the polarity is now correct
 			setWheel(1, (-0.47f + (diffDrive < 0 ? -diffDrive * DIFF_COEF : 0)) * speed);
 		}
 #endif
+		//set values in the case of normal driving
 		else {
 			setSteerAngle(steering);
 			setWheel(0, (-0.48f + (diffDrive > 0 ? diffDrive * DIFF_COEF : 0)) * speed); //the polarity is now correct
