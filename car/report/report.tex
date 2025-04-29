@@ -111,15 +111,11 @@ ajs1539@rit.edu}
     contains closing remarks.
 
 \section{Background and Description of Components}
-    Outside the controls of the car, the other important section of the lab
-    was the physical construction of the car as well as the electrical
-    hardware components. 
-
     Important to understanding the car itself is understanding the design
     constraints and development process of the vehicle and the project as a
     whole. Each team began with a set of base components which were proven to
     be functional. These components are: a vehicle base, two drive motors,
-    one servo motor, a line-scan camera, two batteries, an MSP-432P4111R
+    one servo motor, a line-scan camera, two batteries, an MSP432P4111R
     microcontroller, and a motor controller with an adapter board. 
 
     The total costs of all components are shown in Table \ref{tab:bom}.
@@ -171,8 +167,7 @@ ajs1539@rit.edu}
     electrical boards to be securely attached. The base also had a foam bumper
     in the front to avoid any shock to the circuitry if the car hit something.
     
-    This frame was originally used for a similar competition which utilized
-    control boards from a different manufacturer. The benefit of the frame's
+    This frame was originally used for the NXP competition which utilized different control boards. The benefit of the frame's
     design is that it is modular, so the older boards could easily be removed
     and replaced with ones which were, at the time, still widely supported and
     available.
@@ -233,6 +228,12 @@ ajs1539@rit.edu}
     signals which would affect the required outcome on the drivetrain. The
     motor controller was also responsible for stepping down the voltage from
     the battery to a level that the MSP432 was able to run at.
+
+    Alongside the various hardware components, and extremely important part of the overall system is a PID (Proportional-Integral-Derivative) controller.
+    The name comes from the fact that it drives an output based on three components. One of these is proportional to the current error, and handles getting
+    the output closer to the desired output at all times. The next is based on the integral of the error over time, which allows for the controller to make
+    up for constant error that persists over time. The final component is based on the derivative of the error, and as such react to changes in the desired
+    output quickly, and it used to accelerate the rate at which the desired output is reached.
 
     All of these components combined to form a vehicle which could take in
     information about the world around it, make decisions based on that
