@@ -41,26 +41,83 @@ ajs1539@rit.edu}
 }
 
 \maketitle
+\global\csname @topnum\endcsname 0
+\global\csname @botnum\endcsname 0
+
+\tikzstyle{block} = [draw, fill=white, rectangle, minimum height=2em, minimum width = 3em, align = center]
+\tikzstyle{output} = [draw, fill=gray!40, rectangle, minimum height=2em, minimum width = 3em, align = center]
+\tikzstyle{operator} = [draw, fill=white, rectangle, minimum height=1em, minimum width = 1em, align = center]
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node (camData) [block] {Camera};
+        \draw[-,thick] (camData) -- ++ (3em,0) coordinate[right] (camOut);
+        \draw[->,thick] (camOut) -- ++ (3em,0) node[block,right,text width=4em] (weightedAvg) {Weighted Average};
+        \draw[->,thick] (weightedAvg) -- ++ (4.5em,0) node[block,right] (pid) {PID};
+        \draw[-,thick] (pid) -- ++ (0,-2em) coordinate[below] (pidOut);
+        \draw[->,thick] (pidOut) -- ++ (0,-2em) node[output, below] (servo) {Servo};
+        \draw[->,thick] (pidOut) -- ++ (-6em,0) -- ++ (0,-1.5em) node[block, below, text width=5em] (diffDrive) {Differential Drive};
+
+        \draw[->,thick] (camOut) -- ++ (0,-2em) node[block, below, text width=4em] (avgBright) {Average Value};
+
+        \draw[->,thick] ($(diffDrive.south west)!0.75!(diffDrive.south east)$) -- ++ (0, -3em) node[operator, below] (mul2) {*};
+        \draw[->,thick] ($(diffDrive.south west)!0.25!(diffDrive.south east)$) -- ++ (0, -2em) node[operator, below] (mul1) {*};
+        
+        \draw[->,thick] ($(avgBright.south west)!0.5!(avgBright.south east)$) |- ($(mul1.south west)!0.5!(mul1.north west)$);
+        \draw[->,thick] ($(avgBright.south west)!0.5!(avgBright.south east)$) |- ($(mul2.south west)!0.5!(mul2.north west)$);
+
+        \draw[->,thick] (mul1) -- ++ (0,-3em) node[output, below, text width=3em] {Left Motor};
+        \draw[->,thick] (mul2) -- ++ (0,-1.25em) -- ++ (1em,0) -- ++ (0,-0.75em) node[output, below, text width=3em] {Right Motor};
+
+    \end{tikzpicture}
+    \caption{Algorithm Flowchart}
+\end{figure}
 
 \begin{abstract}
-    The IDE Car Project is a legendary right of passage for RIT Computer
-    Engineering students. Everything learned over the semester is combined
-    with knowledge from previous coursework to create a fully autonomous
-    vehicle. Provided with a standard vehicle frame, set of motors, servo,
-    camera, and control board, the entire processes of programming and tuning
-    the car is left up to the students. The process is done incrementally,
-    beginning with small test milestones. Each of these ensures that the
-    project is progressing smoothly and allows for changes to be made later in
-    the process without fear that errors are from hardware or basic coding
-    problems. The car is then entered into a time-trial race against other
-    vehicles, all with the exact same frame and design constraints. At this
-    point, only the code and tuning matter. Combining the multitude of
-    different skillsets and knowledgebases required to get the car to function
-    was an incredibly useful learning experience and tested students in a way
-    that no project in Computer Engineering has before.
+    The Car Project of the Interfacing Digitial Electronics course at the
+    Rochester Institute of Technology is a well known and well respected
+    part of the Computer Engineering major at the university. It consists of
+    using ideas developed in previous exercises to design a control system
+    for a small autonomous car. This car received input only from a small
+    line scan camera, making designing a control system a complex task. This
+    involved finding solutions to various smaller problems, for example
+    finding the center of a track piece or tuning a
+    Proportional-Integral-Derivative controller to
+    accurately make a turn without over- or under-shooting. Algorithms were
+    designed to fulfill these requirements and were optimized to allow the
+    car to make fast laps around the track. Programming the driving
+    algorithm was successful, where the car was able to complete laps around
+    an arbitrary track shape. In the final competition, our car placed 9th
+    place out of 20 participating cars, demonstrating the prowess behind
+    the theory applied to our design methodology.
 \end{abstract}
 
+\section{Introduction}
+%this should be 6 paragraphs????
+    This project and its associated competition component is derived from
+    a similar tournament that used to take place at RIT 
+    (Rochester Institute of Technology), that being the NXP
+    Cup [1]. This tournament is still held in other parts of the world, but has
+    been discontinued by NXP in the United States. After it's discontinuation, Texas Instruments began to provide
+    microcontroller boards to RIT so that the Car Project could be continued.
+    The competition component is still held every semester at RIT, including
+    this Spring semester (2245).
+
+    The rest of this paper is organized as such: After the introduction,
+    Section 2 explains an overview of the materials and background information
+    on the construction of the car. Section 3 introduces the main design
+    methodology as well as the progression of the design over time. Section
+    4 presents some experimental results during improvements as well as
+    the final outcome of the RIT Car Project competition, and Section 5
+    contains closing remarks.
+
 \section{Background and Description of Components}
+    Outside the controls of the car, the other important section of the lab
+    was the physical construction of the car as well as the electrical
+    hardware components. 
+
+
     Important to understanding the car itself is understanding the design
     constraints and development process of the vehicle and the project as a
     whole. Each team began with a set of base components which were proven to
@@ -232,7 +289,114 @@ ajs1539@rit.edu}
         \label{fig:camera_graph}
     \end{figure}
     
-\section{Design of Circuits}
+\section{Design Methodology}
+    The primary design challenge of allowing the car to go at a reasonable speed came in the form of algorithmic programming.
+    This consisted of finding an effective way to transform the input data, a set of analog values from a line scan camera,
+    to a strategic set of outputs that would drive the car in an efficient and consistent way.
+    Due to the extremely limited input data at any given time, any well made algorithm would have to rely heavily on
+    extracting as much information from this as possible, as well as using previous data values. 
+    The algorithm for the car was created in a few iterations, moving from a more basic concept to a better fleshed out
+    system for making full use of the information available.
+
+\subsection{Basic Functionality}
+
+    The first iteration of the overall algorithm used two main systems for transforming input data to output values. Firstly,
+    and perhaps more importantly, the pixels in the data needed to be broadly classified as either ``track pixels'' or ``carpet pixels.''
+    The easiest, and most obvious way of doing this, was to simply threshold the camera data into data that was above a certain brightness or below it.
+    This was the initial implementation, and after tuning the brightness threshold value, it was quite effective at getting a good enough idea of
+    what before it was track and what was the carpet.
+    After the pixels were decided as either track or carpet pixels, the index of all track pixels were averaged together to get a reasonable guess
+    for the center of the track.
+    This system was incredibly efficient, as it only required a single comparison and addition operation for each of the 128 pixels from the camera.
+    This initial system was remarkably effective when properly tuned, and was not changed until significantly later in the design process.
+    Carpet stopping also followed as a direct consequence of this algorithm. Since having no track pixels would leave an undefined center, this edge
+    case was simply tied to stopping the drive motors, effectively implementing carpet stopping.
+
+    From this process, the location of the center of the track was reported as an offset from the center index of 64.
+    At this point in the design process, this was reported as an integer to prevent the overhead of floating-point operations on the lower-end hardware
+    of the MSP432.
+    However, it was later realized that the MSP432, which is based around the ARM Cortex-M4, has dedicated floating-point hardware, so floating-point numbers were later used.
+    Using this offset from center, a PID loop was implemented as a proven strategy to provide feedback to the car. Initially, all three of the proportional, integral, and derivative
+    components were used, however these components were changed significantly over time.
+
+    The output of the PID loop was used to drive the servo responsible for steering the car, allowing for the car to stay cleanly within the bounds
+    of the track.
+    Within the implementation, a few values required specific tuning, and would not be universal to all setups.
+    Particularly, the brightness threshold value, an offset applied to steering, and the motor speed would be necessary to tune in order to recreate this algorithm.
+    Of course, tuning the PID values would also be necessary after the more basic parameters were tuned.
+
+\subsection{Differential Steering and Variable Speed}
+
+    The second main iteration of the design involved the addition of two large features.
+    The first of these features was differential steering, or differential drive.
+    This involves taking advantage of the fact that the two back wheels could be run at independent speeds, in order to make turns more effective.
+    If both wheels spin at the same speed during a turn, it means that at least one of them must slip slightly in order to allow the car to turn
+    according to the steering servo. By slowing the wheel that is on the inside of the turn and speeding up the wheel that is on the outside,
+    they can be made to rotate more accurately to the distance that they need to rotate through. This eliminates the majority of slipping when tuned
+    correctly, and allows for the possiblity of drifting.
+    Drifting can be useful in order to take tighter turns than would be possible with normal driving, but comes at the cost of additional slipping,
+    albeit in the opposite polarity of the case without differential steering.
+    The effect of the differential steering was calculated by multiplying the output of the PID by a tunable constant, with higher values allowing for
+    more slipping compensation or even drifting.
+    This means that the differential steering was at any given time directly proportional to the amount of steering.
+
+    The second of the major improvements in this iteration was variable speed. This was a natural progression from differential steering, as it also
+    involves changing the speed of the driving wheels, however in this case uniformly.
+    The idea behind variable speed is that due to the poor input information, the most uncertain and likely for error parts of the track would be turns,
+    so it would be beneficial to slow down during them in order to allow more careful movements.
+    Turns are also the most likely time to lose traction due to the previously mentioned slipping, leaving them as a key point of interest in the algorithm.
+    When in the design process, there were two ways of implementing variable speed that were considered. The first tied variable speed inversely to the
+    PID output.
+    This would mean that whenever the car starts steering, the car would slow down to match.
+    However, it was decided that this partially conflicted with the implementation of differential steering.
+    So, a second option was considered.
+    This second option considered the variable speed to be less about turns in particular, and more as an overall confidence interval, with the logic
+    being that in any case where the car should be uncertain about what to do, it slows down.
+    This was determined to be a more accurate representation of what the car should ideally do, and was chosen.
+
+    In order to implement this confidence interval, some parameter of the input data needed to be used.
+    The amount of track pixels out of the total 128 pixels was determined to be a good confidence indicator.
+    This metric was chosen on the basis that the less track the car sees, the closer it must be to falling off.
+    This strategy worked very well, and was kept for the rest of the process.
+
+\subsection{Lookahead and Delayed Action}
+    The final iteration to be created before the day of the competition implemented what was coined ``spooky action from a distance,'' for lack of a more
+    defined term. 
+    The inspiration behind this idea was that the car would react extremely slowly to turns once the base speed of the driving motors was increased to
+    a more reasonable rate.
+    After a long amount of time spent tweaking the PID values within the algorithm, it was realized that while the proportional component was having a
+    useful effect, the other components were lacking this. For the integral component, anything other than an extremely small value was determined to
+    be detrimental to performance, and was removed from the program entirely. The derivative component, however, was having effectively zero effect
+    on the steering of the car.
+    Ultimately, this lack of an effect was traced to two main issues, the primary being the use of integer types instead of floating-point types.
+    The integer types led to changes in the PID input coming in small, sudden bursts, rather than gradual changes necessary for derivative to be effective.
+    After some deliberation about using fixed-point numbers, and then finding that the ARM Cortex-M4 has floating point hardware, most of the
+    program was swapped to using floating-point. This alone however, did not solve the issue.
+
+    Due to the nature of thresholding the pixels, much of the analog data was gone, meaning that a shift only occurred when a full pixel shifted from
+    carpet to track or the reverse. What this meant was that a change would occur in the input to the PID only occasionally, leaving large amounts
+    of ticks between single ticks of the derivative having any effect. A single tick of effect was drowned out by the more consistent zero effect
+    in the ticks surrounding it, leading to derivative's effect being drowned out even at absurdly high values.
+
+    In order to fix this, the only solution found was to take the derivative over a longer period of time, allowing sparse changes to have effect in the
+    derivative component for longer. To do this, a tunable number of PID input values were stored in a circular buffer, with the derivative being
+    calculated using the most recent and least recent values.
+    This change had the desired effect of allowing the derivative component to take a leading role in driving the car through turns.
+
+    Despite the success of this innovation, it led to a significant side effect.
+    Although the derivative was newly consistently usable, it was also delayed by a signficant amount of ticks due to the longer sampling period, often
+    leading to the car waiting too long to turn and either leaving the track, or having to slow down significantly to compensate for a late turn.
+    This, however, was able to be turned into an advantage. Since the derivative component was now acting on relatively older data, the camera attached
+    to the car could be made to look further ahead on the track, and would theoretically react to changes on time when tuned properly.
+    This allowed the car to have more time to collect data on an upcoming turn, and act accordingly, rather than needing to react to a turn only
+    once reached.
+
+    Furthermore, with the proper camera lookahead angle and circular buffer size for a specific delay, the car was able to react to turns before even
+    reaching them, allowing tighter turns and a lower slowdown for the turns. These changes allowed for a significant improvement in lap times during
+    testing, and was expected to allow superb performance once the competition was reached.
+
+\subsection{Competition Changes}
+    
 
 \section{Description of Algorithms}
 
@@ -243,6 +407,9 @@ ajs1539@rit.edu}
 \section{Conclusion}
 
 %COMMENTED CODE IS ALSO REQUIRED
+
+\section{References}
+[1] https://nxpcup.nxp.com/ (clean this up later)
 
 \begin{thebibliography}{00}
     \bibitem{b1} 
