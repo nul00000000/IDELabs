@@ -280,14 +280,35 @@ ajs1539@rit.edu}
     there was a high likelihood of the line-stopping routine mistakenly
     stopping the car before the finish line, so it was abandoned.
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=\linewidth]{{images/part3matlab.png}}
-        \caption{MatLab Graphs of Sample Camera Output}
-        \label{fig:camera_graph}
-    \end{figure}
-
 \section{Design Methodology}
+\begin{figure}[h]
+    \begin{tikzpicture}
+        \draw[draw=black, -latex, thin, solid] (-2.00,1.50) -- (1.00,1.50);
+        \draw[draw=black, latex-, thin, solid] (-2.00,0.50) -- (1.00,0.50);
+        \draw[draw=black, latex-, thin, solid] (-2.00,-0.50) -- (1.00,-0.50);
+        \draw[draw=black, -latex, thin, solid] (-2.00,-1.50) -- (1.00,-1.50);
+        \draw[draw=black, thin, solid] (-4.00,3.00) rectangle (-2.00,-2.00);
+        \node[black, anchor=south west] at (-4.06,0.25) {Camera};
+        \draw[draw=black, thin, solid] (1.00,3.00) rectangle (3.00,-2.00);
+        \node[black, anchor=south west] at (0.94,0.25) {MSP432};
+        \node[black, anchor=south west] at (-1.06,2.75) {+3.3V};
+        \node[black, anchor=south west] at (-1.06,1.75) {GND};
+        \node[black, anchor=south west] at (-1.06,0.75) {Si};
+        \node[black, anchor=south west] at (-1.06,-1.25) {Aout};
+        \node[black, anchor=south west] at (-1.06,-0.25) {CLK};
+        \draw[draw=black, latex-, thin, solid] (-2.00,2.50) -- (1.00,2.50);
+    \end{tikzpicture}
+    \caption{Camera Wiring Diagram}
+    \label{fig:camera_wiring}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{{images/part3matlab.png}}
+    \caption{MatLab Graphs of Sample Camera Output}
+    \label{fig:camera_graph}
+\end{figure}
+
     The primary design challenge of allowing the car to go at a reasonable speed came in the form of algorithmic programming.
     This consisted of finding an effective way to transform the input data, a set of analog values from a line scan camera,
     to a strategic set of outputs that would drive the car in an efficient and consistent way.
