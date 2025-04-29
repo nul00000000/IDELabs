@@ -8,9 +8,14 @@
 \usepackage{float}
 \usepackage{tikz, pgfplots}
 \usepackage{circuitikz}
+\usepackage{booktabs}
 \usepackage[english]{babel}
 \usepackage[figurename=Fig.]{caption}
 \usepackage[autostyle, english = american]{csquotes}
+
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{enumitem}
 \MakeOuterQuote{"}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -60,8 +65,36 @@ ajs1539@rit.edu}
     constraints and development process of the vehicle and the project as a
     whole. Each team began with a set of base components which were proven to
     be functional. These components are: a vehicle base, two drive motors,
-    one servo motor, a line-scan camera, two batteries, an MSP-432P4111
+    one servo motor, a line-scan camera, two batteries, an MSP-432P4111R
     microcontroller, and a motor controller.
+
+    The total costs of all components are shown in Table \ref{tab:bom}.
+
+    \begin{table}[htpb]
+        \caption{Bill of Materials for All Required Components}
+        \label{tab:bom}
+        \centering
+        \scalebox{0.9}{ % Adjust scale if needed
+        \begin{tabular}{@{}lr>{\raggedright\arraybackslash}p{2.5cm}@{}}
+        \toprule
+        \textbf{Part} & \textbf{Price} & \textbf{Description} \\ 
+        \midrule
+        Vehicle Base & \$98.75 & ROB0170 \\ 
+        TI MSP432P4111R & \$27.99 & TI MSP432P4111R Development Board \\ 
+        Linker Board & provided & RPI Motor Driver and MSP432 Linker \\ 
+        Motor Control Board & \$29.86 & MC33886 RPI Motor Driver Board \\ 
+        Servo Motor & \$14.99 & Futaba S3004 \\ 
+        DC Motor & \$43.90 & Two 12VDC 200RPM GHM-01 \\ 
+        Line Scan Camera & \$105.95 & Parallax TSL-1401 \\ 
+        Batteries & \$39.49 & Two Tenergy 7.2V 3800mAh NiMH batteries\\ 
+        Battery Charger & provided & Charger for provided batteries \\ 
+        Zip Ties & \$2.00 & -- \\ 
+        OLED Display & \$15.00 & SSD1306 \\ 
+        Bluetooth Module & \$15.00 & DSD-TECH HM-10 \\ 
+        \bottomrule
+        \end{tabular}
+        }
+        \end{table}
 
     The most basic of the provided components was a vehicle base. This was
     simply a metal frame onto which all of the electrical components could be
