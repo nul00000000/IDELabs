@@ -120,7 +120,7 @@ ajs1539@rit.edu}
     whole. Each team began with a set of base components which were proven to
     be functional. These components are: a vehicle base, two drive motors,
     one servo motor, a line-scan camera, two batteries, an MSP-432P4111R
-    microcontroller, and a motor controller with an adapter board. \\
+    microcontroller, and a motor controller with an adapter board. 
 
     The total costs of all components are shown in Table \ref{tab:bom}.
 
@@ -408,7 +408,7 @@ ajs1539@rit.edu}
     \end{figure}
 
 \subsection{Lookahead and Delayed Action}
-    The final iteration to be created before the day of the competition implemented what was coined ``spooky action from a distance,'' for lack of a more
+    The final iteration to be created before the day of the competition implemented what was coined ``spooky reaction from a distance,'' for lack of a more
     defined term. 
     The inspiration behind this idea was that the car would react extremely slowly to turns once the base speed of the driving motors was increased to
     a more reasonable rate.
@@ -479,7 +479,73 @@ ajs1539@rit.edu}
     \label{weightAvg}
 \end{equation}
 
-\section{Description of Algorithms}
+\section{Results and Analysis}
+    In the various stages of testing involved in our design, there were significant milestones during each, which can all be discussed at length.
+    During initial testing while creating the basic algorithm, the most significant result was the car simply either staying on the track or
+    falling off the track, as well as carpet stopping once it had fallen off.
+    Carpet stopping was an immediete success upon implementation, and stayed consistent throughout all testing.
+    The beginning of testing involved mostly the tuning of parameters like the PID constants, as well as the threshold value.
+    A threshold value for brightness of 11000, out of a max of 16383, was quickly settled on, and remained consistently effective throughout most testing until competition.
+    In early testing, a P value of 0.15 was determined to be effective in guiding the car through the track without oscillation at a slow speed maintained with a 35\% duty cycle.
+    The I value was set as low as would be allowed while still counting for the milestone that needed to be completed at the time.
+    There was an attempt to tune the D value, however, as mentioned previously, it had so little effect that it ended up being set arbitrarily at 0.1.
+
+    In testing during the development of differential steering and variable speed, the primary results that changed based on experimentation
+    were if turns could be completed at a given car speed, and how tweaking the differential steering and variable speed impacted these results.
+    It was found that at very high differential coefficients, the car would start drifting and taking turns extremely sharply. This, although
+    visually enticing, often left to extreme oversteering to the point where the car would turn past the curve and drive off the track. A coefficient
+    too low, and the car would face the same slipping issue as without differential steering. Eventually, it was found that setting the coefficient to
+    slow down the inner wheel by 80\% would result in the best turns.
+    As for variable speed, it was found that scaling the speed linearly with the amount of track pixels seen, with a range from 60\% speed with no
+    track pixels to a maximum of 100\% for a full image of track pixels.
+    These parameters resulted in an algorithm that drove at most of the final performance, although still handling turns somewhat late and poorly.
+    These late turns are of course what inspired the addition of ``spooky reaction at a distance.''
+
+    When implementing the long period derivative and lookahead camera angle, the main results that were being monitored were the quality of the turns.
+    Unfortunately a major hurdle in testing came in the form of the informality of the setup.
+    Track pieces at this stage were simply placed on the ground, without any sort of way of being held in place.
+    This often led to cars pushing the track out of alignment, leaving dark sections between sections that could confuse the car, leading to partially inaccurate testing.
+    This was an issue for the entirety of testing, but only became a significant issue due to the new abilty to look ahead by a significant amount.
+    While looking a full car length ahead, a section of darkness would throw off the car substantially more for whatever reason.
+
+    With enough readjusting, this could be managed, but slowed down testing an unfortunate amount. Eventually, a circular buffer of size 20 was decided upon, as it introduced only a small
+    delay, while still allowing the derivative component of PID to be useful. A smaller circular buffer in combination with a camera pointed at the track about a car length ahead of the
+    front bumper allowed the car to preemptively react to turns.
+    This preemption allowed for significantly faster and more efficient turns.
+    However, a new issues was observed as a result of the higher angle of the camera.
+    If for whatever reason the car failed to preemptively start a turn, the car would move a bit too far into a turn, and the camera would look past the curve into only carpet, leading 
+    to the car carpet stopping in the middle of a turn.
+    This meant that in order for the car to consistently make turns, the preemptive turning needed to become extremely consistent, or some modification needed to be made to carpet stopping.
+    Neither of these things were able to happen due to time constraints, so the camera was set to point only about three quarters of a car length in front of the front bumper, which did not
+    allow for the same level of preemptive turning, but kept the performance much more consistent.
+
+    At the actual competition, results were vastly different from both previous results and expected results. Due to the differing lighting conditions, all practice runs were very bad,
+    and although yielding useful information, did not inspire confidence in the ability of the car to complete the competition track. As previously mentioned, the car struggled to
+    complete unofficial practice tracks, and completely failed to make a full lap during test runs on the official competition track.
+    
+    This uninspiring performance led to drastic changes in the code being made, which, as previously mentioned, were not able to be tested on a track before the competition. Despite not being
+    able to test on a track, the car was able to be tested on a single leftover curved track piece that was left unused due to its yellowed state. The testing done on this piece was instrumental
+    during the urgent changes made during this time. While testing the new system, there were various issues that would have entirely disabled the car during the race, for example, either not moving
+    at all, or turning on the motors at full speed, beyond the safe limit.
+    Despite their oppositeness, both of these issues occured within the twenty minutes of changes.
+
+    Although the car seemed theoretically able to handle the new vision system, a single curved track piece was not enough to fully test its capabilities.
+    Due to the combination of the poor performance during test runs and the fact that the new vision system would be virtually untested during the competition, the team entering the car
+    was extremely uncertain that it would be able to perform correctly.
+    The expected behavior was within the range of driving completely off of the track or following the track poorly and getting off course.
+    However, on the first attempt during the competition, the car drove extremely consistently along the track, staying very centered and even, and completed the track in 44.680 seconds.
+
+    From this outcome, it is likely that the base speed of the car could have been increased significantly in order to have a better time. Unfortunately, it had been decreased both intentionally
+    due to uncertainty, as well as unintentially as a side effect of moving to the more analog system for the confidence interval without tuning. Ultimately, the car project was a success, as even
+    with a lackluster lap time, the lap was finished in entirety, without much deviation from the center of the track.
+
+    The aspects that most contributed to the success of the car were clearly the vision system, due to the night and day difference between practice runs and the competition run, as well as the lookahead system,
+    which allowed the car to stay centered even while taking turns. The differential steering likely played a part in the great turns, but it is hard to say without testing at a higher speed. In order to improve
+    the car in the future, a few particular things could be improved. Namely, the car participated in the competition effectively untuned, so better tuning could almost certainly lead to a better performance.
+    A particular tuning step would certainly be increasing the speed of the car, as it had a clean run, which could have involved taking more risks for a better time.
+    A further way to improve the car would almost certainly be to put more time into the algorithm for ``spooking reaction at a distance.''
+    The name reflects how this part of the algorithm acts slightly like a black box. 
+    Although it is clear why it works, it is not entirely clear how the tunable aspects scale or how they interact with each other, hence the lack of an ideal implementation.
 
 \section{Comparison to Other Works}
     Autonomous vehicles have been the focus of advanced research for almost as
