@@ -67,6 +67,7 @@ ajs1539@rit.edu}
 
     \end{tikzpicture}
     \caption{Algorithm Flowchart}
+    \label{finalAlgo}
 \end{figure}
 
 \begin{abstract}
@@ -267,6 +268,26 @@ ajs1539@rit.edu}
 
 \subsection{Basic Functionality}
 
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node (camData) [block] {Camera};
+        \draw[-,thick] (camData) -- ++ (3em,0) coordinate[right] (camOut);
+        \draw[->,thick] (camOut) -- ++ (3em,0) node[block,right,text width=4.1em] (weightedAvg) {Threshold Average};
+        \draw[->,thick] (weightedAvg) -- ++ (4.5em,0) node[block,right] (pid) {PID};
+        \draw[-,thick] (pid) -- ++ (0,-2em) coordinate[below] (pidOut);
+        \draw[->,thick] (pidOut) -- ++ (0,-2em) node[output, below] (servo) {Servo};
+
+        \node (speedSet) [block, yshift=-3em, xshift=4em] {Set Speed};
+
+        \draw[->,thick] ($(speedSet.south west)!0.1!(speedSet.south east)$) -- ++ (0,-3em) node[output, below, text width=3em] {Left Motor};
+        \draw[->,thick] ($(speedSet.south west)!0.9!(speedSet.south east)$) -- ++ (0,-3em) node[output, below, text width=3em] {Right Motor};
+
+    \end{tikzpicture}
+    \caption{Basic Algorithm Flowchart}
+    \label{firstAlgo}
+\end{figure}
+
     The first iteration of the overall algorithm used two main systems for transforming input data to output values. Firstly,
     and perhaps more importantly, the pixels in the data needed to be broadly classified as either ``track pixels'' or ``carpet pixels.''
     The easiest, and most obvious way of doing this, was to simply threshold the camera data into data that was above a certain brightness or below it.
@@ -291,6 +312,8 @@ ajs1539@rit.edu}
     Within the implementation, a few values required specific tuning, and would not be universal to all setups.
     Particularly, the brightness threshold value, an offset applied to steering, and the motor speed would be necessary to tune in order to recreate this algorithm.
     Of course, tuning the PID values would also be necessary after the more basic parameters were tuned.
+
+    A flowchart of this basic algorithm is shown in Fig. \ref{firstAlgo}
 
 \subsection{Differential Steering and Variable Speed}
 
@@ -325,6 +348,35 @@ ajs1539@rit.edu}
     The amount of track pixels out of the total 128 pixels was determined to be a good confidence indicator.
     This metric was chosen on the basis that the less track the car sees, the closer it must be to falling off.
     This strategy worked very well, and was kept for the rest of the process.
+
+    An updated flowchart of this version of the algorithm is shown in Fig. \ref{secondAlgo}.
+
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \node (camData) [block] {Camera};
+            \draw[-,thick] (camData) -- ++ (3em,0) coordinate[right] (camOut);
+            \draw[->,thick] (camOut) -- ++ (3em,0) node[block,right,text width=4.1em] (weightedAvg) {Threshold Average};
+            \draw[->,thick] (weightedAvg) -- ++ (4.5em,0) node[block,right] (pid) {PID};
+            \draw[-,thick] (pid) -- ++ (0,-2em) coordinate[below] (pidOut);
+            \draw[->,thick] (pidOut) -- ++ (0,-2em) node[output, below] (servo) {Servo};
+            \draw[->,thick] (pidOut) -- ++ (-6em,0) -- ++ (0,-1.5em) node[block, below, text width=5em] (diffDrive) {Differential Drive};
+    
+            \draw[->,thick] (camOut) -- ++ (0,-2em) node[block, below, text width=4em] (avgBright) {Num of Track};
+    
+            \draw[->,thick] ($(diffDrive.south west)!0.75!(diffDrive.south east)$) -- ++ (0, -3em) node[operator, below] (mul2) {*};
+            \draw[->,thick] ($(diffDrive.south west)!0.25!(diffDrive.south east)$) -- ++ (0, -2em) node[operator, below] (mul1) {*};
+            
+            \draw[->,thick] ($(avgBright.south west)!0.5!(avgBright.south east)$) |- ($(mul1.south west)!0.5!(mul1.north west)$);
+            \draw[->,thick] ($(avgBright.south west)!0.5!(avgBright.south east)$) |- ($(mul2.south west)!0.5!(mul2.north west)$);
+    
+            \draw[->,thick] (mul1) -- ++ (0,-3em) node[output, below, text width=3em] {Left Motor};
+            \draw[->,thick] (mul2) -- ++ (0,-1.25em) -- ++ (1em,0) -- ++ (0,-0.75em) node[output, below, text width=3em] {Right Motor};
+    
+        \end{tikzpicture}
+        \caption{Differential Steering and Variable Speed Flowchart}
+        \label{secondAlgo}
+    \end{figure}
 
 \subsection{Lookahead and Delayed Action}
     The final iteration to be created before the day of the competition implemented what was coined ``spooky action from a distance,'' for lack of a more
@@ -363,7 +415,40 @@ ajs1539@rit.edu}
     testing, and was expected to allow superb performance once the competition was reached.
 
 \subsection{Competition Changes}
+    Despite the many improvements made to the car over time, the conditions of the real competition track nearly entirely eliminated most performance
+    uplift made. The lighting of the competition track was significantly dimmer and less consistent than the practice track.
+    This change, while in theory not major, impaired the vision system of the car significantly.
+    As the vision had been working with the same lighting for the entire development period, no attention was paid to any type of improvement for it.
+    During the general practice time in the competition area, various values, especially the threshold brightness, were modified significantly, and
+    the car was able to make a few rough laps of the practice track provided.
+    Unfortunately, this practice track still only covered about a third of the space, and did not provide an accurate simulation of the lighting
+    simulation for the final competition track.
     
+    Once the final competition track was built, some modification was done in the five minutes provided to test the cars on the final track.
+    Our car failed all attempts during this five minutes, prompting last minute changes to the vision algorithm, although they would not be
+    able to be tested on a track.
+
+    During a roughly twenty minute period after these five minutes of testing, the vision system was entirely redone to preserve the analog
+    data of the pixels coming from the camera.
+    This change was based entirely on theory, as testing was now unavailable, but aimed to switch from averaging the index of thresholded pixels
+    to a more analog system of a weighted average based on brightness.
+
+    This first required calculating a total brightness of the input, which was also used as the new confidence interval, rather than counting
+    thresholded track pixels, shown in (\ref{brightness}).
+    The algorithm then followed the formula in (\ref{weightAvg}) in order to more accurately calculate the center of brightness of the line scan
+    data.
+
+    These changes are demonstrated in a flowchart of the final algorithm shown in Fig. \ref{finalAlgo}
+
+\begin{equation}
+    B = {\sum_{n=0}^{128}D_{n}}
+    \label{brightness}
+\end{equation}
+
+\begin{equation}
+    x_{center} = \frac{\sum_{n=0}^{128}nD_{n}}{B}
+    \label{weightAvg}
+\end{equation}
 
 \section{Description of Algorithms}
 
